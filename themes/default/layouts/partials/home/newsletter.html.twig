@@ -1,0 +1,25 @@
+<section class="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
+    <h2 class="flex text-md font-semibold text-zinc-900 dark:text-zinc-100">
+        <svg class="w-6 h-6 rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path class="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5"/>
+        </svg>
+
+        <span class="ml-3 underline underline-offset-4">{% trans %}Newsletter{% endtrans %}</span>
+    </h2>
+    <p class="mt-6 text-sm text-zinc-600 dark:text-zinc-400">
+        {% trans %}
+        Join my newsletter for exclusive early publications and other surprises.
+        <br>
+        You can unsubscribe at any time 😉
+        {% endtrans %}
+    </p>
+    <form action="#" class="mt-9 flex" inert>
+        <input type="email" placeholder="{% trans %}Email address{% endtrans %}" aria-label="Adresse e-mail" required
+               class="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10"/>
+        <button
+            class="inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none bg-zinc-800 font-semibold text-zinc-100 hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:active:bg-zinc-700 dark:active:text-zinc-100/70 ml-4 flex-none"
+            type="submit">
+            {% trans %}Join{% endtrans %}
+        </button>
+    </form>
+</section>

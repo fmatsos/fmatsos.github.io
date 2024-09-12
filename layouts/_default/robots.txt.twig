@@ -1,0 +1,58 @@
+User-agent: *
+Allow: /
+
+{# AI crawlers; See: https://github.com/ai-robots-txt/ai.robots.txt/blob/main/robots.txt #}
+User-agent: Amazonbot
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: CCBot
+User-agent: ChatGPT-User
+User-agent: Claude-Web
+User-agent: ClaudeBot
+User-agent: Diffbot
+User-agent: FacebookBot
+User-agent: FriendlyCrawler
+User-agent: GPTBot
+User-agent: Google-Extended
+User-agent: GoogleOther
+User-agent: GoogleOther-Image
+User-agent: GoogleOther-Video
+User-agent: ICC-Crawler
+User-agent: ImagesiftBot
+User-agent: Meta-ExternalAgent
+User-agent: Meta-ExternalFetcher
+User-agent: OAI-SearchBot
+User-agent: PerplexityBot
+User-agent: PetalBot
+User-agent: Scrapy
+User-agent: Timpibot
+User-agent: VelenPublicWebCrawler
+User-agent: YouBot
+User-agent: anthropic-ai
+User-agent: cohere-ai
+User-agent: facebookexternalhit
+User-agent: img2dataset
+User-agent: omgili
+User-agent: omgilibot
+Disallow: /
+
+{# Disallow #}
+{# redirects #}
+{% for redirect in site.allpages|filter(p => p.redirect is defined and p.type == 'page') %}
+Disallow: {{ url(redirect, {canonical: false}) }}
+{% endfor %}
+{# 404 #}
+{% if site.pages.404 is defined %}
+Disallow: {{ url(site.pages.404, {canonical: false}) }}
+  {%- if site.pages.404.translations|default({})|length > 0 ~%}
+    {%- for translation in site.pages.404.translations ~%}
+Disallow: {{ url(translation, {canonical: false}) }}
+    {%- endfor ~%}
+  {%- endif ~%}
+{% endif %}
+{# Sitemap #}
+{% if site.pages.sitemap is defined %}
+Sitemap: {{ url('sitemap', {canonical: true}) }}
+{%- endif -%}
+

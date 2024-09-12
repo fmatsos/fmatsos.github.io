@@ -1,4 +1,4 @@
-.yarn/*
+.yarn
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
@@ -11,3 +11,11 @@
 
 #!.yarn/cache
 .pnp.*
+
+.idea
+.cache
+.cecil
+_site
+node_modules
+vendor
+cecil.phar

@@ -1,0 +1,3 @@
+[submodule "pages/articles"]
+	path = pages/articles
+	url = git@github.com:fmatsos/articles.git

@@ -1,0 +1,13 @@
+{
+    "name": "fmatsos/franck.matsos.dev",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Franck Matsos",
+            "email": "franck@akawaka.fr"
+        }
+    ],
+    "require-dev": {
+        "cecil/faker": "^1.9"
+    }
+}

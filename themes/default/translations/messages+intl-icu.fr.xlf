@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="EEq5IT4" resname="Work">
+        <source>Work</source>
+        <target>__Work</target>
+      </trans-unit>
+      <trans-unit id="3kdDyHl" resname="Company">
+        <source>Company</source>
+        <target>__Company</target>
+      </trans-unit>
+      <trans-unit id="FHNqLrn" resname="Role">
+        <source>Role</source>
+        <target>__Role</target>
+      </trans-unit>
+      <trans-unit id="Q.m4nAu" resname="Present">
+        <source>Present</source>
+        <target>__Present</target>
+      </trans-unit>
+      <trans-unit id="te.x29A" resname="More details">
+        <source>More details</source>
+        <target>__More details</target>
+      </trans-unit>
+      <trans-unit id="Gi1Foos" resname="Download CV">
+        <source>Download CV</source>
+        <target>__Download CV</target>
+      </trans-unit>
+      <trans-unit id="_Eyi53F" resname="Newsletter">
+        <source>Newsletter</source>
+        <target>__Newsletter</target>
+      </trans-unit>
+      <trans-unit id="0cBPa5R" resname="Join my newsletter for exclusive early publications and other surprises.&#10;        &lt;br&gt;&#10;        You can unsubscribe at any time 😉">
+        <source>Join my newsletter for exclusive early publications and other surprises.
+        &lt;br&gt;
+        You can unsubscribe at any time 😉</source>
+        <target><![CDATA[__Join my newsletter for exclusive early publications and other surprises.
+        <br>
+        You can unsubscribe at any time 😉]]></target>
+      </trans-unit>
+      <trans-unit id="8kiP1O9" resname="Email address">
+        <source>Email address</source>
+        <target>__Email address</target>
+      </trans-unit>
+      <trans-unit id=".TD_aBt" resname="Join">
+        <source>Join</source>
+        <target>__Join</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

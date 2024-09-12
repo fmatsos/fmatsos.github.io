@@ -1,4 +1,21 @@
 {
   "name": "franck.matsos.dev",
-  "packageManager": "yarn@4.4.0"
+  "packageManager": "yarn@4.4.0",
+  "private": true,
+  "scripts": {
+    "dev": "yarn tailwindcss -i themes/default/assets/styles/main.css -o themes/default/assets/styles/build.css",
+    "watch": "yarn tailwindcss -i themes/default/assets/styles/main.css -o themes/default/assets/styles/build.css --watch",
+    "build": "yarn tailwindcss -i themes/default/assets/styles/main.css -o themes/default/assets/styles/build.css --minify",
+    "serve": "cecil serve",
+    "ngrok": "ngrok http --domain=evolved-reindeer-rarely.ngrok-free.app 8000"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5",
+    "autoprefixer": "^10.4",
+    "tailwindcss": "^3.4"
+  },
+  "devDependencies": {
+    "prettier": "^3.3",
+    "prettier-plugin-tailwindcss": "^0.6"
+  }
 }
