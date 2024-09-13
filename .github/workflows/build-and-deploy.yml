@@ -11,23 +11,19 @@ jobs:
         steps:
             -   name: Checkout source
                 uses: actions/checkout@v4
-            -   name: Checkout articles submodule
-                uses: actions/checkout@v4
-                with:
-                    repository: fmatsos/articles
-                    token: ${{ secrets.ARTICLES_TOKEN }}
-                    ref: 'main'
-                    path: "pages/articles"
-            -   name: Check articles
-                uses: jtmullen/submodule-branch-check-action@v1
-                with:
-                    path: "pages/articles"
-                    branch: "main"
-                    first_parent: true
-                    fetch_depth: "50"
-                    pass_if_unchanged: true
-                    require_head: true
-                    disable_progression: true
+            -   name: Update articles to latest on main branch
+                run: |
+                    git config --file .gitmodules submodule.pages/articles.url https://x-access-token:${{ secrets.ARTICLES_TOKEN }}@github.com/fmatsos/articles.git
+                    git submodule sync --recursive
+                    git submodule update --init --recursive
+            -   name: Pull last articles
+                run: |
+                    cd pages/articles
+                    git checkout main
+                    git pull origin main
+            -   name: Verify articles update
+                run: |
+                    git submodule status
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
