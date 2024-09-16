@@ -30,7 +30,7 @@
             {%- block content ~%}{%- endblock content ~%}
 
             {#- debug ~#}
-            {%- if getenv('CECIL_DEBUG') %}{{ d(page) }}{% endif ~%}
+            {%- if getenv('CECIL_DEBUG') == true %}{{ d(page) }}{% endif ~%}
         </main>
         <footer class="mt-16 flex-none">
             <div class="sm:px-8">
