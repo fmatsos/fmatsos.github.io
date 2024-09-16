@@ -1,11 +1,10 @@
 {
   "name": "franck.matsos.dev",
-  "packageManager": "yarn@4.4.0",
   "private": true,
   "scripts": {
-    "dev": "yarn tailwindcss -i themes/default/assets/styles/main.css -o themes/default/assets/styles/build.css",
-    "watch": "yarn tailwindcss -i themes/default/assets/styles/main.css -o themes/default/assets/styles/build.css --watch",
-    "build": "yarn tailwindcss -i themes/default/assets/styles/main.css -o themes/default/assets/styles/build.css --minify",
+    "dev": "npx tailwindcss -i themes/default/assets/styles/main.css -o themes/default/assets/styles/build.css",
+    "watch": "npx tailwindcss -i themes/default/assets/styles/main.css -o themes/default/assets/styles/build.css --watch",
+    "build": "npx tailwindcss -i themes/default/assets/styles/main.css -o themes/default/assets/styles/build.css --minify",
     "serve": "cecil serve",
     "ngrok": "ngrok http --domain=evolved-reindeer-rarely.ngrok-free.app 8000"
   },
