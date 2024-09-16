@@ -32,3 +32,17 @@
     </div>
 </div>
 {% endblock %}
+
+{% block js_footer %}
+    {% if page.highlightjs is defined and page.highlightjs == true %}
+    <script type="module">
+        {% apply minify_js %}
+        import hljs from '{{ asset('js/highlightjs/highlight.min.js') }}';
+        import css from '{{ asset('js/highlightjs/languages/css.min.js') }}';
+
+        hljs.registerLanguage('css', css);
+        hljs.highlightAll();
+        {% endapply %}
+    </script>
+    {% endif %}
+{% endblock %}
