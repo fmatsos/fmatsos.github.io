@@ -40,10 +40,25 @@ paths:
         path: :section/:year/:month/:day-:slug
 
 cache:
+    enabled: false
     assets:
         enabled: false
 
 optimize:
     enabled: true
+
+assets:
+    images:
+        optimize:
+            enabled: true
+    responsive:
+        enabled: true
+    formats: ['avif', 'webp']
+
+pages:
+    images:
+        responsive:
+            enabled: true
+        formats: ['avif', 'webp']
 
 theme: default
