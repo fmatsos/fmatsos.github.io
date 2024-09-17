@@ -132,7 +132,7 @@
 {% block stylesheets %}
     {% if stylesheets is defined %}
         {%- for stylesheet in stylesheets -%}
-            {{ asset(stylesheet)|html }}
+            {{ asset(stylesheet.style)|html(options=stylesheet.html_options) }}
         {% endfor -%}
     {% endif %}
 {% endblock -%}

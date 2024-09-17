@@ -2,7 +2,13 @@
 <html lang="{{ site.language }}" class="h-full antialiased">
 <head>
     {{- include('partials/metatags.html.twig', {
-        stylesheets: ['styles/build.css', 'styles/a11y-dark.min.css']
+        stylesheets: [{
+            style: 'styles/build.css',
+            html_options: {}
+        }, {
+            style: 'styles/a11y-dark.min.css',
+            html_options: {preload: true}
+        }]
     }) -}}
     <script>
         {% apply minify_js %}
