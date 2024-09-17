@@ -41,8 +41,6 @@ paths:
 
 cache:
     enabled: false
-    assets:
-        enabled: false
 
 optimize:
     enabled: true
@@ -53,12 +51,12 @@ assets:
             enabled: true
     responsive:
         enabled: true
-    formats: ['avif', 'webp']
+    formats: ['webp']
 
 pages:
     images:
         responsive:
             enabled: true
-        formats: ['avif', 'webp']
+        formats: ['webp']
 
 theme: default
