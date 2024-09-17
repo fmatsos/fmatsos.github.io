@@ -3,7 +3,7 @@
         <svg class="w-6 h-6 inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path class="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 16 4-4-4-4m6 8 4-4-4-4"/>
         </svg>
-        <span class="underline underline-offset-4">{{ "Lastest articles"|trans }}</span>
+        <span class="underline underline-offset-4">{{ "Derniers articles"|trans }}</span>
     </h2>
     {%- for article in site.pages.showable|filter_by('section', 'articles')|sort_by_date(desc_title=true)|slice(0, 3) %}
         <article class="group relative flex flex-col items-start">
@@ -24,7 +24,7 @@
                 {{ article.content|excerpt_html }}
             </div>
             <div aria-hidden="true" class="relative z-10 mt-4 flex items-center text-sm font-medium text-teal-500">
-                {{ "Read more"|trans }}
+                {{ "Lire la suite"|trans }}
                 <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="ml-1 h-4 w-4 stroke-current">
                     <path d="M6.75 5.75 9.25 8l-2.5 2.25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>

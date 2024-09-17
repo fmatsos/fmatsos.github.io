@@ -19,3 +19,4 @@ _site
 node_modules
 vendor
 cecil.phar
+themes/default/assets/styles/build.css

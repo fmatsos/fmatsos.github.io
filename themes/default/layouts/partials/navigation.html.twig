@@ -63,17 +63,17 @@
                                     </button>
                                     {% endif %}
 
-                                    <div class="rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition hover:ring-teal-500 dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20">
-                                        {% set transpage = 'index' %}
-                                        {% for translation in page.translations %}
-                                            {% if translation.language != page.language %}
-                                                {% set transpage = translation %}
-                                            {% endif %}
-                                        {% endfor %}
+{#                                    <div class="rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition hover:ring-teal-500 dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20">#}
+{#                                        {% set transpage = 'index' %}#}
+{#                                        {% for translation in page.translations %}#}
+{#                                            {% if translation.language != page.language %}#}
+{#                                                {% set transpage = translation %}#}
+{#                                            {% endif %}#}
+{#                                        {% endfor %}#}
 
-                                        {% if site.language == 'fr' %}<a href="{{ transpage|url({ language: 'en' }) }}" title="{{ 'Switch to english'|trans({language: site.language}) }}">🇬🇧</a>{% endif %}
-                                        {% if site.language == 'en' %}<a href="{{ transpage|url({ language: 'fr' }) }}" title="{{ 'Switch to french'|trans({language: site.language}) }}">🇫🇷</a>{% endif %}
-                                    </div>
+{#                                        {% if site.language == 'fr' %}<a href="{{ transpage|url({ language: 'en' }) }}" title="{{ 'Basculer vers la version anglaise'|trans({language: site.language}) }}">🇬🇧</a>{% endif %}#}
+{#                                        {% if site.language == 'en' %}<a href="{{ transpage|url({ language: 'fr' }) }}" title="{{ 'Basculer vers la version française'|trans({language: site.language}) }}">🇫🇷</a>{% endif %}#}
+{#                                    </div>#}
                                 </div>
                             </div>
                         </div>

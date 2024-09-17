@@ -21,7 +21,7 @@
                     {{ include('partials/home/lastest-articles.html.twig') }}
 
                     <div class="space-y-20 md:space-y-10 lg:pl-16 xl:pl-24">
-                        {{ include('partials/home/newsletter.html.twig') }}
+                        {% if site.newsletter|default('false') == 'true' %}{{ include('partials/home/newsletter.html.twig') }}{% endif %}
                         {{ include('partials/home/curriculum.html.twig') }}
                     </div>
                 </div>
