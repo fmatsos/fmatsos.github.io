@@ -34,7 +34,7 @@
 {% endblock %}
 
 {% block js_footer %}
-    {% if page.highlightjs is defined and page.highlightjs == true %}
+    {% if page.highlightjs|default('false') == true %}
     <script type="module">
         {% apply minify_js %}
         import hljs from '{{ asset('js/highlightjs/highlight.min.js') }}';

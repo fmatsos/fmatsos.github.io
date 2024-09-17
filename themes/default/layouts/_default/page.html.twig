@@ -86,7 +86,7 @@
     </div>
 </div>
 
-{%- if site.dark_theme|default('false') == true %}
+{%- if site.dark_theme|default('false') == 'true' %}
 <script src="{{ asset('js/main.js') }}"></script>
 {% endif -%}
 {%- block js_footer %}{% endblock -%}
