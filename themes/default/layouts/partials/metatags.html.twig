@@ -132,7 +132,9 @@
 {% block stylesheets %}
     {% if stylesheets is defined %}
         {%- for stylesheet in stylesheets -%}
-            {{ asset(stylesheet)|html({media: 'screen'}) }}
+            <style media="screen" type="text/css">
+                {{ asset(stylesheet)|inline|minify_css }}
+            </style>
         {% endfor -%}
     {% endif %}
 {% endblock -%}
@@ -241,7 +243,7 @@
 {%- block script %}
     {% if scripts is defined %}
         {%- for script in scripts is defined -%}
-            {{ asset(script)|html }}
+            <script>{{ asset(script)|inline|minify_js }}</script>
         {% endfor -%}
     {% endif %}
 {% endblock -%}
