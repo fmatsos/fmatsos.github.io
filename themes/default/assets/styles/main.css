@@ -22,14 +22,12 @@
  * `content` list in tailwind.config.js.
  */
 @layer components {
-    #nav-left {
-        &:hover {
-            @apply transition text-teal-500 dark:text-teal-400;
+    #nav-left:hover {
+        @apply transition text-teal-500 dark:text-teal-400;
+    }
 
-            & > span {
-                @apply transition ring-teal-500 dark:ring-teal-400;
-            }
-        }
+    #nav-left:hover > span {
+        @apply transition ring-teal-500 dark:ring-teal-400;
     }
 }
 
@@ -44,13 +42,13 @@
 
 .note {
     @apply py-1 px-3 mb-4 rounded-lg border-l-4;
-
-    &.note-info {
-        @apply bg-blue-50 border-blue-400 text-blue-800 dark:bg-gray-800 dark:text-blue-400;
-    }
-
-    p { margin: 0.5rem 0; }
 }
+
+.note-info {
+    @apply bg-blue-50 border-blue-400 text-blue-800 dark:bg-gray-800 dark:text-blue-400;
+}
+
+p.note { margin: 0.5rem 0; }
 
 /**
  * Utilities
