@@ -132,7 +132,7 @@
 {% block stylesheets %}
     {% if stylesheets is defined %}
         {%- for stylesheet in stylesheets -%}
-            {{ asset(stylesheet)|html({media: 'screen'}, {preload: true}) }}
+            {{ asset(stylesheet)|html({media: 'screen'}) }}
         {% endfor -%}
     {% endif %}
 {% endblock -%}
@@ -241,7 +241,7 @@
 {%- block script %}
     {% if scripts is defined %}
         {%- for script in scripts is defined -%}
-            <script src="{{ asset(script) }}"></script>
+            {{ asset(script)|html }}
         {% endfor -%}
     {% endif %}
 {% endblock -%}
