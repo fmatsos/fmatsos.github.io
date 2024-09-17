@@ -10,3 +10,33 @@ CECIL_ENV = "production"
 
 [context.deploy-preview.environment]
 CECIL_ENV = "preview"
+
+[[headers]]
+    for = "/assets/*"
+    [headers.values]
+        cache-control = '''
+            public,
+            max-age=604800,
+            must-revalidate,
+            immutable
+        '''
+
+[[headers]]
+    for = "/styles/*"
+    [headers.values]
+        cache-control = '''
+            public,
+            max-age=259200,
+            must-revalidate,
+            immutable
+        '''
+
+[[headers]]
+    for = "/images/*"
+    [headers.values]
+        cache-control = '''
+            public,
+            max-age=604800,
+            must-revalidate,
+            immutable
+        '''
