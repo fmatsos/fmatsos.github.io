@@ -10,7 +10,7 @@
                                 <h1 class="text-xl text-zinc-700 dark:text-zinc-300">
                                     <a id="nav-left" aria-label="Home" class="flex items-center gap-x-2 pointer-events-auto" href="{{ url('index') }}">
                                         <span class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10 ">
-                                            {{ asset('avatar-white.jpg')|html(attributes={alt: 'Franck Matsos avatar'|trans, class: 'rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9 text-transparent', loading: 'lazy'}, options={responsive: true, formats: ['avif', 'webp']}) }}
+                                            {{ asset('images/avatar-white.jpg')|html(attributes={alt: 'Franck Matsos avatar'|trans, class: 'rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9 text-transparent', loading: 'lazy'}, options={responsive: true, formats: ['webp']}) }}
                                         </span>
                                         {{ site.title }}
                                     </a>
