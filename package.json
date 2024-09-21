@@ -2,9 +2,9 @@
   "name": "franck.matsos.dev",
   "private": true,
   "scripts": {
-    "dev": "npx tailwindcss -i themes/papermod/assets/styles/main.css -o themes/papermod/assets/styles/build.css",
-    "watch": "npx tailwindcss -i themes/papermod/assets/styles/main.css -o themes/papermod/assets/styles/build.css --watch",
-    "build": "npx tailwindcss -i themes/papermod/assets/styles/main.css -o themes/papermod/assets/styles/build.css --minify",
+    "dev": "npx tailwindcss -c themes/papermod/tailwind.config.js -i themes/papermod/assets/styles/main.css -o themes/papermod/assets/styles/build.css",
+    "watch": "npx tailwindcss -c themes/papermod/tailwind.config.js -i themes/papermod/assets/styles/main.css -o themes/papermod/assets/styles/build.css --watch",
+    "build": "npx tailwindcss -c themes/papermod/tailwind.config.js -i themes/papermod/assets/styles/main.css -o themes/papermod/assets/styles/build.css --minify",
     "serve": "cecil serve",
     "ngrok": "ngrok http --domain=evolved-reindeer-rarely.ngrok-free.app 8000"
   },

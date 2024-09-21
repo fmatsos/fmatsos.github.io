@@ -1,6 +1,6 @@
 [build]
 publish = "_site"
-command = "npm run build && curl -sSOL https://cecil.app/build.sh && bash ./build.sh"
+command = "bash ./build.sh"
 
 [build.environment]
 PHP_VERSION = "8.1"
