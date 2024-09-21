@@ -5,24 +5,24 @@
     <div class="mx-auto w-full max-w-7xl lg:px-8">
         <div class="relative px-4 sm:px-8 lg:px-12">
             <div class="mx-auto max-w-2xl lg:max-w-5xl">
-                {{ include('partials/home/introduction.html.twig') }}
+                {{ include('_partials/home/introduction.html.twig') }}
             </div>
         </div>
     </div>
 </div>
 
-{{ include('partials/home/photos.html.twig') }}
+{{ include('_partials/home/photos.html.twig') }}
 
 <section class="sm:px-8 mt-20 md:mt-28">
     <div class="mx-auto w-full max-w-7xl lg:px-8">
         <div class="relative px-4 sm:px-8 lg:px-12">
             <div class="mx-auto max-w-2xl lg:max-w-5xl">
                 <div class="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
-                    {{ include('partials/home/lastest-articles.html.twig') }}
+                    {{ include('_partials/home/lastest-articles.html.twig') }}
 
                     <div class="space-y-20 md:space-y-10 lg:pl-16 xl:pl-24">
-                        {% if site.newsletter|default('false') == 'true' %}{{ include('partials/home/newsletter.html.twig') }}{% endif %}
-                        {{ include('partials/home/curriculum.html.twig') }}
+                        {% if site.newsletter|default('false') == 'true' %}{{ include('_partials/home/newsletter.html.twig') }}{% endif %}
+                        {{ include('_partials/home/curriculum.html.twig') }}
                     </div>
                 </div>
             </div>

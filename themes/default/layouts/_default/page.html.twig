@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ site.language }}" class="h-full antialiased">
 <head>
-    {{- include('partials/metatags.html.twig', {
+    {{- include('_partials/metatags.html.twig', {
         stylesheets: [{
             style: 'styles/build.css',
             html_options: {}
@@ -29,7 +29,7 @@
     </div>
     <div class="flex w-full flex-col">
         {%- block header ~%}
-            {{ include('partials/navigation.html.twig') }}
+            {{ include('_partials/navigation.html.twig') }}
         {%- endblock header ~%}
 
         <main class="flex-auto">

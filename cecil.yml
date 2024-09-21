@@ -31,12 +31,12 @@ menus:
     main:
         -   id: index
             enabled: false
-        -   id: articles
-            name: Articles
+        -   id: posts
+            name: Archives
             weight: 1
 
 paths:
-    -   section: articles
+    -   section: posts
         path: :section/:year/:month/:slug
 
 cache:
@@ -59,4 +59,4 @@ pages:
             enabled: true
         formats: ['webp']
 
-theme: default
+theme: papermod

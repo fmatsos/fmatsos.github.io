@@ -3,7 +3,7 @@ const typographyStyles = require('./typography');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        './**/*.html.twig',
+        './layouts/**/*.{html,html.twig,js,twig}'
     ],
     theme: {
         typography: typographyStyles,

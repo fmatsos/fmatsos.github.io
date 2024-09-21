@@ -9,5 +9,8 @@
     ],
     "require-dev": {
         "cecil/faker": "^1.9"
-    }
+    },
+  "scripts": {
+    "local": "ngrok http --domain=evolved-reindeer-rarely.ngrok-free.app 8000"
+  }
 }

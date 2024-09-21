@@ -1,0 +1,16 @@
+date:
+    format: 'd M Y'
+    timezone: 'Europe/Paris'
+
+pages:
+    highlight:
+        enabled: true
+
+pagination:
+    enabled: false
+
+links:
+    github: 'https://github.com/fmatsos/'
+    linkedin: 'https://linkedin.com/in/fmatsos/'
+
+contact: mathilde@akawaka.fr
