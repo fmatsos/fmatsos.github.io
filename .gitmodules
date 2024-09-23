@@ -1,3 +1,6 @@
 [submodule "pages/posts"]
 	path = pages/posts
 	url = git@github.com:fmatsos/articles.git
+[submodule "themes/papermod"]
+	path = themes/papermod
+	url = git@github.com:fmatsos/cecil-papermod.git

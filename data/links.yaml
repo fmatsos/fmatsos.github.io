@@ -1,0 +1,11 @@
+-   href: 'https://github.com/fmatsos'
+    title: 'Suivre sur GitHub'
+    picto: 'images/svg/github.path'
+
+-   href: 'https://linkedin.com/in/fmatsos'
+    title: 'Suivre sur LinkedIn'
+    picto: 'images/svg/linkedin.path'
+
+-   href: "mailto:mathilde@akawaka.fr"
+    title: 'Demander une prestation'
+    picto: 'images/svg/contact.path'
