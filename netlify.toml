@@ -4,12 +4,15 @@ command = "bash ./build.sh"
 
 [build.environment]
 PHP_VERSION = "8.1"
+GIT_SUBMODULE_STRATEGY = "recursive"
 
 [context.production.environment]
 CECIL_ENV = "production"
+CECIL_CMD_OPTIONS = "-vv --clear-cache --optimize"
 
 [context.deploy-preview.environment]
 CECIL_ENV = "preview"
+CECIL_CMD_OPTIONS = "-vvv --clear-cache --optimize"
 
 [[headers]]
     for = "/assets/*"
