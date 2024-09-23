@@ -28,7 +28,7 @@
   {%- endif ~%}
   "language": "{{ site.language|default('en') }}",
   "items": [
-    {%- for item in pages|sort_by_date ~%}
+    {%- for item in pages.showable|filter_by('section', 'posts')|sort_by_date(desc_title=true) ~%}
     {
       {%- block item ~%}
       "id": {{ url(item, {canonical: true})|json_encode(constant('JSON_UNESCAPED_SLASHES')) }},

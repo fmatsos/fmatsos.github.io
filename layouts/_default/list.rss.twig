@@ -12,7 +12,7 @@
     <lastBuildDate>{{ date|date('c') }}</lastBuildDate>
     <link href="{{ url(page, {canonical: true, format: 'rss'}) }}" rel="self" type="application/rss+xml" />
     <link href="{{ url(page, {canonical: true, format: 'html'}) }}" rel="alternate" type="text/html" />
-    {%- for p in pages|sort_by_date ~%}
+    {%- for p in pages.showable|filter_by('section', 'posts')|sort_by_date(desc_title=true) ~%}
     <item>
       {%- block item ~%}
       <guid>{{ url(p, {canonical: true}) }}</guid>

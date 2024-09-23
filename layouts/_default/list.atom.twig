@@ -19,7 +19,7 @@
     <name>{{ author_name }}</name>
     <uri>{{ author_uri }}</uri>
   </author>
-  {%- for p in pages|sort_by_date ~%}
+  {%- for p in pages.showable|filter_by('section', 'posts')|sort_by_date(desc_title=true) ~%}
   <entry xml:lang="{{ lang }}">
     {%- block entry ~%}
     <id>{{ url(p, {canonical: true}) }}</id>

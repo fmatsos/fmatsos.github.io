@@ -1,5 +1,5 @@
 {# all "showable pages by default #}
-{% set pages = site.pages.showable %}
+{% set pages = .showable|filter_by('section', 'posts')|sort_by_date(desc_title=true) %}
 {# in case of a list page, take its sub pages #}
 {% if page.pages is defined %}
   {%- set pages = page.pages -%}
