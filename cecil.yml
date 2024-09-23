@@ -37,7 +37,7 @@ menus:
 
 paths:
     -   section: posts
-        path: :section/:year/:month/:slug
+        path: :section/:year/:month/:day-:slug
 
 cache:
     enabled: false
