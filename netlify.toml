@@ -14,6 +14,10 @@ CECIL_CMD_OPTIONS = "-vv --clear-cache --optimize"
 CECIL_ENV = "preview"
 CECIL_CMD_OPTIONS = "-vvv --clear-cache --optimize"
 
+[[edge_functions]]
+function = "bots"
+path = "/*"
+
 [[headers]]
     for = "/assets/*"
     [headers.values]
