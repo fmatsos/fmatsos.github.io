@@ -8,7 +8,6 @@ author:
     name: 'Franck Matsos'
     url: 'https://franck.matsos.dev/'
 
-
 en_config: &en_config
     menus:
         main:
@@ -35,10 +34,6 @@ menus:
             name: Archives
             weight: 1
 
-paths:
-    -   section: posts
-        path: :section/:year/:month/:day-:slug
-
 cache:
     enabled: false
 
@@ -60,3 +55,6 @@ pages:
         formats: ['webp']
 
 theme: papermod
+licence: by-nc-sa
+date:
+    timezone: 'Europe/Paris'
