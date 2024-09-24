@@ -8,6 +8,7 @@
         }
     ],
     "require-dev": {
+        "cecil/cecil": "^8.17.3",
         "cecil/faker": "^1.9"
     },
   "scripts": {
