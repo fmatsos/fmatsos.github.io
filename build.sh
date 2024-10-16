@@ -4,6 +4,8 @@ cecil_build_script_url="https://cecil.app/build.sh"
 theme_name=$(awk '/theme/{gsub(/"/,""); print $2}' ./cecil.yml)
 theme_dir="./themes/$theme_name"
 
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+
 echo "Init submodules..."
 echo "$(git -v)"
 git submodule update --init --recursive --remote --verbose
