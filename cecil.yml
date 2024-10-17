@@ -58,3 +58,4 @@ theme: papermod
 licence: by-nc-sa
 date:
     timezone: 'Europe/Paris'
+analytics: true
