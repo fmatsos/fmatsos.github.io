@@ -6,7 +6,7 @@ description: "Blog de Franck Matsos, développeur PHP/Symfony chez Akawaka. Retr
 
 author:
     name: 'Franck Matsos'
-    url: 'https://franck.matsos.dev/'
+    url: 'https://franck.matsos.fr/'
 
 en_config: &en_config
     menus:
