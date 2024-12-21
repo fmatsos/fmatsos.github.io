@@ -24,7 +24,7 @@ languages:
 
 language:
     code: fr
-    prefix: true
+    prefix: false
 
 menus:
     main:
