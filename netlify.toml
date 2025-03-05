@@ -3,7 +3,7 @@ publish = "_site"
 command = "bash ./build.sh"
 
 [build.environment]
-PHP_VERSION = "8.1"
+PHP_VERSION = "8.3"
 GIT_SUBMODULE_STRATEGY = "recursive"
 
 [context.production.environment]
