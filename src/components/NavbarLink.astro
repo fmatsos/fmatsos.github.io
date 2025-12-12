@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'a'> {
+  currentPath?: string;
+}
+
+const { href = '/', class: className, currentPath = '/', ...rest } = Astro.props as Props;
+const normalizedCurrent = currentPath.replace(/\/$/, '');
+const normalizedHref = (href as string).replace(/\/$/, '');
+const isActive =
+  normalizedHref === normalizedCurrent ||
+  normalizedCurrent.startsWith(`${normalizedHref}/`) ||
+  (normalizedCurrent.startsWith('/blog') && normalizedHref === '/blog') ||
+  (normalizedCurrent.startsWith('/en/blog') && normalizedHref === '/en/blog');
+---
+<a href={href as string} class:list={[className, { active: isActive }]} {...rest}>
+  <slot />
+</a>
+
+<style>
+  @reference "../styles/global.css";
+
+  a {
+    @apply underline-offset-4 hover:underline relative decoration-2 text-base font-semibold text-foreground/80 dark:text-foreground-dark/80;
+  }
+
+  a.active {
+    @apply underline text-primary dark:text-primary-dark;
+  }
+</style>

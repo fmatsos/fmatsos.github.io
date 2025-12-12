@@ -57,12 +57,12 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
 >
   <section class="space-y-6">
     <div class="space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300/80">Tags</p>
+      <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">Tags</p>
       <div class="flex items-center gap-3">
-        <h1 class="text-4xl font-bold text-white">{label}</h1>
+        <h1 class="section-title">{label}</h1>
         <span class={tagClasses(label)}>Tag</span>
       </div>
-      <p class="max-w-3xl text-lg text-slate-300">
+      <p class="max-w-3xl section-lead">
         Retrouvez tous les articles associés à ce tag, classés du plus récent au plus ancien et regroupés par mois et année.
       </p>
     </div>
@@ -72,10 +72,12 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
         const monthEntries = Array.from(months.entries()).sort((a, b) => b[0] - a[0]);
 
         return (
-          <details open={yearIndex === 0} class="overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-lg shadow-cyan-500/10">
-            <summary class="flex cursor-pointer items-center justify-between bg-white/5 px-5 py-3 text-lg font-semibold text-white">
+          <details open={yearIndex === 0} class="card-surface overflow-hidden">
+            <summary class="flex cursor-pointer items-center justify-between bg-foreground/5 px-5 py-3 text-lg font-semibold dark:bg-background-dark/70">
               <span>{year}</span>
-              <span class="text-sm font-medium text-cyan-200">{monthEntries.reduce((total, [, posts]) => total + posts.length, 0)} articles</span>
+              <span class="text-sm font-medium text-primary dark:text-primary-dark">
+                {monthEntries.reduce((total, [, posts]) => total + posts.length, 0)} articles
+              </span>
             </summary>
             <div class="space-y-3 px-5 py-4">
               {monthEntries.map(([month, monthPosts], monthIndex) => {
@@ -84,16 +86,16 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
                 return (
                   <details
                     open={yearIndex === 0 && monthIndex === 0}
-                    class="overflow-hidden rounded-xl border border-white/10 bg-slate-900/40"
+                    class="overflow-hidden rounded-xl border border-foreground/10 bg-background/60 dark:border-background-dark/40 dark:bg-background-dark/70"
                   >
-                    <summary class="flex cursor-pointer items-center justify-between px-4 py-3 text-base font-semibold text-white">
+                    <summary class="flex cursor-pointer items-center justify-between px-4 py-3 text-base font-semibold">
                       <span class="capitalize">{monthLabel}</span>
-                      <span class="text-sm font-medium text-slate-300">{monthPosts.length} article(s)</span>
+                      <span class="text-sm font-medium text-foreground/70 dark:text-foreground-dark/70">{monthPosts.length} article(s)</span>
                     </summary>
-                    <ul class="divide-y divide-white/5 bg-slate-900/60">
+                    <ul class="divide-y divide-foreground/10 dark:divide-background-dark/40">
                       {monthPosts.map((post) => (
                         <li class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
-                          <a class="text-lg font-semibold text-cyan-100 transition hover:text-white" href={`/blog/${post.slug}`}>
+                          <a class="text-lg font-semibold text-primary transition hover:text-primary/80 dark:text-primary-dark" href={`/blog/${post.slug}`}>
                             {post.data.title}
                           </a>
                           <div class="flex flex-wrap gap-2">

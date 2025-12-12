@@ -11,19 +11,18 @@ const dateFormatter = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' });
 <BaseLayout title="Blog" description="Articles et réflexions rédigés par Franck Matsos." lang="fr" currentPath="/blog">
   <section class="space-y-6">
     <div class="space-y-2">
-      <p class="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300/80">Articles</p>
-      <h1 class="text-4xl font-bold text-white">Blog</h1>
-      <p class="max-w-3xl text-lg text-slate-300">
-        Retrouvez ici mes derniers articles sur le développement, les conférences et mes explorations
-        professionnelles.
+      <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">Articles</p>
+      <h1 class="section-title">Blog</h1>
+      <p class="max-w-3xl section-lead">
+        Retrouvez ici mes derniers articles sur le développement, les conférences et mes explorations professionnelles.
       </p>
     </div>
 
-    <div class="grid gap-5 md:grid-cols-2">
+    <div class="posts-grid-container">
       {posts.map((post) => (
-        <article class="relative flex h-full flex-col justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-cyan-500/10 transition hover:-translate-y-1 hover:border-cyan-400/30 hover:shadow-cyan-500/20">
-          <div class="flex items-center justify-between text-sm text-slate-400">
-            <span class="rounded-full bg-white/5 px-3 py-1 font-semibold text-slate-200">
+        <article class="card-surface flex h-full flex-col justify-between gap-4 p-5 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/15">
+          <div class="flex items-center justify-between text-sm text-foreground/70 dark:text-foreground-dark/70">
+            <span class="rounded-full bg-foreground/5 px-3 py-1 font-semibold text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
               {dateFormatter.format(post.data.pubDate)}
             </span>
             <div class="flex flex-wrap gap-2">
@@ -36,16 +35,16 @@ const dateFormatter = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' });
           </div>
 
           <div class="space-y-2">
-            <h2 class="text-2xl font-semibold text-white">
-              <a class="hover:text-cyan-200" href={`/blog/${post.slug}`}>
+            <h2 class="text-2xl font-semibold">
+              <a class="hover:text-primary" href={`/blog/${post.slug}`}>
                 {post.data.title}
               </a>
             </h2>
-            <p class="text-base text-slate-300">{post.data.description}</p>
+            <p class="text-base text-foreground/75 dark:text-foreground-dark/70">{post.data.description}</p>
           </div>
 
-          <div class="flex items-center gap-2 text-sm font-semibold text-cyan-200">
-            <a class="inline-flex items-center gap-2 hover:text-white" href={`/blog/${post.slug}`}>
+          <div class="flex items-center gap-2 text-sm font-semibold text-primary dark:text-primary-dark">
+            <a class="inline-flex items-center gap-2 hover:text-primary/80 dark:hover:text-primary-dark/80" href={`/blog/${post.slug}`}>
               Lire l'article
               <span aria-hidden="true">→</span>
             </a>
