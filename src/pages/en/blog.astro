@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { tagClasses, tagHref } from '../../utils/tags';
 
 const posts = (await getCollection('posts', ({ data }) => data.published && !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -27,9 +28,9 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
             </span>
             <div class="flex flex-wrap gap-2">
               {post.data.tags.map((tag) => (
-                <span class="rounded-full bg-cyan-500/15 px-2 py-1 text-xs font-semibold text-cyan-100 ring-1 ring-cyan-500/30">
+                <a class={tagClasses(tag)} href={tagHref(tag)}>
                   {tag}
-                </span>
+                </a>
               ))}
             </div>
           </div>
