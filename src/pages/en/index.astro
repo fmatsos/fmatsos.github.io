@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactLinks from '../../components/ContactLinks.astro';
+import Timeline from '../../components/Timeline.astro';
+import { curriculum } from '../../data/curriculum';
+import { links } from '../../data/links';
+---
+<BaseLayout lang="en" currentPath="/en/">
+  <section class="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="card-surface p-8">
+      <span class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+        Welcome
+      </span>
+      <h1 class="mt-4 section-title">
+        I'm Franck, a PHP developer since 2009
+      </h1>
+      <p class="mt-4 section-lead">
+        After a career full of diverse experiences, I joined
+        <a class="font-semibold text-primary underline decoration-primary/60 underline-offset-4" href="https://www.akawaka.fr" target="_blank" rel="noreferrer noopener"> Akawaka</a>
+        in 2021, a young Lyon-based consulting company. I support our clients on various projects. Certified
+        <a class="font-semibold text-primary underline decoration-primary/60 underline-offset-4" href="https://directory.opquast.com/fr/certificat/BVARDQ/" target="_blank" rel="noreferrer noopener"> Opquast</a>
+        for web quality, I am also aiming for the Symfony certification.
+      </p>
+      <p class="mt-3 text-lg text-foreground/75 dark:text-foreground-dark/75">
+        I stepped away from social media to focus on my family, my work, and my reading. Here, I share my thoughts and analysis.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a class="btn-primary" href="/en/about">Learn more</a>
+        <a class="btn-secondary" href="/">Lire en français</a>
+      </div>
+    </div>
+    <div class="card-surface p-6 text-center">
+      <div class="mx-auto h-52 w-52 overflow-hidden rounded-full border-4 border-primary/30 shadow-xl shadow-primary/25">
+        <img
+          class="h-full w-full object-cover"
+          src="/images/avatar-black.avif"
+          alt="Portrait of Franck Matsos"
+          loading="lazy"
+        />
+      </div>
+      <div class="mt-6 grid gap-3 sm:grid-cols-2">
+        <div class="flex items-center justify-center gap-2 rounded-xl bg-foreground/5 px-4 py-3 text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
+          <span class="text-xl" aria-hidden="true">📍</span>
+          <span class="text-sm font-semibold">Lyon, France</span>
+        </div>
+        <div class="flex items-center justify-center gap-2 rounded-xl bg-foreground/5 px-4 py-3 text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
+          <span class="text-xl" aria-hidden="true">💻</span>
+          <span class="text-sm font-semibold">Symfony, PHP, Web</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-surface space-y-4 p-6">
+    <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+      <h2 class="text-2xl font-semibold">Where to find me?</h2>
+      <p class="text-sm text-foreground/70 dark:text-foreground-dark/70">A few links to stay in touch or to work together.</p>
+    </div>
+    <ContactLinks items={links} />
+  </section>
+
+  <Timeline items={curriculum} title="Experience" />
+</BaseLayout>

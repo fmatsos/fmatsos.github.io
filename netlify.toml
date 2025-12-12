@@ -1,49 +1,20 @@
 [build]
-publish = "_site"
-command = "bash ./build.sh"
+  publish = "dist"
+  command = "npm run build"
 
 [build.environment]
-PHP_VERSION = "8.3"
-GIT_SUBMODULE_STRATEGY = "recursive"
-
-[context.production.environment]
-CECIL_ENV = "production"
-CECIL_CMD_OPTIONS = "-vv --clear-cache --optimize"
-
-[context.deploy-preview.environment]
-CECIL_ENV = "preview"
-CECIL_CMD_OPTIONS = "-vvv --clear-cache --optimize"
+  NODE_VERSION = "20"
 
 [[edge_functions]]
-function = "bots"
-path = "/*"
+  function = "bots"
+  path = "/*"
 
 [[headers]]
-    for = "/assets/*"
-    [headers.values]
-        cache-control = '''
-            public,
-            max-age=604800,
-            must-revalidate,
-            immutable
-        '''
+  for = "/_astro/*"
+  [headers.values]
+    cache-control = "public, max-age=604800, immutable"
 
 [[headers]]
-    for = "/styles/*"
-    [headers.values]
-        cache-control = '''
-            public,
-            max-age=259200,
-            must-revalidate,
-            immutable
-        '''
-
-[[headers]]
-    for = "/images/*"
-    [headers.values]
-        cache-control = '''
-            public,
-            max-age=604800,
-            must-revalidate,
-            immutable
-        '''
+  for = "/images/*"
+  [headers.values]
+    cache-control = "public, max-age=604800, immutable"

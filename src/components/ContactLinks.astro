@@ -1,0 +1,22 @@
+---
+import type { ExternalLink } from '../data/links';
+interface Props {
+  items: ExternalLink[];
+}
+const { items } = Astro.props;
+---
+<div class="grid gap-4 md:grid-cols-2">
+  {items.map((link) => (
+    <a
+      class="card-surface group flex items-center gap-4 p-5 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/20"
+      href={link.href}
+      target="_blank"
+      rel="noreferrer noopener"
+    >
+      <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-foreground/5 text-foreground ring-1 ring-foreground/10 transition group-hover:bg-primary/10 group-hover:text-primary dark:bg-background-dark/60 dark:text-foreground-dark dark:ring-background-dark/30 dark:group-hover:text-primary-dark">
+        <img class="h-7 w-7" src={link.picto} alt={link.alt} />
+      </span>
+      <span class="text-base font-semibold text-foreground group-hover:text-primary dark:text-foreground-dark dark:group-hover:text-primary-dark">{link.title}</span>
+    </a>
+  ))}
+</div>

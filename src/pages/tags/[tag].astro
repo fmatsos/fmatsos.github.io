@@ -1,0 +1,120 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { slugifyTag, tagClasses, tagHref } from '../../utils/tags';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => data.published && !data.draft);
+
+  const tags = new Map<string, string>();
+  for (const post of posts) {
+    for (const tag of post.data.tags ?? []) {
+      const slug = slugifyTag(tag);
+      if (!tags.has(slug)) {
+        tags.set(slug, tag);
+      }
+    }
+  }
+
+  return Array.from(tags.entries()).map(([slug, label]) => ({
+    params: { tag: slug },
+    props: { label },
+  }));
+}
+
+const { label } = Astro.props;
+const tagSlug = slugifyTag(label);
+
+const posts = (await getCollection('posts', ({ data }) => data.published && !data.draft))
+  .filter((post) => post.data.tags.some((tag) => slugifyTag(tag) === tagSlug))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const grouped = posts.reduce((years, post) => {
+  const date = post.data.pubDate;
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  if (!years.has(year)) {
+    years.set(year, new Map<number, typeof posts>());
+  }
+
+  const months = years.get(year)!;
+  if (!months.has(month)) {
+    months.set(month, []);
+  }
+
+  months.get(month)!.push(post);
+  return years;
+}, new Map<number, Map<number, typeof posts>>());
+
+const monthFormatter = new Intl.DateTimeFormat('fr-FR', { month: 'long' });
+const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
+---
+<BaseLayout
+  title={`Articles taggés "${label}"`}
+  description={`Articles du blog contenant le tag ${label}.`}
+  lang="fr"
+  currentPath={`/tags/${tagSlug}`}
+>
+  <section class="space-y-6">
+    <div class="space-y-3">
+      <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">Tags</p>
+      <div class="flex items-center gap-3">
+        <h1 class="section-title">{label}</h1>
+        <span class={tagClasses(label)}>Tag</span>
+      </div>
+      <p class="max-w-3xl section-lead">
+        Retrouvez tous les articles associés à ce tag, classés du plus récent au plus ancien et regroupés par mois et année.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      {yearEntries.map(([year, months], yearIndex) => {
+        const monthEntries = Array.from(months.entries()).sort((a, b) => b[0] - a[0]);
+
+        return (
+          <details open={yearIndex === 0} class="card-surface overflow-hidden">
+            <summary class="flex cursor-pointer items-center justify-between bg-foreground/5 px-5 py-3 text-lg font-semibold dark:bg-background-dark/70">
+              <span>{year}</span>
+              <span class="text-sm font-medium text-primary dark:text-primary-dark">
+                {monthEntries.reduce((total, [, posts]) => total + posts.length, 0)} articles
+              </span>
+            </summary>
+            <div class="space-y-3 px-5 py-4">
+              {monthEntries.map(([month, monthPosts], monthIndex) => {
+                const monthLabel = monthFormatter.format(new Date(year, month, 1));
+
+                return (
+                  <details
+                    open={yearIndex === 0 && monthIndex === 0}
+                    class="overflow-hidden rounded-xl border border-foreground/10 bg-background/60 dark:border-background-dark/40 dark:bg-background-dark/70"
+                  >
+                    <summary class="flex cursor-pointer items-center justify-between px-4 py-3 text-base font-semibold">
+                      <span class="capitalize">{monthLabel}</span>
+                      <span class="text-sm font-medium text-foreground/70 dark:text-foreground-dark/70">{monthPosts.length} article(s)</span>
+                    </summary>
+                    <ul class="divide-y divide-foreground/10 dark:divide-background-dark/40">
+                      {monthPosts.map((post) => (
+                        <li class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
+                          <a class="text-lg font-semibold text-primary transition hover:text-primary/80 dark:text-primary-dark" href={`/blog/${post.slug}`}>
+                            {post.data.title}
+                          </a>
+                          <div class="flex flex-wrap gap-2">
+                            {post.data.tags.map((tag) => (
+                              <a class={tagClasses(tag)} href={tagHref(tag)}>
+                                {tag}
+                              </a>
+                            ))}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                );
+              })}
+            </div>
+          </details>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>

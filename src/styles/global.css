@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  --color-foreground: #0c0c0c;
+  --color-foreground-dark: #fafafa;
+  --color-background: #fdfdfd;
+  --color-background-dark: #1f2933;
+  --color-primary: #0784b5;
+  --color-primary-dark: #9bd4e4;
+}
+
+html {
+  scroll-padding-top: 6.5rem;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+.app-container {
+  @apply container mx-auto px-6 sm:px-10 xl:px-16;
+}
+
+#mobile-menu.mobile-nav-open {
+  @apply translate-x-0 shadow-xl/30;
+}
+
+.btn-primary {
+  @apply inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-3 text-base font-semibold text-background transition hover:opacity-80 dark:bg-foreground-dark dark:text-background-dark;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center gap-2 rounded-lg bg-foreground/10 px-5 py-3 text-base font-semibold text-foreground transition hover:opacity-80 dark:bg-foreground-dark/15 dark:text-foreground-dark;
+}
+
+.section-title {
+  @apply text-3xl font-semibold tracking-tight sm:text-4xl;
+}
+
+.section-lead {
+  @apply text-lg text-foreground/80 dark:text-foreground-dark/70;
+}
+
+.card-surface {
+  @apply rounded-2xl border border-foreground/10 bg-background/70 shadow-xl shadow-foreground/5 backdrop-blur dark:border-background-dark/30 dark:bg-background-dark/80 dark:shadow-background-dark/40;
+}
+
+.rich-text {
+  @apply prose prose-slate max-w-none text-foreground/90 prose-a:text-primary prose-a:no-underline hover:prose-a:underline dark:prose-invert dark:prose-a:text-primary-dark;
+}
+
+.rich-text pre {
+  @apply rounded-xl border border-foreground/10 bg-background-dark/90 text-foreground-dark shadow-lg dark:border-background-dark/40;
+}
+
+.rich-text code {
+  @apply rounded bg-foreground/5 px-1.5 py-0.5 text-sm font-mono font-semibold dark:bg-background-dark/60;
+}
+
+.tag-chip {
+  @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold tracking-tight ring-1 transition;
+}
+
+.posts-grid-container {
+  @apply grid gap-6 md:grid-cols-2 xl:grid-cols-3;
+}
+
+.prose iframe {
+  @apply my-12 aspect-video w-full rounded-xl border border-foreground/10 shadow-lg;
+}

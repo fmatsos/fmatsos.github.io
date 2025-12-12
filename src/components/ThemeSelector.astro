@@ -1,0 +1,47 @@
+---
+import { Icon } from 'astro-icon/components';
+const { class: className } = Astro.props;
+---
+<div
+  class:list={[
+    className,
+    'border border-foreground/20 dark:border-foreground-dark/30 rounded-full flex justify-center items-center text-foreground dark:text-foreground-dark [&>*:hover]:brightness-75 md:opacity-90 [&>*]:cursor-pointer backdrop-blur'
+  ]}
+>
+  <button
+    data-theme="theme-auto"
+    aria-label="Thème automatique"
+    title="Suivre le thème système"
+    class="theme-button theme-auto"
+  >
+    <Icon name="mdi:brightness-auto" class:list="duration-0 text-2xl md:text-xl" aria-hidden />
+  </button>
+  <button
+    data-theme="theme-light"
+    aria-label="Thème clair"
+    title="Passer au thème clair"
+    class="theme-button theme-light"
+  >
+    <Icon name="mdi:white-balance-sunny" class:list="duration-0 text-2xl md:text-xl" aria-hidden />
+  </button>
+  <button
+    data-theme="theme-dark"
+    aria-label="Thème sombre"
+    title="Passer au thème sombre"
+    class="theme-button theme-dark"
+  >
+    <Icon name="mdi:moon-and-stars" class:list="duration-0 text-2xl md:text-xl" aria-hidden />
+  </button>
+</div>
+
+<style>
+  @reference "../styles/global.css";
+
+  button.theme-button {
+    @apply p-1.5 rounded-full duration-0;
+  }
+
+  :global(button.active) {
+    @apply bg-foreground text-background dark:bg-foreground-dark dark:text-background-dark;
+  }
+</style>

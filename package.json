@@ -1,0 +1,28 @@
+{
+  "name": "franck-matsos-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tailwindcss -i ./src/styles/global.css -o ./src/styles/tailwind.css --watch --poll --minify & astro dev",
+    "build:css": "tailwindcss -i ./src/styles/global.css -o ./src/styles/tailwind.css --minify",
+    "build": "npm run build:css && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@fontsource-variable/inter": "^5.2.6",
+    "@fontsource-variable/jetbrains-mono": "^5.1.2",
+    "@iconify-json/mdi": "^1.1.66",
+    "astro": "^4.11.5",
+    "astro-icon": "^1.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/node": "^22.5.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.5.4"
+  }
+}
