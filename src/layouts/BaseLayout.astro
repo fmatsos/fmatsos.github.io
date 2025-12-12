@@ -15,20 +15,30 @@ const nav = lang === 'fr'
   ? [
       { href: '/', label: 'Accueil' },
       { href: '/a-propos', label: 'À propos' },
+      { href: '/blog', label: 'Blog' },
     ]
   : [
       { href: '/en/', label: 'Home' },
       { href: '/en/about', label: 'About' },
+      { href: '/en/blog', label: 'Blog' },
     ];
 
 const languageSwitch = lang === 'fr'
   ? {
       label: 'English version',
-      href: currentPath === '/a-propos' ? '/en/about' : '/en/',
+      href: currentPath.startsWith('/blog')
+        ? '/en/blog'
+        : currentPath === '/a-propos'
+          ? '/en/about'
+          : '/en/',
     }
   : {
       label: 'Version française',
-      href: currentPath === '/en/about' ? '/a-propos' : '/',
+      href: currentPath.startsWith('/en/blog')
+        ? '/blog'
+        : currentPath === '/en/about'
+          ? '/a-propos'
+          : '/',
     };
 
 const pageTitle = title ? `${title} • ${SITE_TITLE}` : `${SITE_TITLE} • ${BASELINE}`;
@@ -72,7 +82,7 @@ const metaDescription = description ?? SITE_DESCRIPTION;
                 <a
                   href={item.href}
                   class={`inline-flex items-center rounded-full px-3 py-2 text-sm font-semibold transition hover:text-white hover:ring-1 hover:ring-white/15 ${
-                    item.href === currentPath
+                    currentPath === item.href || currentPath.startsWith(`${item.href.replace(/\/$/, '')}/`)
                       ? 'bg-white/10 text-white ring-1 ring-white/15'
                       : 'text-slate-300'
                   }`}
