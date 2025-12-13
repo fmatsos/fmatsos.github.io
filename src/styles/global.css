@@ -38,6 +38,17 @@ body {
   font-family: var(--font-sans);
 }
 
+/* Focus visible improvements for better keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.dark *:focus-visible {
+  outline-color: var(--color-primary-dark);
+}
+
 /* Screen reader only utility */
 .sr-only {
   position: absolute;
@@ -91,7 +102,7 @@ body {
 }
 
 .rich-text {
-  @apply prose prose-slate max-w-none text-foreground/90 prose-a:text-primary prose-a:no-underline hover:prose-a:underline dark:prose-invert dark:prose-a:text-primary-dark;
+  @apply prose prose-slate max-w-none text-foreground/90 prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:font-semibold prose-strong:text-foreground dark:prose-invert dark:prose-a:text-primary-dark dark:prose-strong:text-foreground-dark;
 }
 
 .rich-text pre {
@@ -100,6 +111,27 @@ body {
 
 .rich-text code {
   @apply rounded bg-foreground/5 px-1.5 py-0.5 text-sm font-mono font-semibold dark:bg-background-dark/60;
+}
+
+.rich-text pre code {
+  @apply bg-transparent px-0 py-0;
+}
+
+.rich-text blockquote {
+  @apply border-l-4 border-primary/30 pl-4 italic text-foreground/80 dark:border-primary-dark/30 dark:text-foreground-dark/80;
+}
+
+.rich-text ul,
+.rich-text ol {
+  @apply space-y-2;
+}
+
+.rich-text li {
+  @apply leading-relaxed;
+}
+
+.rich-text img {
+  @apply rounded-xl shadow-lg;
 }
 
 .tag-chip {

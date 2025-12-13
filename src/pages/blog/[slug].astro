@@ -5,6 +5,7 @@ import Card from '../../components/atoms/Card.astro';
 import Badge from '../../components/atoms/Badge.astro';
 import Link from '../../components/atoms/Link.astro';
 import TagList from '../../components/molecules/TagList.astro';
+import Breadcrumb from '../../components/molecules/Breadcrumb.astro';
 
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' });
 
@@ -20,8 +21,15 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 const { title, description, pubDate, tags } = post.data;
+
+const breadcrumbItems = [
+  { label: 'Blog', href: '/blog' },
+  { label: title }
+];
 ---
 <BaseLayout title={title} description={description} lang="fr" currentPath={Astro.url.pathname}>
+  <Breadcrumb items={breadcrumbItems} lang="fr" />
+  
   <article>
     <Card class="space-y-6 p-6">
       <div class="flex flex-wrap items-center gap-3 text-sm text-foreground/70 dark:text-foreground-dark/70">
