@@ -1,10 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Timeline from '../components/organisms/Timeline.astro';
 import Link from '../components/atoms/Link.astro';
 import Image from '../components/atoms/Image.astro';
 import { curriculum } from '../data/curriculum';
 import { links } from '../data/links';
+
+const posts = (await getCollection('posts', ({ data }) => data.published && !data.draft && data.lang === 'fr'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 <BaseLayout lang="fr" currentPath="/">
   <div class="space-y-16">
@@ -23,18 +30,38 @@ import { links } from '../data/links';
         <p>
           Après plusieurs années à parcourir les réseaux sociaux, j'ai choisi de me concentrer sur ma famille, mon travail et mes lectures. Je partage ici mes réflexions et analyses sur le développement Web.
         </p>
-        <p>
-          Basé à Lyon, je travaille avec Symfony, PHP et les technologies Web modernes.
-        </p>
       </article>
     </section>
 
     <section class="space-y-6">
       <div class="flex flex-wrap gap-y-2 items-center justify-between">
         <h5 class="font-semibold text-black dark:text-white">
-          Me contacter
+          Derniers articles
         </h5>
+        <Link href="/blog">Voir tous les articles →</Link>
       </div>
+      <ul class="space-y-4">
+        {posts.map((post) => (
+          <li class="space-y-1">
+            <p class="text-sm text-foreground/60 dark:text-foreground-dark/60">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {dateFormatter.format(post.data.pubDate)}
+              </time>
+            </p>
+            <Link href={`/blog/${post.slug}`} class="font-semibold text-black dark:text-white">
+              {post.data.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <Timeline items={curriculum} title="Expériences" lang="fr" />
+
+    <section class="space-y-6">
+      <h5 class="font-semibold text-black dark:text-white">
+        Me contacter
+      </h5>
       <ul class="space-y-3">
         {links.map((link) => (
           <li>
@@ -51,7 +78,5 @@ import { links } from '../data/links';
         ))}
       </ul>
     </section>
-
-    <Timeline items={curriculum} title="Parcours" lang="fr" />
   </div>
 </BaseLayout>

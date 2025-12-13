@@ -1,10 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Timeline from '../../components/organisms/Timeline.astro';
 import Link from '../../components/atoms/Link.astro';
 import Image from '../../components/atoms/Image.astro';
 import { curriculum } from '../../data/curriculum';
 import { links } from '../../data/links';
+
+const posts = (await getCollection('posts', ({ data }) => data.published && !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const dateFormatter = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 <BaseLayout lang="en" currentPath="/en/">
   <div class="space-y-16">
@@ -23,18 +30,38 @@ import { links } from '../../data/links';
         <p>
           After years of social media, I've chosen to focus on family, work, and reading. Here I share my thoughts and analysis about web development.
         </p>
-        <p>
-          Based in Lyon, I work with Symfony, PHP, and modern web technologies.
-        </p>
       </article>
     </section>
 
     <section class="space-y-6">
       <div class="flex flex-wrap gap-y-2 items-center justify-between">
         <h5 class="font-semibold text-black dark:text-white">
-          Get in touch
+          Latest posts
         </h5>
+        <Link href="/en/blog">View all posts →</Link>
       </div>
+      <ul class="space-y-4">
+        {posts.map((post) => (
+          <li class="space-y-1">
+            <p class="text-sm text-foreground/60 dark:text-foreground-dark/60">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {dateFormatter.format(post.data.pubDate)}
+              </time>
+            </p>
+            <Link href={`/blog/${post.slug}`} class="font-semibold text-black dark:text-white">
+              {post.data.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <Timeline items={curriculum} title="Experience" lang="en" />
+
+    <section class="space-y-6">
+      <h5 class="font-semibold text-black dark:text-white">
+        Get in touch
+      </h5>
       <ul class="space-y-3">
         {links.map((link) => (
           <li>
@@ -51,7 +78,5 @@ import { links } from '../../data/links';
         ))}
       </ul>
     </section>
-
-    <Timeline items={curriculum} title="Experience" lang="en" />
   </div>
 </BaseLayout>
