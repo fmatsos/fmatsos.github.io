@@ -1,83 +1,57 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Timeline from '../components/organisms/Timeline.astro';
-import Badge from '../components/atoms/Badge.astro';
-import Button from '../components/atoms/Button.astro';
 import Link from '../components/atoms/Link.astro';
 import Image from '../components/atoms/Image.astro';
 import { curriculum } from '../data/curriculum';
 import { links } from '../data/links';
 ---
 <BaseLayout lang="fr" currentPath="/">
-  <section class="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-    <div class="border border-foreground/10 bg-background/70 p-8 shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
-      <Badge variant="primary" size="md" class="inline-flex items-center gap-2 uppercase tracking-[0.2em]">
-        Bienvenue
-      </Badge>
-      <h1 class="mt-4 section-title">
-        Je m'appelle Franck, développeur PHP depuis 2009
-      </h1>
-      <p class="mt-4 section-lead">
-        Après un parcours professionnel aux multiples expériences, j'ai rejoint
-        <Link href="https://www.akawaka.fr" external variant="primary"> Akawaka</Link>
-        en 2021, une jeune ESN lyonnaise, où j'accompagne nos clients sur divers projets. Certifié
-        <Link href="https://directory.opquast.com/fr/certificat/BVARDQ/" external variant="primary"> Opquast</Link>
-        pour la qualité Web, je vise également la certification Symfony.
-      </p>
-      <p class="mt-3 text-lg text-foreground/75 dark:text-foreground-dark/75">
-        Ayant mis de côté les réseaux sociaux pour me concentrer pleinement sur ma famille, mon travail et mes différentes
-        lectures, je partage ici mes réflexions et analyses.
-      </p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <Button href="/a-propos" variant="primary">En savoir plus</Button>
-        <Button href="/en/" variant="secondary">Lire en anglais</Button>
-      </div>
-    </div>
-    <div class="border border-foreground/10 bg-background/70 p-6 text-center shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
-      <div class="mx-auto h-52 w-52 overflow-hidden border-4 border-primary/30 shadow-xl shadow-primary/25">
-        <Image
-          src="/images/avatar-black.avif"
-          alt="Portrait de Franck Matsos"
-          class="h-full w-full object-cover"
-          width={208}
-          height={208}
-        />
-      </div>
-      <div class="mt-6 grid gap-3 sm:grid-cols-2">
-        <div class="flex items-center justify-center gap-2 bg-foreground/5 px-4 py-3 text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
-          <span class="text-xl" aria-hidden="true">📍</span>
-          <span class="text-sm font-semibold">Lyon, France</span>
-        </div>
-        <div class="flex items-center justify-center gap-2 bg-foreground/5 px-4 py-3 text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
-          <span class="text-xl" aria-hidden="true">💻</span>
-          <span class="text-sm font-semibold">Symfony, PHP, Web</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="space-y-16">
+    <section>
+      <article class="space-y-4">
+        <h4 class="font-semibold text-black dark:text-white">
+          Bonjour, je m'appelle Franck 👋
+        </h4>
+        <p>
+          Développeur PHP depuis 2009, j'ai rejoint
+          <Link href="https://www.akawaka.fr" external>Akawaka</Link>
+          en 2021. Certifié
+          <Link href="https://directory.opquast.com/fr/certificat/BVARDQ/" external>Opquast</Link>
+          pour la qualité Web, je vise également la certification Symfony.
+        </p>
+        <p>
+          Après plusieurs années à parcourir les réseaux sociaux, j'ai choisi de me concentrer sur ma famille, mon travail et mes lectures. Je partage ici mes réflexions et analyses sur le développement Web.
+        </p>
+        <p>
+          Basé à Lyon, je travaille avec Symfony, PHP et les technologies Web modernes.
+        </p>
+      </article>
+    </section>
 
-  <section class="space-y-4 border border-foreground/10 bg-background/70 p-6 shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
-    <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-      <h2 class="text-2xl font-semibold">Où me trouver ?</h2>
-      <p class="text-sm text-foreground/70 dark:text-foreground-dark/70">Quelques liens pour rester en contact ou travailler ensemble.</p>
-    </div>
-    <div class="grid gap-4 md:grid-cols-2">
-      {links.map((link) => (
-        <a
-          class="group flex items-center gap-4 border border-foreground/10 bg-background/70 p-5 shadow-lg transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/20 dark:border-background-dark/30 dark:bg-background-dark/80"
-          href={link.href}
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          <span class="flex h-12 w-12 items-center justify-center bg-foreground/5 text-foreground ring-1 ring-foreground/10 transition group-hover:bg-primary/10 group-hover:text-primary dark:bg-background-dark/60 dark:text-foreground-dark dark:ring-background-dark/30 dark:group-hover:text-primary-dark" aria-hidden="true">
-            <Image src={link.picto} alt={link.alt} class="h-7 w-7" loading="lazy" />
-          </span>
-          <span class="text-base font-semibold text-foreground group-hover:text-primary dark:text-foreground-dark dark:group-hover:text-primary-dark">{link.title}</span>
-          <span class="sr-only">(ouvre dans un nouvel onglet)</span>
-        </a>
-      ))}
-    </div>
-  </section>
+    <section class="space-y-6">
+      <div class="flex flex-wrap gap-y-2 items-center justify-between">
+        <h5 class="font-semibold text-black dark:text-white">
+          Me contacter
+        </h5>
+      </div>
+      <ul class="space-y-3">
+        {links.map((link) => (
+          <li>
+            <a
+              class="flex items-center gap-3 group"
+              href={link.href}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <Image src={link.picto} alt={link.alt} class="h-5 w-5" loading="lazy" />
+              <span class="text-black dark:text-white group-hover:opacity-75">{link.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
 
-  <Timeline items={curriculum} title="Parcours" lang="fr" />
+    <Timeline items={curriculum} title="Parcours" lang="fr" />
+  </div>
 </BaseLayout>

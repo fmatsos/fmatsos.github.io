@@ -7,16 +7,15 @@ const posts = (await getCollection('posts', ({ data }) => data.published && !dat
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 <BaseLayout title="Blog" description="Latest articles and notes from Franck Matsos." lang="en" currentPath="/en/blog">
-  <section class="space-y-6">
-    <div class="space-y-2">
-      <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">Articles</p>
-      <h1 class="section-title">Blog</h1>
-      <p class="max-w-3xl section-lead">
+  <div class="space-y-12">
+    <section class="space-y-4">
+      <h1 class="font-semibold text-black dark:text-white">Blog</h1>
+      <p>
         Articles are currently written in French, but you can browse the full list below. English versions will be published over time.
       </p>
-    </div>
+    </section>
 
-    <div class="posts-grid-container">
+    <div class="space-y-8">
       {posts.map((post) => (
         <PostCard
           title={post.data.title}
@@ -28,5 +27,5 @@ const posts = (await getCollection('posts', ({ data }) => data.published && !dat
         />
       ))}
     </div>
-  </section>
+  </div>
 </BaseLayout>
