@@ -1,5 +1,8 @@
 ---
-import { BASELINE, SITE_TITLE } from '../../config';
+import { SITE_TITLE } from '../../config';
+import Link from '../atoms/Link.astro';
+import Image from '../atoms/Image.astro';
+import { links } from '../../data/links';
 
 interface Props {
   lang?: 'fr' | 'en';
@@ -7,13 +10,66 @@ interface Props {
 
 const { lang = 'fr' } = Astro.props;
 const generatedText = lang === 'fr' ? 'Site généré avec Astro • Netlify' : 'Site generated with Astro • Netlify';
+const contactLabel = lang === 'fr' ? 'Contact' : 'Contact';
+const followLabel = lang === 'fr' ? 'Me suivre' : 'Follow me';
 ---
 
 <footer class="border-t border-black/15 dark:border-white/20 py-8" role="contentinfo">
-  <div class="container mx-auto flex flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between">
-    <div>
-      <p class="text-lg font-semibold">{SITE_TITLE}</p>
+  <div class="container mx-auto px-4 sm:px-6 md:px-8 space-y-8">
+    <!-- Main footer content -->
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+      <!-- Brand -->
+      <div>
+        <p class="text-lg font-semibold text-black dark:text-white">{SITE_TITLE}</p>
+      </div>
+
+      <!-- Social links -->
+      <div class="space-y-3">
+        <p class="text-sm font-semibold text-black dark:text-white">{followLabel}</p>
+        <ul class="space-y-2">
+          {links.slice(0, 2).map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                class="flex items-center gap-2 text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors"
+              >
+                <Image src={link.picto} alt={link.alt} class="h-4 w-4" loading="lazy" />
+                <span>{link.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="space-y-3">
+        <p class="text-sm font-semibold text-black dark:text-white">{contactLabel}</p>
+        <ul class="space-y-2">
+          {links.slice(2).map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                class="flex items-center gap-2 text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors"
+              >
+                <Image src={link.picto} alt={link.alt} class="h-4 w-4" loading="lazy" />
+                <span>{link.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
-    <p class="text-sm text-black/60 dark:text-white/60">{generatedText}</p>
+
+    <!-- Divider -->
+    <div class="border-t border-black/10 dark:border-white/10"></div>
+
+    <!-- Credits -->
+    <div class="flex flex-col gap-2 text-xs text-black/50 dark:text-white/50">
+      <p>{generatedText}</p>
+    </div>
   </div>
 </footer>
