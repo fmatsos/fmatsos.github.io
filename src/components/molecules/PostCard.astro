@@ -20,31 +20,25 @@ const readMoreText = lang === 'fr' ? "Lire l'article" : 'Read article';
 const postUrl = `/blog/${slug}`;
 ---
 
-<Card class="flex h-full flex-col justify-between gap-4 p-5 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/15">
-  <article>
-    <div class="flex items-center justify-between text-sm text-foreground/70 dark:text-foreground-dark/70">
-      <Badge variant="accent" class="font-semibold">
-        <time datetime={pubDate.toISOString()}>
-          {dateFormatter.format(pubDate)}
-        </time>
-      </Badge>
-      <TagList tags={tags} />
-    </div>
-
-    <div class="mt-4 space-y-2">
-      <h2 class="text-2xl font-semibold">
-        <Link href={postUrl} class="hover:text-primary dark:hover:text-primary-dark">
-          {title}
-        </Link>
-      </h2>
-      <p class="text-base text-foreground/75 dark:text-foreground-dark/70">{description}</p>
-    </div>
-  </article>
-
-  <div class="flex items-center gap-2 text-sm font-semibold text-primary dark:text-primary-dark">
-    <Link href={postUrl} class="inline-flex items-center gap-2 font-semibold hover:text-primary/80 dark:hover:text-primary-dark/80">
-      {readMoreText}
-      <span aria-hidden="true">→</span>
-    </Link>
+<div class="space-y-3 border-b border-foreground/10 pb-6 dark:border-background-dark/30">
+  <div class="flex items-center justify-between gap-2 text-sm text-foreground/60 dark:text-foreground-dark/60">
+    <time datetime={pubDate.toISOString()}>
+      {dateFormatter.format(pubDate)}
+    </time>
+    <TagList tags={tags} />
   </div>
-</Card>
+
+  <div>
+    <h3 class="font-semibold text-black dark:text-white">
+      <Link href={postUrl}>
+        {title}
+      </Link>
+    </h3>
+    <p class="mt-1 text-foreground/70 dark:text-foreground-dark/70">{description}</p>
+  </div>
+
+  <Link href={postUrl} class="inline-flex items-center gap-2 text-sm group">
+    <span>{readMoreText}</span>
+    <span class="group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
+  </Link>
+</div>

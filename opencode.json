@@ -1,0 +1,68 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "bash": {
+      "git commit *": "ask",
+      "git push *": "ask",
+      "rm *": "ask"
+    }
+  },
+  "model": "github-copilot/gpt-5-mini",
+  "small_model": "github-copilot/gpt-5-mini",
+  "provider": {
+    "github-copilot": {
+      "models": {
+        "claude-sonnet-4.5-thinking": {
+          "id": "claude-sonnet-4.5",
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 2048
+            }
+          }
+        },
+        "gpt-5-mini-high": {
+          "id": "gpt-5-mini",
+          "options": {
+            "reasoningEffort": "high",
+            "textVerbosity": "low",
+            "reasoningSummary": "auto",
+            "include": [
+              "reasoning.encrypted_content"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "agent": {
+    "general": {
+      "model": "github-copilot/gpt-5-mini",
+      "temperature": 0.1
+    },
+    "plan": {
+      "model": "github-copilot/gpt-5-mini",
+      "temperature": 0.3
+    },
+    "build": {
+      "model": "github-copilot/claude-haiku-4.5",
+      "temperature": 0.1
+    },
+    "brainstorm": {
+      "model": "github-copilot/claude-opus-4.5",
+      "temperature": 0.7
+    }
+  },
+  "mcp": {
+    "deepwiki": {
+      "enabled": true,
+      "type": "local",
+      "command": ["npx", "-y", "mcp-deepwiki@latest"]
+    },
+    "serena": {
+      "enabled": true,
+      "type": "local",
+      "command": ["uvx", "--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--project", "fmatsos"]
+    }
+  }
+}

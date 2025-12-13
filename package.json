@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tailwindcss -i ./src/styles/global.css -o ./src/styles/tailwind.css --watch --poll --minify & astro dev",
+    "watch": "npm run dev",
     "build:css": "tailwindcss -i ./src/styles/global.css -o ./src/styles/tailwind.css --minify",
     "build": "npm run build:css && astro build",
     "preview": "astro preview",

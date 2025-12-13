@@ -1,47 +1,29 @@
 ---
-interface TimelineItem {
-  date: string;
-  title: string;
-  description: string;
-  tags?: string[];
-}
+import type { CareerEntry } from '../../data/curriculum';
 
 interface Props {
-  items: TimelineItem[];
+  items: CareerEntry[];
   title: string;
   lang?: 'fr' | 'en';
 }
 
 const { items, title, lang = 'fr' } = Astro.props;
+const currentLabel = lang === 'fr' ? 'Présent' : 'Present';
 ---
 
-<section class="space-y-6 border border-foreground/10 bg-background/70 p-6 shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
-  <h2 class="text-2xl font-semibold">{title}</h2>
-  <div class="space-y-4" role="list" aria-label={title}>
-    {items.map((item, index) => (
-      <div
-        class="flex gap-4 border-l-2 border-foreground/10 pl-4 dark:border-background-dark/40"
-        role="listitem"
-        aria-posinset={index + 1}
-        aria-setsize={items.length}
-      >
+<section class="space-y-6">
+  <h5 class="font-semibold text-black dark:text-white">{title}</h5>
+  <ul class="space-y-4">
+    {items.map((item) => (
+      <li class="flex gap-4 border-l border-foreground/20 pl-4 dark:border-foreground-dark/20">
         <div class="flex-1 space-y-1">
-          <p class="text-sm font-semibold text-primary dark:text-primary-dark">
-            <time datetime={item.date}>{item.date}</time>
+          <p class="text-sm text-foreground/60 dark:text-foreground-dark/60">
+            {item.from} - {item.to || currentLabel}
           </p>
-          <h3 class="text-lg font-semibold text-foreground dark:text-foreground-dark">{item.title}</h3>
-          <p class="text-base text-foreground/75 dark:text-foreground-dark/70">{item.description}</p>
-          {item.tags && item.tags.length > 0 && (
-            <div class="flex flex-wrap gap-2 pt-2">
-              {item.tags.map((tag) => (
-                <span class="bg-foreground/5 px-2 py-1 text-xs font-semibold text-foreground/70 dark:bg-background-dark/60 dark:text-foreground-dark/70">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+          <p class="font-semibold text-black dark:text-white">{item.name}</p>
+          <p class="text-foreground/70 dark:text-foreground-dark/70">{item.role}</p>
         </div>
-      </div>
+      </li>
     ))}
-  </div>
+  </ul>
 </section>

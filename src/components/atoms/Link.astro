@@ -16,12 +16,12 @@ const {
   ...rest
 } = Astro.props;
 
-const baseClasses = 'transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2';
+const baseClasses = 'transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
 
 const variantClasses = {
-  default: 'text-foreground hover:text-primary dark:text-foreground-dark dark:hover:text-primary-dark',
-  primary: 'font-semibold text-primary underline decoration-primary/60 underline-offset-4 hover:decoration-primary dark:text-primary-dark dark:decoration-primary-dark/60 dark:hover:decoration-primary-dark',
-  subtle: 'text-foreground/70 hover:text-foreground dark:text-foreground-dark/70 dark:hover:text-foreground-dark',
+  default: 'underline underline-offset-2 decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 hover:text-black hover:dark:text-white',
+  primary: 'underline underline-offset-2 decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 hover:text-black hover:dark:text-white',
+  subtle: 'underline underline-offset-2 decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 hover:opacity-75',
 };
 
 const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;

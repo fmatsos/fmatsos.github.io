@@ -1,78 +1,59 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ContactCard from '../../components/molecules/ContactCard.astro';
 import Timeline from '../../components/organisms/Timeline.astro';
-import Card from '../../components/atoms/Card.astro';
-import Badge from '../../components/atoms/Badge.astro';
-import Button from '../../components/atoms/Button.astro';
 import Link from '../../components/atoms/Link.astro';
 import Image from '../../components/atoms/Image.astro';
 import { curriculum } from '../../data/curriculum';
-import { links } from '../../data/links';
+
+const posts = (await getCollection('posts', ({ data }) => data.published && !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const dateFormatter = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 <BaseLayout lang="en" currentPath="/en/">
-  <section class="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-    <Card class="p-8">
-      <Badge variant="primary" size="md" class="inline-flex items-center gap-2 uppercase tracking-[0.2em]">
-        Welcome
-      </Badge>
-      <h1 class="mt-4 section-title">
-        I'm Franck, a PHP developer since 2009
-      </h1>
-      <p class="mt-4 section-lead">
-        After a career full of diverse experiences, I joined
-        <Link href="https://www.akawaka.fr" external variant="primary"> Akawaka</Link>
-        in 2021, a young Lyon-based consulting company. I support our clients on various projects. Certified
-        <Link href="https://directory.opquast.com/fr/certificat/BVARDQ/" external variant="primary"> Opquast</Link>
-        for web quality, I am also aiming for the Symfony certification.
-      </p>
-      <p class="mt-3 text-lg text-foreground/75 dark:text-foreground-dark/75">
-        I stepped away from social media to focus on my family, my work, and my reading. Here, I share my thoughts and analysis.
-      </p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <Button href="/en/about" variant="primary">Learn more</Button>
-        <Button href="/" variant="secondary">Lire en français</Button>
-      </div>
-    </Card>
-    <Card class="p-6 text-center">
-      <div class="mx-auto h-52 w-52 overflow-hidden rounded-full border-4 border-primary/30 shadow-xl shadow-primary/25">
-        <Image
-          src="/images/avatar-black.avif"
-          alt="Portrait of Franck Matsos"
-          class="h-full w-full object-cover"
-          width={208}
-          height={208}
-        />
-      </div>
-      <div class="mt-6 grid gap-3 sm:grid-cols-2">
-        <div class="flex items-center justify-center gap-2 rounded-xl bg-foreground/5 px-4 py-3 text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
-          <span class="text-xl" aria-hidden="true">📍</span>
-          <span class="text-sm font-semibold">Lyon, France</span>
-        </div>
-        <div class="flex items-center justify-center gap-2 rounded-xl bg-foreground/5 px-4 py-3 text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
-          <span class="text-xl" aria-hidden="true">💻</span>
-          <span class="text-sm font-semibold">Symfony, PHP, Web</span>
-        </div>
-      </div>
-    </Card>
-  </section>
+  <div class="space-y-16">
+    <section>
+      <article class="space-y-4">
+        <h4 class="font-semibold text-black dark:text-white">
+          Hello, I'm Franck 👋
+        </h4>
+        <p>
+          I'm a PHP developer since 2009 who joined
+          <Link href="https://www.akawaka.fr" external>Akawaka</Link>
+          in 2021. Certified
+          <Link href="https://directory.opquast.com/fr/certificat/BVARDQ/" external>Opquast</Link>
+          and
+          <Link href="https://symfony.com/certification" external>Symfony</Link>.
+        </p>
+        <p>
+          After years of social media, I've chosen to focus on family, work, and reading. Here I share my thoughts and analysis about web development.
+        </p>
+      </article>
+    </section>
 
-  <Card class="space-y-4 p-6">
-    <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-      <h2 class="text-2xl font-semibold">Where to find me?</h2>
-      <p class="text-sm text-foreground/70 dark:text-foreground-dark/70">A few links to stay in touch or to work together.</p>
-    </div>
-    <div class="grid gap-4 md:grid-cols-2">
-      {links.map((link) => (
-        <ContactCard
-          href={link.href}
-          title={link.title}
-          picto={link.picto}
-          alt={link.alt}
-        />
-      ))}
-    </div>
-  </Card>
-
-  <Timeline items={curriculum} title="Experience" lang="en" />
+    <section class="border border-foreground/10 bg-background/70 p-6 dark:border-background-dark/30 dark:bg-background-dark/80 space-y-6">
+      <div class="flex flex-wrap gap-y-2 items-center justify-between">
+        <h5 class="font-semibold text-black dark:text-white">
+          Latest posts
+        </h5>
+        <Link href="/en/blog">View all posts →</Link>
+      </div>
+      <ul class="space-y-4">
+        {posts.map((post) => (
+          <li class="space-y-1">
+            <p class="text-sm text-foreground/60 dark:text-foreground-dark/60">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {dateFormatter.format(post.data.pubDate)}
+              </time>
+            </p>
+            <Link href={`/blog/${post.slug}`} class="font-semibold text-black dark:text-white">
+              {post.data.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
 </BaseLayout>

@@ -33,12 +33,12 @@ const { title, description, lang = 'fr', currentPath = '/', type, author, publis
     />
   </head>
   <body
-    class="min-h-screen bg-background text-foreground antialiased dark:bg-background-dark dark:text-foreground-dark"
+    class="min-h-screen flex flex-col bg-background text-foreground antialiased dark:bg-background-dark dark:text-foreground-dark"
   >
     <Header lang={lang} currentPath={currentPath}>
       <ThemeSelector slot="theme-selector" />
     </Header>
-    <main id="main-content" class="app-container space-y-12 pb-16 pt-28">
+    <main id="main-content" class="container mx-auto px-4 sm:px-6 md:px-8 pb-16 pt-16 flex-1">
       <slot />
     </main>
     <Footer lang={lang} />

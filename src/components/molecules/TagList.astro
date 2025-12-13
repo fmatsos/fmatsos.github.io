@@ -19,7 +19,7 @@ const tagsLabel = lang === 'fr' ? 'Tags' : 'Tags';
     <div role="listitem">
       {clickable ? (
         <Link href={tagHref(tag)} class="no-underline" ariaLabel={lang === 'fr' ? `Articles taggés ${tag}` : `Posts tagged ${tag}`}>
-          <Badge variant={variant} class={`transition hover:ring-primary/40 ${tagClasses(tag)}`}>
+          <Badge variant={variant} class={`transition hover:opacity-75 ${tagClasses(tag)}`}>
             {tag}
           </Badge>
         </Link>

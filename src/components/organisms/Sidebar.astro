@@ -1,0 +1,155 @@
+---
+import type { Heading } from '../../utils/headings';
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings = [] } = Astro.props;
+const hasHeadings = headings.length > 0;
+---
+
+{hasHeadings && (
+  <aside class="sidebar" aria-label="Article sections">
+    <nav class="sidebar-nav">
+      <ul class="sidebar-list">
+        {headings.map((heading) => (
+          <li class="sidebar-item" data-level={heading.level}>
+            <a
+              href={`#${heading.id}`}
+              class="sidebar-link"
+              title={heading.text}
+              aria-label={heading.text}
+            >
+              <span class="sidebar-line"></span>
+              <span class="sidebar-tooltip">{heading.text}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </aside>
+)}
+
+<style>
+  .sidebar {
+    @apply sticky top-28 hidden h-fit flex-shrink-0 lg:block;
+  }
+
+  .sidebar-nav {
+    @apply flex flex-col gap-3;
+  }
+
+  .sidebar-list {
+    @apply space-y-3;
+  }
+
+  .sidebar-item {
+    @apply list-none relative;
+  }
+
+  .sidebar-item[data-level='2'] {
+    @apply ml-0;
+  }
+
+  .sidebar-item[data-level='3'] {
+    @apply ml-2;
+  }
+
+  .sidebar-item[data-level='4'] {
+    @apply ml-4;
+  }
+
+  .sidebar-link {
+    @apply relative inline-flex items-center gap-2 group cursor-pointer;
+  }
+
+  .sidebar-line {
+    @apply block h-0.5 w-6 bg-foreground/30 dark:bg-foreground-dark/30 transition-all duration-300 group-hover:w-10 group-hover:bg-foreground/60 dark:group-hover:bg-foreground-dark/60;
+  }
+
+  .sidebar-tooltip {
+    @apply absolute left-10 top-1/2 -translate-y-1/2 px-2 py-1 text-xs font-medium text-foreground dark:text-foreground-dark bg-background dark:bg-background-dark border border-foreground/10 dark:border-foreground-dark/10 rounded whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-200 group-hover:opacity-100;
+  }
+
+  .sidebar-link:focus-visible {
+    @apply outline-2 outline-offset-2 outline-black dark:outline-white;
+  }
+
+  /* Mobile - hidden by default */
+  @media (max-width: 1023px) {
+    .sidebar {
+      @apply hidden;
+    }
+  }
+</style>
+
+<script>
+  // Smooth scroll on sidebar link click
+  const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+  sidebarLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      if (href) {
+        const target = document.querySelector(href);
+        if (target) {
+          // Smooth scroll to target
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Update URL without page reload
+          window.history.pushState(null, '', href);
+        }
+      }
+    });
+  });
+
+  // Highlight current section based on scroll position
+  const links = document.querySelectorAll('.sidebar-link');
+  const headingElements = Array.from(
+    document.querySelectorAll('h2[id]')
+  ) as HTMLHeadingElement[];
+
+  if (headingElements.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find which heading is in view
+        const visibleHeading = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+
+        // Remove active class from all links
+        links.forEach((link) => {
+          link.classList.remove('active');
+        });
+
+        // Add active class to matching link
+        if (visibleHeading) {
+          const activeLink = document.querySelector(
+            `.sidebar-link[href="#${visibleHeading.id}"]`
+          );
+          if (activeLink) {
+            activeLink.classList.add('active');
+          }
+        }
+      },
+      {
+        rootMargin: '-80px 0px -66% 0px',
+      }
+    );
+
+    headingElements.forEach((heading) => {
+      observer.observe(heading);
+    });
+  }
+</script>
+
+<style is:global>
+  .sidebar-link.active .sidebar-line {
+    @apply w-10 bg-black dark:bg-white;
+  }
+
+  .sidebar-link.active .sidebar-tooltip {
+    @apply opacity-100;
+  }
+</style>

@@ -15,12 +15,12 @@ const { href, title, picto, alt, lang = 'fr' } = Astro.props;
 const newTabText = lang === 'fr' ? '(ouvre dans un nouvel onglet)' : '(opens in new tab)';
 ---
 
-<Card class="group flex items-center gap-4 p-5 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/20">
+<div class="group flex items-center gap-4 transition">
   <Link href={href} external class="flex w-full items-center gap-4 no-underline">
-    <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-foreground/5 text-foreground ring-1 ring-foreground/10 transition group-hover:bg-primary/10 group-hover:text-primary dark:bg-background-dark/60 dark:text-foreground-dark dark:ring-background-dark/30 dark:group-hover:text-primary-dark" aria-hidden="true">
+    <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-foreground/5 text-foreground dark:bg-background-dark/60 dark:text-foreground-dark group-hover:opacity-75" aria-hidden="true">
       <Image src={picto} alt={alt} class="h-7 w-7" loading="lazy" />
     </span>
-    <span class="text-base font-semibold text-foreground group-hover:text-primary dark:text-foreground-dark dark:group-hover:text-primary-dark">{title}</span>
+    <span class="text-base font-semibold text-foreground dark:text-foreground-dark">{title}</span>
     <span class="sr-only">{newTabText}</span>
   </Link>
-</Card>
+</div>
