@@ -130,7 +130,18 @@ const hasHeadings = headings.length > 0;
     const contentDiv = document.getElementById(button.getAttribute('aria-controls') || '');
     if (contentDiv) {
       contentDiv.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = link.getAttribute('href');
+          if (href) {
+            const target = document.querySelector(href);
+            if (target) {
+              // Smooth scroll to target
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              // Update URL without page reload
+              window.history.pushState(null, '', href);
+            }
+          }
           button.setAttribute('aria-expanded', 'false');
         });
       });
