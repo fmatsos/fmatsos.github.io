@@ -1,0 +1,50 @@
+---
+import Card from '../atoms/Card.astro';
+import Badge from '../atoms/Badge.astro';
+import Link from '../atoms/Link.astro';
+import TagList from './TagList.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  slug: string;
+  tags: string[];
+  lang?: 'fr' | 'en';
+}
+
+const { title, description, pubDate, slug, tags, lang = 'fr' } = Astro.props;
+
+const dateFormatter = new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-US', { dateStyle: 'long' });
+const readMoreText = lang === 'fr' ? "Lire l'article" : 'Read article';
+const postUrl = lang === 'fr' ? `/blog/${slug}` : `/en/blog/${slug}`;
+---
+
+<Card class="flex h-full flex-col justify-between gap-4 p-5 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/15">
+  <article>
+    <div class="flex items-center justify-between text-sm text-foreground/70 dark:text-foreground-dark/70">
+      <Badge variant="accent" class="font-semibold">
+        <time datetime={pubDate.toISOString()}>
+          {dateFormatter.format(pubDate)}
+        </time>
+      </Badge>
+      <TagList tags={tags} />
+    </div>
+
+    <div class="mt-4 space-y-2">
+      <h2 class="text-2xl font-semibold">
+        <Link href={postUrl} class="hover:text-primary dark:hover:text-primary-dark">
+          {title}
+        </Link>
+      </h2>
+      <p class="text-base text-foreground/75 dark:text-foreground-dark/70">{description}</p>
+    </div>
+  </article>
+
+  <div class="flex items-center gap-2 text-sm font-semibold text-primary dark:text-primary-dark">
+    <Link href={postUrl} class="inline-flex items-center gap-2 font-semibold hover:text-primary/80 dark:hover:text-primary-dark/80">
+      {readMoreText}
+      <span aria-hidden="true">→</span>
+    </Link>
+  </div>
+</Card>

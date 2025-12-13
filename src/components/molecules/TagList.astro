@@ -1,0 +1,31 @@
+---
+import Badge from '../atoms/Badge.astro';
+import Link from '../atoms/Link.astro';
+import { tagClasses, tagHref } from '../../utils/tags';
+
+interface Props {
+  tags: string[];
+  variant?: 'default' | 'primary';
+  clickable?: boolean;
+}
+
+const { tags, variant = 'default', clickable = true } = Astro.props;
+---
+
+<div class="flex flex-wrap gap-2" role="list" aria-label="Tags">
+  {tags.map((tag) => (
+    <div role="listitem">
+      {clickable ? (
+        <Link href={tagHref(tag)} class="no-underline" ariaLabel={`Articles taggés ${tag}`}>
+          <Badge variant={variant} class={`transition hover:ring-primary/40 ${tagClasses(tag)}`}>
+            {tag}
+          </Badge>
+        </Link>
+      ) : (
+        <Badge variant={variant} class={tagClasses(tag)}>
+          {tag}
+        </Badge>
+      )}
+    </div>
+  ))}
+</div>

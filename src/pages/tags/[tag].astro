@@ -1,7 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { slugifyTag, tagClasses, tagHref } from '../../utils/tags';
+import Card from '../../components/atoms/Card.astro';
+import Badge from '../../components/atoms/Badge.astro';
+import Link from '../../components/atoms/Link.astro';
+import TagList from '../../components/molecules/TagList.astro';
+import { slugifyTag, tagClasses } from '../../utils/tags';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => data.published && !data.draft);
@@ -60,7 +64,7 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
       <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">Tags</p>
       <div class="flex items-center gap-3">
         <h1 class="section-title">{label}</h1>
-        <span class={tagClasses(label)}>Tag</span>
+        <Badge class={tagClasses(label)}>Tag</Badge>
       </div>
       <p class="max-w-3xl section-lead">
         Retrouvez tous les articles associés à ce tag, classés du plus récent au plus ancien et regroupés par mois et année.
@@ -72,47 +76,43 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
         const monthEntries = Array.from(months.entries()).sort((a, b) => b[0] - a[0]);
 
         return (
-          <details open={yearIndex === 0} class="card-surface overflow-hidden">
-            <summary class="flex cursor-pointer items-center justify-between bg-foreground/5 px-5 py-3 text-lg font-semibold dark:bg-background-dark/70">
-              <span>{year}</span>
-              <span class="text-sm font-medium text-primary dark:text-primary-dark">
-                {monthEntries.reduce((total, [, posts]) => total + posts.length, 0)} articles
-              </span>
-            </summary>
-            <div class="space-y-3 px-5 py-4">
-              {monthEntries.map(([month, monthPosts], monthIndex) => {
-                const monthLabel = monthFormatter.format(new Date(year, month, 1));
+          <Card class="overflow-hidden">
+            <details open={yearIndex === 0}>
+              <summary class="flex cursor-pointer items-center justify-between bg-foreground/5 px-5 py-3 text-lg font-semibold transition hover:bg-foreground/10 dark:bg-background-dark/70 dark:hover:bg-background-dark/60">
+                <span>{year}</span>
+                <Badge variant="primary" size="sm">
+                  {monthEntries.reduce((total, [, posts]) => total + posts.length, 0)} articles
+                </Badge>
+              </summary>
+              <div class="space-y-3 px-5 py-4">
+                {monthEntries.map(([month, monthPosts], monthIndex) => {
+                  const monthLabel = monthFormatter.format(new Date(year, month, 1));
 
-                return (
-                  <details
-                    open={yearIndex === 0 && monthIndex === 0}
-                    class="overflow-hidden rounded-xl border border-foreground/10 bg-background/60 dark:border-background-dark/40 dark:bg-background-dark/70"
-                  >
-                    <summary class="flex cursor-pointer items-center justify-between px-4 py-3 text-base font-semibold">
-                      <span class="capitalize">{monthLabel}</span>
-                      <span class="text-sm font-medium text-foreground/70 dark:text-foreground-dark/70">{monthPosts.length} article(s)</span>
-                    </summary>
-                    <ul class="divide-y divide-foreground/10 dark:divide-background-dark/40">
-                      {monthPosts.map((post) => (
-                        <li class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
-                          <a class="text-lg font-semibold text-primary transition hover:text-primary/80 dark:text-primary-dark" href={`/blog/${post.slug}`}>
-                            {post.data.title}
-                          </a>
-                          <div class="flex flex-wrap gap-2">
-                            {post.data.tags.map((tag) => (
-                              <a class={tagClasses(tag)} href={tagHref(tag)}>
-                                {tag}
-                              </a>
-                            ))}
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                );
-              })}
-            </div>
-          </details>
+                  return (
+                    <details
+                      open={yearIndex === 0 && monthIndex === 0}
+                      class="overflow-hidden rounded-xl border border-foreground/10 bg-background/60 dark:border-background-dark/40 dark:bg-background-dark/70"
+                    >
+                      <summary class="flex cursor-pointer items-center justify-between px-4 py-3 text-base font-semibold transition hover:bg-foreground/5 dark:hover:bg-background-dark/60">
+                        <span class="capitalize">{monthLabel}</span>
+                        <Badge variant="accent" size="sm">{monthPosts.length} article(s)</Badge>
+                      </summary>
+                      <ul class="divide-y divide-foreground/10 dark:divide-background-dark/40" role="list" aria-label={`Articles de ${monthLabel} ${year}`}>
+                        {monthPosts.map((post) => (
+                          <li class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
+                            <Link href={`/blog/${post.slug}`} variant="primary" class="text-lg">
+                              {post.data.title}
+                            </Link>
+                            <TagList tags={post.data.tags} />
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  );
+                })}
+              </div>
+            </details>
+          </Card>
         );
       })}
     </div>

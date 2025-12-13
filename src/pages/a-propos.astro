@@ -1,5 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/atoms/Card.astro';
+import Badge from '../components/atoms/Badge.astro';
+import Image from '../components/atoms/Image.astro';
+
 const paragraphs = [
   "Passionné par l'informatique depuis toujours, j'ai débuté ma carrière de développeur PHP en 2009. Au fil des années, j'ai eu l'opportunité de travailler sur une multitude de projets dans divers secteurs d'activité, ce qui m'a permis d'acquérir une vision globale des projets et de leurs enjeux.",
   "En 2021, j'ai rejoint Akawaka, une jeune ESN lyonnaise à taille humaine, où je collabore avec une équipe passionnée. Ensemble, nous mettons tout en œuvre pour offrir à nos clients des prestations de qualité, soutenues par une formation continue en interne. Mon engagement pour la qualité se reflète dans ma certification Opquast, et je vise prochainement la certification Symfony.",
@@ -11,19 +15,23 @@ const paragraphs = [
 ---
 <BaseLayout title="À propos" lang="fr" currentPath="/a-propos">
   <section class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-    <div class="card-surface space-y-4 p-6">
-      <span class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+    <Card class="space-y-4 p-6">
+      <Badge variant="primary" size="md" class="inline-flex items-center gap-2 uppercase tracking-[0.2em]">
         Qui suis-je ?
-      </span>
+      </Badge>
       <h1 class="section-title">Un peu plus à propos de moi.</h1>
       <div class="space-y-4 text-lg text-foreground/80 dark:text-foreground-dark/75">
         {paragraphs.map((text) => (
           <p class="leading-relaxed">{text}</p>
         ))}
       </div>
-    </div>
-    <div class="card-surface overflow-hidden p-0">
-      <img class="h-full w-full object-cover" src="/images/about.jpg" alt="Photo d'ordinateur portable" loading="lazy" />
-    </div>
+    </Card>
+    <Card class="overflow-hidden p-0">
+      <Image
+        src="/images/about.jpg"
+        alt="Photo d'ordinateur portable"
+        class="h-full w-full object-cover"
+      />
+    </Card>
   </section>
 </BaseLayout>

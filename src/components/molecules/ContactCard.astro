@@ -1,0 +1,24 @@
+---
+import Card from '../atoms/Card.astro';
+import Link from '../atoms/Link.astro';
+import Image from '../atoms/Image.astro';
+
+interface Props {
+  href: string;
+  title: string;
+  picto: string;
+  alt: string;
+}
+
+const { href, title, picto, alt } = Astro.props;
+---
+
+<Card class="group flex items-center gap-4 p-5 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/20">
+  <Link href={href} external class="flex w-full items-center gap-4 no-underline">
+    <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-foreground/5 text-foreground ring-1 ring-foreground/10 transition group-hover:bg-primary/10 group-hover:text-primary dark:bg-background-dark/60 dark:text-foreground-dark dark:ring-background-dark/30 dark:group-hover:text-primary-dark" aria-hidden="true">
+      <Image src={picto} alt="" class="h-7 w-7" loading="lazy" />
+    </span>
+    <span class="text-base font-semibold text-foreground group-hover:text-primary dark:text-foreground-dark dark:group-hover:text-primary-dark">{title}</span>
+    <span class="sr-only">{alt} (ouvre dans un nouvel onglet)</span>
+  </Link>
+</Card>

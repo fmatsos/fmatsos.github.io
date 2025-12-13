@@ -1,0 +1,22 @@
+---
+import Link from '../atoms/Link.astro';
+
+interface Props {
+  href: string;
+  currentPath?: string;
+  class?: string;
+}
+
+const { href, currentPath = '/', class: className = '' } = Astro.props;
+const isActive = currentPath === href || (href !== '/' && currentPath.startsWith(href));
+const activeClasses = isActive ? 'text-primary dark:text-primary-dark' : 'text-foreground dark:text-foreground-dark';
+---
+
+<Link
+  href={href}
+  class={`font-semibold transition hover:text-primary dark:hover:text-primary-dark ${activeClasses} ${className}`}
+  ariaLabel={isActive ? `${Astro.slots.render('default')} (page actuelle)` : undefined}
+  aria-current={isActive ? 'page' : undefined}
+>
+  <slot />
+</Link>
