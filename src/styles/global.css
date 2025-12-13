@@ -20,8 +20,57 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
   font-family: var(--font-sans);
+}
+
+/* Focus visible improvements for better keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.dark *:focus-visible {
+  outline-color: var(--color-primary-dark);
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus,
+.sr-only:active {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
 }
 
 .app-container {
@@ -33,11 +82,11 @@ body {
 }
 
 .btn-primary {
-  @apply inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-3 text-base font-semibold text-background transition hover:opacity-80 dark:bg-foreground-dark dark:text-background-dark;
+  @apply inline-flex items-center gap-2 bg-foreground px-5 py-3 text-base font-semibold text-background transition hover:opacity-80 dark:bg-foreground-dark dark:text-background-dark;
 }
 
 .btn-secondary {
-  @apply inline-flex items-center gap-2 rounded-lg bg-foreground/10 px-5 py-3 text-base font-semibold text-foreground transition hover:opacity-80 dark:bg-foreground-dark/15 dark:text-foreground-dark;
+  @apply inline-flex items-center gap-2 bg-foreground/10 px-5 py-3 text-base font-semibold text-foreground transition hover:opacity-80 dark:bg-foreground-dark/15 dark:text-foreground-dark;
 }
 
 .section-title {
@@ -49,23 +98,44 @@ body {
 }
 
 .card-surface {
-  @apply rounded-2xl border border-foreground/10 bg-background/70 shadow-xl shadow-foreground/5 backdrop-blur dark:border-background-dark/30 dark:bg-background-dark/80 dark:shadow-background-dark/40;
+  @apply border border-foreground/10 bg-background/70 shadow-xl shadow-foreground/5 backdrop-blur dark:border-background-dark/30 dark:bg-background-dark/80 dark:shadow-background-dark/40;
 }
 
 .rich-text {
-  @apply prose prose-slate max-w-none text-foreground/90 prose-a:text-primary prose-a:no-underline hover:prose-a:underline dark:prose-invert dark:prose-a:text-primary-dark;
+  @apply prose prose-slate max-w-none text-foreground/90 prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:font-semibold prose-strong:text-foreground dark:prose-invert dark:prose-a:text-primary-dark dark:prose-strong:text-foreground-dark;
 }
 
 .rich-text pre {
-  @apply rounded-xl border border-foreground/10 bg-background-dark/90 text-foreground-dark shadow-lg dark:border-background-dark/40;
+  @apply border border-foreground/10 bg-background-dark/90 text-foreground-dark shadow-lg dark:border-background-dark/40;
 }
 
 .rich-text code {
-  @apply rounded bg-foreground/5 px-1.5 py-0.5 text-sm font-mono font-semibold dark:bg-background-dark/60;
+  @apply bg-foreground/5 px-1.5 py-0.5 text-sm font-mono font-semibold dark:bg-background-dark/60;
+}
+
+.rich-text pre code {
+  @apply bg-transparent px-0 py-0;
+}
+
+.rich-text blockquote {
+  @apply border-l-4 border-primary/30 pl-4 italic text-foreground/80 dark:border-primary-dark/30 dark:text-foreground-dark/80;
+}
+
+.rich-text ul,
+.rich-text ol {
+  @apply space-y-2;
+}
+
+.rich-text li {
+  @apply leading-relaxed;
+}
+
+.rich-text img {
+  @apply shadow-lg;
 }
 
 .tag-chip {
-  @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold tracking-tight ring-1 transition;
+  @apply inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold tracking-tight ring-1 transition;
 }
 
 .posts-grid-container {
@@ -73,5 +143,5 @@ body {
 }
 
 .prose iframe {
-  @apply my-12 aspect-video w-full rounded-xl border border-foreground/10 shadow-lg;
+  @apply my-12 aspect-video w-full border border-foreground/10 shadow-lg;
 }

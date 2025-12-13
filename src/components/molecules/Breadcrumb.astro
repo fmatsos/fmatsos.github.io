@@ -1,0 +1,44 @@
+---
+import Link from '../atoms/Link.astro';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  lang?: 'fr' | 'en';
+}
+
+const { items, lang = 'fr' } = Astro.props;
+const homeLabel = lang === 'fr' ? 'Accueil' : 'Home';
+---
+
+<nav aria-label={lang === 'fr' ? 'Fil d\'ariane' : 'Breadcrumb'} class="mb-6">
+  <ol class="flex flex-wrap items-center gap-2 text-sm" role="list">
+    <li role="listitem">
+      <Link href={lang === 'fr' ? '/' : '/en/'} variant="subtle" class="hover:text-foreground dark:hover:text-foreground-dark">
+        {homeLabel}
+      </Link>
+    </li>
+    {items.map((item, index) => (
+      <>
+        <li role="presentation" aria-hidden="true" class="text-foreground/40 dark:text-foreground-dark/40">
+          /
+        </li>
+        <li role="listitem">
+          {item.href ? (
+            <Link href={item.href} variant="subtle" class="hover:text-foreground dark:hover:text-foreground-dark">
+              {item.label}
+            </Link>
+          ) : (
+            <span class="font-semibold text-foreground dark:text-foreground-dark" aria-current="page">
+              {item.label}
+            </span>
+          )}
+        </li>
+      </>
+    ))}
+  </ol>
+</nav>

@@ -1,0 +1,23 @@
+---
+import { BASELINE, SITE_TITLE } from '../../config';
+
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+const generatedText = lang === 'fr' ? 'Site généré avec Astro • Netlify' : 'Site generated with Astro • Netlify';
+---
+
+<footer
+  class="border-t border-foreground/10 bg-background/90 py-8 dark:border-background-dark/40 dark:bg-background-dark/90"
+  role="contentinfo"
+>
+  <div class="app-container flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+      <p class="text-lg font-semibold">{SITE_TITLE}</p>
+      <p class="text-sm text-foreground/70 dark:text-foreground-dark/70">{BASELINE}</p>
+    </div>
+    <p class="text-sm text-foreground/60 dark:text-foreground-dark/60">{generatedText}</p>
+  </div>
+</footer>

@@ -1,0 +1,176 @@
+---
+import { BASELINE, SITE_TITLE } from '../../config';
+import NavItem from '../molecules/NavItem.astro';
+import IconButton from '../atoms/IconButton.astro';
+import SkipLink from '../atoms/SkipLink.astro';
+
+interface Props {
+  lang: 'fr' | 'en';
+  currentPath?: string;
+}
+
+const { lang, currentPath = '/' } = Astro.props as Props;
+
+const nav = lang === 'fr'
+  ? [
+      { href: '/', label: 'Accueil' },
+      { href: '/a-propos', label: 'À propos' },
+      { href: '/blog', label: 'Blog' },
+    ]
+  : [
+      { href: '/en/', label: 'Home' },
+      { href: '/en/about', label: 'About' },
+      { href: '/en/blog', label: 'Blog' },
+    ];
+
+const openMenuText = lang === 'fr' ? 'Ouvrir le menu' : 'Open menu';
+const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
+---
+
+<SkipLink to="main-content">
+  {lang === 'fr' ? 'Aller au contenu principal' : 'Skip to main content'}
+</SkipLink>
+
+<header
+  class="fixed top-0 z-40 w-full border-b border-foreground/10 bg-background/90 backdrop-blur dark:border-background-dark/40 dark:bg-background-dark/90"
+  role="banner"
+>
+  <div class="app-container flex items-center justify-between py-4">
+    <a href={lang === 'fr' ? '/' : '/en/'} class="flex items-center gap-3 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" aria-label={`${SITE_TITLE} - ${BASELINE}`}>
+      <div class="leading-tight">
+        <p class="text-lg font-bold">{SITE_TITLE}</p>
+        <p class="text-sm text-foreground/70 dark:text-foreground-dark/70">{BASELINE}</p>
+      </div>
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}>
+      {nav.map((item) => (
+        <NavItem href={item.href} currentPath={currentPath} lang={lang}>
+          {item.label}
+        </NavItem>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <div class="hidden md:flex" id="theme-selector-desktop">
+        <slot name="theme-selector" />
+      </div>
+      <IconButton
+        icon="mdi:menu"
+        ariaLabel={openMenuText}
+        title={openMenuText}
+        id="nav-open-btn"
+        class="md:hidden"
+      />
+    </div>
+  </div>
+
+  <div
+    class="fixed right-0 top-0 z-40 h-screen w-5/6 max-w-sm translate-x-full border-l border-foreground/10 bg-background px-8 py-6 transition-transform dark:border-background-dark/40 dark:bg-background-dark md:hidden"
+    id="mobile-menu"
+    aria-label={lang === 'fr' ? 'Menu mobile' : 'Mobile menu'}
+  >
+    <IconButton
+      icon="mdi:close"
+      ariaLabel={closeMenuText}
+      title={closeMenuText}
+      id="nav-close-btn"
+      class="ml-auto block"
+    />
+    <nav class="flex h-full flex-col items-start gap-6 pt-12" aria-label={lang === 'fr' ? 'Navigation mobile' : 'Mobile navigation'}>
+      {nav.map((item) => (
+        <NavItem class="text-3xl font-light" href={item.href} currentPath={currentPath} lang={lang}>
+          {item.label}
+        </NavItem>
+      ))}
+      <div class="mt-4" id="theme-selector-mobile">
+        <slot name="theme-selector" />
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function toggleNav() {
+    const menu = document.querySelector('#mobile-menu');
+    menu?.classList.toggle('mobile-nav-open');
+    const isOpen = menu?.classList.contains('mobile-nav-open');
+    
+    // Manage focus
+    if (isOpen) {
+      document.querySelector<HTMLElement>('#nav-close-btn')?.focus();
+    } else {
+      document.querySelector<HTMLElement>('#nav-open-btn')?.focus();
+    }
+    
+    // Prevent body scroll when menu is open
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+
+  document.querySelector('#nav-open-btn')?.addEventListener('click', toggleNav);
+  document.querySelector('#nav-close-btn')?.addEventListener('click', toggleNav);
+
+  // Close menu on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.querySelector('#mobile-menu')?.classList.contains('mobile-nav-open')) {
+      toggleNav();
+    }
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('mousedown', (e) => {
+    const menu = document.querySelector('#mobile-menu');
+    if (menu?.classList.contains('mobile-nav-open') && !menu.contains(e.target as Node) && e.target !== document.querySelector('#nav-open-btn')) {
+      toggleNav();
+    }
+  });
+</script>
+
+<script is:inline>
+  function reComputeTheme() {
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    const theme = localStorage.theme || 'auto';
+    document.querySelectorAll(`[data-theme="theme-${theme}"]`).forEach((el) => el.classList.add('active'));
+  }
+
+  function addThemeEventListeners() {
+    const themeButtons = document.querySelectorAll('.theme-button');
+    themeButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        themeButtons.forEach((btn) => btn.classList.remove('active'));
+        button.classList.add('active');
+        if (button.dataset.theme === 'theme-auto') {
+          localStorage.removeItem('theme');
+          reComputeTheme();
+        } else {
+          localStorage.theme = button.dataset.theme?.replace('theme-', '') ?? 'auto';
+          document.documentElement.classList.toggle('dark', button.dataset.theme === 'theme-dark');
+        }
+      });
+    });
+  }
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    reComputeTheme();
+  });
+
+  window.matchMedia('(min-width: 768px)').addEventListener('change', () => {
+    addThemeEventListeners();
+    reComputeTheme();
+  });
+
+  reComputeTheme();
+
+  window.addEventListener('DOMContentLoaded', () => {
+    addThemeEventListeners();
+    reComputeTheme();
+  });
+</script>

@@ -1,7 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { tagClasses, tagHref } from '../../utils/tags';
+import Card from '../../components/atoms/Card.astro';
+import Badge from '../../components/atoms/Badge.astro';
+import Link from '../../components/atoms/Link.astro';
+import TagList from '../../components/molecules/TagList.astro';
+import Breadcrumb from '../../components/molecules/Breadcrumb.astro';
+import { SITE_TITLE } from '../../config';
 
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' });
 
@@ -17,33 +22,48 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 const { title, description, pubDate, tags } = post.data;
+
+const breadcrumbItems = [
+  { label: 'Blog', href: '/blog' },
+  { label: title }
+];
 ---
-<BaseLayout title={title} description={description} lang="fr" currentPath={Astro.url.pathname}>
-  <article class="card-surface space-y-6 p-6">
-    <div class="flex flex-wrap items-center gap-3 text-sm text-foreground/70 dark:text-foreground-dark/70">
-      <span class="rounded-full bg-foreground/5 px-3 py-1 font-semibold text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
-        {dateFormatter.format(pubDate)}
-      </span>
-      {tags.map((tag) => (
-        <a class={tagClasses(tag)} href={tagHref(tag)}>
-          {tag}
-        </a>
-      ))}
-    </div>
+<BaseLayout
+  title={title}
+  description={description}
+  lang="fr"
+  currentPath={Astro.url.pathname}
+  type="article"
+  author={SITE_TITLE}
+  publishedTime={pubDate.toISOString()}
+>
+  <Breadcrumb items={breadcrumbItems} lang="fr" />
+  
+  <article>
+    <Card class="space-y-6 p-6">
+      <div class="flex flex-wrap items-center gap-3 text-sm text-foreground/70 dark:text-foreground-dark/70">
+        <Badge variant="accent" class="font-semibold">
+          <time datetime={pubDate.toISOString()}>
+            {dateFormatter.format(pubDate)}
+          </time>
+        </Badge>
+        <TagList tags={tags} />
+      </div>
 
-    <div class="space-y-3">
-      <h1 class="text-3xl font-bold sm:text-4xl">{title}</h1>
-      <p class="text-lg text-foreground/80 dark:text-foreground-dark/75">{description}</p>
-    </div>
+      <header class="space-y-3">
+        <h1 class="text-3xl font-bold sm:text-4xl">{title}</h1>
+        <p class="text-lg text-foreground/80 dark:text-foreground-dark/75">{description}</p>
+      </header>
 
-    <div class="rich-text space-y-6 leading-relaxed">
-      <Content />
-    </div>
+      <div class="rich-text space-y-6 leading-relaxed">
+        <Content />
+      </div>
 
-    <div class="pt-4">
-      <a class="text-sm font-semibold text-primary underline decoration-primary/60 underline-offset-4 hover:text-primary/80 dark:text-primary-dark" href="/blog">
-        ← Retour au blog
-      </a>
-    </div>
+      <nav class="pt-4" aria-label="Retour à la liste">
+        <Link href="/blog" variant="primary">
+          ← Retour au blog
+        </Link>
+      </nav>
+    </Card>
   </article>
 </BaseLayout>

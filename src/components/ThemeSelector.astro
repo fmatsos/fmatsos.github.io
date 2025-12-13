@@ -5,41 +5,42 @@ const { class: className } = Astro.props;
 <div
   class:list={[
     className,
-    'border border-foreground/20 dark:border-foreground-dark/30 rounded-full flex justify-center items-center text-foreground dark:text-foreground-dark [&>*:hover]:brightness-75 md:opacity-90 [&>*]:cursor-pointer backdrop-blur'
+    'border border-foreground/20 dark:border-foreground-dark/30 flex justify-center items-center text-foreground dark:text-foreground-dark backdrop-blur'
   ]}
+  role="group"
+  aria-label="Sélecteur de thème"
 >
   <button
     data-theme="theme-auto"
     aria-label="Thème automatique"
     title="Suivre le thème système"
-    class="theme-button theme-auto"
+    class="theme-button theme-auto p-1.5 transition-colors hover:brightness-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    type="button"
   >
-    <Icon name="mdi:brightness-auto" class:list="duration-0 text-2xl md:text-xl" aria-hidden />
+    <Icon name="mdi:brightness-auto" class:list="duration-0 text-2xl md:text-xl" aria-hidden="true" />
   </button>
   <button
     data-theme="theme-light"
     aria-label="Thème clair"
     title="Passer au thème clair"
-    class="theme-button theme-light"
+    class="theme-button theme-light p-1.5 transition-colors hover:brightness-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    type="button"
   >
-    <Icon name="mdi:white-balance-sunny" class:list="duration-0 text-2xl md:text-xl" aria-hidden />
+    <Icon name="mdi:white-balance-sunny" class:list="duration-0 text-2xl md:text-xl" aria-hidden="true" />
   </button>
   <button
     data-theme="theme-dark"
     aria-label="Thème sombre"
     title="Passer au thème sombre"
-    class="theme-button theme-dark"
+    class="theme-button theme-dark p-1.5 transition-colors hover:brightness-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    type="button"
   >
-    <Icon name="mdi:moon-and-stars" class:list="duration-0 text-2xl md:text-xl" aria-hidden />
+    <Icon name="mdi:moon-and-stars" class:list="duration-0 text-2xl md:text-xl" aria-hidden="true" />
   </button>
 </div>
 
 <style>
   @reference "../styles/global.css";
-
-  button.theme-button {
-    @apply p-1.5 rounded-full duration-0;
-  }
 
   :global(button.active) {
     @apply bg-foreground text-background dark:bg-foreground-dark dark:text-background-dark;

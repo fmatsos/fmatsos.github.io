@@ -1,0 +1,54 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon: string;
+  ariaLabel: string;
+  title?: string;
+  variant?: 'default' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  onClick?: string;
+}
+
+const {
+  icon,
+  ariaLabel,
+  title,
+  variant = 'default',
+  size = 'md',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const baseClasses = 'inline-flex items-center justify-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2';
+
+const variantClasses = {
+  default: 'border border-foreground/15 text-foreground/80 hover:border-primary hover:text-primary dark:border-background-dark/40 dark:text-foreground-dark/80 dark:hover:text-primary-dark',
+  ghost: 'text-foreground/80 hover:bg-foreground/10 hover:text-primary dark:text-foreground-dark/80 dark:hover:bg-foreground-dark/10 dark:hover:text-primary-dark',
+};
+
+const sizeClasses = {
+  sm: 'p-1.5',
+  md: 'p-2',
+  lg: 'p-3',
+};
+
+const iconSizes = {
+  sm: 20,
+  md: 28,
+  lg: 32,
+};
+
+const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+---
+
+<button
+  type="button"
+  class={classes}
+  aria-label={ariaLabel}
+  title={title || ariaLabel}
+  {...rest}
+>
+  <Icon name={icon} size={iconSizes[size]} aria-hidden="true" />
+</button>
