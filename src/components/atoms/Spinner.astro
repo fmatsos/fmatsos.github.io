@@ -2,9 +2,11 @@
 interface Props {
   size?: 'sm' | 'md' | 'lg';
   class?: string;
+  lang?: 'fr' | 'en';
 }
 
-const { size = 'md', class: className = '' } = Astro.props;
+const { size = 'md', class: className = '', lang = 'fr' } = Astro.props;
+const loadingText = lang === 'fr' ? 'Chargement...' : 'Loading...';
 
 const sizeClasses = {
   sm: 'h-4 w-4 border-2',
@@ -16,5 +18,5 @@ const classes = `inline-block animate-spin rounded-full border-solid border-prim
 ---
 
 <div role="status" class={classes}>
-  <span class="sr-only">Chargement...</span>
+  <span class="sr-only">{loadingText}</span>
 </div>

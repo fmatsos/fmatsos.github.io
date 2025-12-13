@@ -7,16 +7,18 @@ interface Props {
   tags: string[];
   variant?: 'default' | 'primary';
   clickable?: boolean;
+  lang?: 'fr' | 'en';
 }
 
-const { tags, variant = 'default', clickable = true } = Astro.props;
+const { tags, variant = 'default', clickable = true, lang = 'fr' } = Astro.props;
+const tagsLabel = lang === 'fr' ? 'Tags' : 'Tags';
 ---
 
-<div class="flex flex-wrap gap-2" role="list" aria-label="Tags">
+<div class="flex flex-wrap gap-2" role="list" aria-label={tagsLabel}>
   {tags.map((tag) => (
     <div role="listitem">
       {clickable ? (
-        <Link href={tagHref(tag)} class="no-underline" ariaLabel={`Articles taggés ${tag}`}>
+        <Link href={tagHref(tag)} class="no-underline" ariaLabel={lang === 'fr' ? `Articles taggés ${tag}` : `Posts tagged ${tag}`}>
           <Badge variant={variant} class={`transition hover:ring-primary/40 ${tagClasses(tag)}`}>
             {tag}
           </Badge>

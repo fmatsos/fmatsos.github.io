@@ -9,3 +9,9 @@ src/styles/tailwind.css
 src/styles/tailwind.css.map
 
 .astro
+
+# Analysis files
+analyze-site.ts
+/tmp/analysis-*.md
+/tmp/analysis-*.json
+

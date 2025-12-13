@@ -8,9 +8,11 @@ interface Props {
   title: string;
   picto: string;
   alt: string;
+  lang?: 'fr' | 'en';
 }
 
-const { href, title, picto, alt } = Astro.props;
+const { href, title, picto, alt, lang = 'fr' } = Astro.props;
+const newTabText = lang === 'fr' ? '(ouvre dans un nouvel onglet)' : '(opens in new tab)';
 ---
 
 <Card class="group flex items-center gap-4 p-5 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/20">
@@ -19,6 +21,6 @@ const { href, title, picto, alt } = Astro.props;
       <Image src={picto} alt="" class="h-7 w-7" loading="lazy" />
     </span>
     <span class="text-base font-semibold text-foreground group-hover:text-primary dark:text-foreground-dark dark:group-hover:text-primary-dark">{title}</span>
-    <span class="sr-only">{alt} (ouvre dans un nouvel onglet)</span>
+    <span class="sr-only">{alt} {newTabText}</span>
   </Link>
 </Card>
