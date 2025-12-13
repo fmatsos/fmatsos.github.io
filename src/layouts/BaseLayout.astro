@@ -12,16 +12,25 @@ interface Props {
   description?: string;
   lang?: 'fr' | 'en';
   currentPath?: string;
+  type?: 'website' | 'article';
+  author?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
-const { title, description, lang = 'fr', currentPath = '/' } = Astro.props as Props;
-const pageTitle = title ? `${title} • ${SITE_TITLE}` : `${SITE_TITLE} • ${BASELINE}`;
-const metaDescription = description ?? SITE_DESCRIPTION;
+const { title, description, lang = 'fr', currentPath = '/', type, author, publishedTime, modifiedTime } = Astro.props as Props;
 ---
 <!doctype html>
 <html lang={lang} class="scroll-smooth">
   <head>
-    <BaseHead title={pageTitle} description={metaDescription} />
+    <BaseHead
+      title={title}
+      description={description}
+      type={type}
+      author={author}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+    />
   </head>
   <body
     class="min-h-screen bg-background text-foreground antialiased dark:bg-background-dark dark:text-foreground-dark"

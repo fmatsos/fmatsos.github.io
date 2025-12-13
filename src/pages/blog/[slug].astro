@@ -6,6 +6,7 @@ import Badge from '../../components/atoms/Badge.astro';
 import Link from '../../components/atoms/Link.astro';
 import TagList from '../../components/molecules/TagList.astro';
 import Breadcrumb from '../../components/molecules/Breadcrumb.astro';
+import { SITE_TITLE } from '../../config';
 
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' });
 
@@ -27,7 +28,15 @@ const breadcrumbItems = [
   { label: title }
 ];
 ---
-<BaseLayout title={title} description={description} lang="fr" currentPath={Astro.url.pathname}>
+<BaseLayout
+  title={title}
+  description={description}
+  lang="fr"
+  currentPath={Astro.url.pathname}
+  type="article"
+  author={SITE_TITLE}
+  publishedTime={pubDate.toISOString()}
+>
   <Breadcrumb items={breadcrumbItems} lang="fr" />
   
   <article>
