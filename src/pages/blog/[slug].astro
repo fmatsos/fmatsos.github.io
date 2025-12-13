@@ -6,7 +6,6 @@ import Badge from '../../components/atoms/Badge.astro';
 import Link from '../../components/atoms/Link.astro';
 import TagList from '../../components/molecules/TagList.astro';
 import Breadcrumb from '../../components/molecules/Breadcrumb.astro';
-import Sidebar from '../../components/organisms/Sidebar.astro';
 import { extractHeadings } from '../../utils/headings';
 import { SITE_TITLE } from '../../config';
 
@@ -22,11 +21,8 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content, headings: contentHeadings } = await post.render();
+const { Content } = await post.render();
 const { title, description, pubDate, tags } = post.data;
-
-// Extract H2 headings from the rendered content
-let postHeadings = contentHeadings?.filter((h) => h.depth === 2) || [];
 
 const breadcrumbItems = [
   { label: 'Blog', href: '/blog' },
@@ -44,8 +40,7 @@ const breadcrumbItems = [
 >
   <Breadcrumb items={breadcrumbItems} lang="fr" />
   
-  <div class="grid grid-cols-1 gap-8 lg:grid-cols-4">
-    <article class="lg:col-span-3">
+  <article>
       <Card class="space-y-6 p-6">
         <div class="flex flex-wrap items-center gap-3 text-sm text-foreground/70 dark:text-foreground-dark/70">
           <Badge variant="accent" class="font-semibold">
@@ -72,9 +67,4 @@ const breadcrumbItems = [
         </nav>
       </Card>
     </article>
-
-    <div class="lg:col-span-1">
-      <Sidebar headings={postHeadings} title="Dans cet article" />
-    </div>
-  </div>
 </BaseLayout>
