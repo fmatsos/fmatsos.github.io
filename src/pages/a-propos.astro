@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Card from '../components/atoms/Card.astro';
 import Badge from '../components/atoms/Badge.astro';
 import Image from '../components/atoms/Image.astro';
 
@@ -15,7 +14,7 @@ const paragraphs = [
 ---
 <BaseLayout title="À propos" lang="fr" currentPath="/a-propos">
   <section class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-    <Card class="space-y-4 p-6">
+    <div class="space-y-4 border border-foreground/10 bg-background/70 p-6 shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
       <Badge variant="primary" size="md" class="inline-flex items-center gap-2 uppercase tracking-[0.2em]">
         Qui suis-je ?
       </Badge>
@@ -25,13 +24,13 @@ const paragraphs = [
           <p class="leading-relaxed">{text}</p>
         ))}
       </div>
-    </Card>
-    <Card class="overflow-hidden p-0">
+    </div>
+    <div class="overflow-hidden border border-foreground/10 bg-background/70 p-0 shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
       <Image
         src="/images/about.jpg"
         alt="Photo d'ordinateur portable"
         class="h-full w-full object-cover"
       />
-    </Card>
+    </div>
   </section>
 </BaseLayout>

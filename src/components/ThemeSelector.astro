@@ -5,7 +5,7 @@ const { class: className } = Astro.props;
 <div
   class:list={[
     className,
-    'border border-foreground/20 dark:border-foreground-dark/30 rounded-full flex justify-center items-center text-foreground dark:text-foreground-dark backdrop-blur'
+    'border border-foreground/20 dark:border-foreground-dark/30 flex justify-center items-center text-foreground dark:text-foreground-dark backdrop-blur'
   ]}
   role="group"
   aria-label="Sélecteur de thème"
@@ -14,7 +14,7 @@ const { class: className } = Astro.props;
     data-theme="theme-auto"
     aria-label="Thème automatique"
     title="Suivre le thème système"
-    class="theme-button theme-auto p-1.5 rounded-full transition-colors hover:brightness-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    class="theme-button theme-auto p-1.5 transition-colors hover:brightness-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     type="button"
   >
     <Icon name="mdi:brightness-auto" class:list="duration-0 text-2xl md:text-xl" aria-hidden="true" />
@@ -23,7 +23,7 @@ const { class: className } = Astro.props;
     data-theme="theme-light"
     aria-label="Thème clair"
     title="Passer au thème clair"
-    class="theme-button theme-light p-1.5 rounded-full transition-colors hover:brightness-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    class="theme-button theme-light p-1.5 transition-colors hover:brightness-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     type="button"
   >
     <Icon name="mdi:white-balance-sunny" class:list="duration-0 text-2xl md:text-xl" aria-hidden="true" />
@@ -32,7 +32,7 @@ const { class: className } = Astro.props;
     data-theme="theme-dark"
     aria-label="Thème sombre"
     title="Passer au thème sombre"
-    class="theme-button theme-dark p-1.5 rounded-full transition-colors hover:brightness-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    class="theme-button theme-dark p-1.5 transition-colors hover:brightness-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     type="button"
   >
     <Icon name="mdi:moon-and-stars" class:list="duration-0 text-2xl md:text-xl" aria-hidden="true" />

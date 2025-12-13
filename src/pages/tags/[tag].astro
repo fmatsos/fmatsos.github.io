@@ -76,7 +76,7 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
         const monthEntries = Array.from(months.entries()).sort((a, b) => b[0] - a[0]);
 
         return (
-          <Card class="overflow-hidden">
+          <div class="overflow-hidden border border-foreground/10 bg-background/70 shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
             <details open={yearIndex === 0}>
               <summary class="flex cursor-pointer items-center justify-between bg-foreground/5 px-5 py-3 text-lg font-semibold transition hover:bg-foreground/10 dark:bg-background-dark/70 dark:hover:bg-background-dark/60">
                 <span>{year}</span>
@@ -91,7 +91,7 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
                   return (
                     <details
                       open={yearIndex === 0 && monthIndex === 0}
-                      class="overflow-hidden rounded-xl border border-foreground/10 bg-background/60 dark:border-background-dark/40 dark:bg-background-dark/70"
+                      class="overflow-hidden border border-foreground/10 bg-background/60 dark:border-background-dark/40 dark:bg-background-dark/70"
                     >
                       <summary class="flex cursor-pointer items-center justify-between px-4 py-3 text-base font-semibold transition hover:bg-foreground/5 dark:hover:bg-background-dark/60">
                         <span class="capitalize">{monthLabel}</span>
@@ -100,9 +100,16 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
                       <ul class="divide-y divide-foreground/10 dark:divide-background-dark/40" role="list" aria-label={`Articles de ${monthLabel} ${year}`}>
                         {monthPosts.map((post) => (
                           <li class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
-                            <Link href={`/blog/${post.slug}`} variant="primary" class="text-lg">
-                              {post.data.title}
-                            </Link>
+                            <div class="flex-1">
+                              <Link href={`/blog/${post.slug}`} variant="primary" class="text-lg">
+                                {post.data.title}
+                              </Link>
+                              <p class="text-sm text-foreground/60 dark:text-foreground-dark/60 mt-1">
+                                <time datetime={post.data.pubDate.toISOString()}>
+                                  {new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(post.data.pubDate)}
+                                </time>
+                              </p>
+                            </div>
                             <TagList tags={post.data.tags} />
                           </li>
                         ))}
@@ -112,7 +119,7 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
                 })}
               </div>
             </details>
-          </Card>
+          </div>
         );
       })}
     </div>

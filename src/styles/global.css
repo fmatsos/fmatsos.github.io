@@ -82,11 +82,11 @@ body {
 }
 
 .btn-primary {
-  @apply inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-3 text-base font-semibold text-background transition hover:opacity-80 dark:bg-foreground-dark dark:text-background-dark;
+  @apply inline-flex items-center gap-2 bg-foreground px-5 py-3 text-base font-semibold text-background transition hover:opacity-80 dark:bg-foreground-dark dark:text-background-dark;
 }
 
 .btn-secondary {
-  @apply inline-flex items-center gap-2 rounded-lg bg-foreground/10 px-5 py-3 text-base font-semibold text-foreground transition hover:opacity-80 dark:bg-foreground-dark/15 dark:text-foreground-dark;
+  @apply inline-flex items-center gap-2 bg-foreground/10 px-5 py-3 text-base font-semibold text-foreground transition hover:opacity-80 dark:bg-foreground-dark/15 dark:text-foreground-dark;
 }
 
 .section-title {
@@ -98,7 +98,7 @@ body {
 }
 
 .card-surface {
-  @apply rounded-2xl border border-foreground/10 bg-background/70 shadow-xl shadow-foreground/5 backdrop-blur dark:border-background-dark/30 dark:bg-background-dark/80 dark:shadow-background-dark/40;
+  @apply border border-foreground/10 bg-background/70 shadow-xl shadow-foreground/5 backdrop-blur dark:border-background-dark/30 dark:bg-background-dark/80 dark:shadow-background-dark/40;
 }
 
 .rich-text {
@@ -106,11 +106,11 @@ body {
 }
 
 .rich-text pre {
-  @apply rounded-xl border border-foreground/10 bg-background-dark/90 text-foreground-dark shadow-lg dark:border-background-dark/40;
+  @apply border border-foreground/10 bg-background-dark/90 text-foreground-dark shadow-lg dark:border-background-dark/40;
 }
 
 .rich-text code {
-  @apply rounded bg-foreground/5 px-1.5 py-0.5 text-sm font-mono font-semibold dark:bg-background-dark/60;
+  @apply bg-foreground/5 px-1.5 py-0.5 text-sm font-mono font-semibold dark:bg-background-dark/60;
 }
 
 .rich-text pre code {
@@ -131,11 +131,11 @@ body {
 }
 
 .rich-text img {
-  @apply rounded-xl shadow-lg;
+  @apply shadow-lg;
 }
 
 .tag-chip {
-  @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold tracking-tight ring-1 transition;
+  @apply inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold tracking-tight ring-1 transition;
 }
 
 .posts-grid-container {
@@ -143,5 +143,5 @@ body {
 }
 
 .prose iframe {
-  @apply my-12 aspect-video w-full rounded-xl border border-foreground/10 shadow-lg;
+  @apply my-12 aspect-video w-full border border-foreground/10 shadow-lg;
 }

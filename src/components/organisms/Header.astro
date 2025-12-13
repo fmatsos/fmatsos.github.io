@@ -2,7 +2,6 @@
 import { BASELINE, SITE_TITLE } from '../../config';
 import NavItem from '../molecules/NavItem.astro';
 import IconButton from '../atoms/IconButton.astro';
-import Button from '../atoms/Button.astro';
 import SkipLink from '../atoms/SkipLink.astro';
 
 interface Props {
@@ -24,10 +23,6 @@ const nav = lang === 'fr'
       { href: '/en/blog', label: 'Blog' },
     ];
 
-const languageSwitch = lang === 'fr'
-  ? { label: 'English version', href: currentPath.startsWith('/blog') ? '/en/blog' : currentPath === '/a-propos' ? '/en/about' : '/en/' }
-  : { label: 'Version française', href: currentPath.startsWith('/en/blog') ? '/blog' : currentPath === '/en/about' ? '/a-propos' : '/' };
-
 const openMenuText = lang === 'fr' ? 'Ouvrir le menu' : 'Open menu';
 const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
 ---
@@ -41,10 +36,7 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
   role="banner"
 >
   <div class="app-container flex items-center justify-between py-4">
-    <a href={lang === 'fr' ? '/' : '/en/'} class="flex items-center gap-3 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg" aria-label={`${SITE_TITLE} - ${BASELINE}`}>
-      <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-background shadow-lg shadow-primary/30 dark:bg-primary-dark dark:text-foreground" aria-hidden="true">
-        <span class="text-lg font-black tracking-tight">FM</span>
-      </div>
+    <a href={lang === 'fr' ? '/' : '/en/'} class="flex items-center gap-3 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" aria-label={`${SITE_TITLE} - ${BASELINE}`}>
       <div class="leading-tight">
         <p class="text-lg font-bold">{SITE_TITLE}</p>
         <p class="text-sm text-foreground/70 dark:text-foreground-dark/70">{BASELINE}</p>
@@ -53,7 +45,7 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
 
     <nav class="hidden items-center gap-8 md:flex" aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}>
       {nav.map((item) => (
-        <NavItem href={item.href} currentPath={currentPath}>
+        <NavItem href={item.href} currentPath={currentPath} lang={lang}>
           {item.label}
         </NavItem>
       ))}
@@ -63,14 +55,6 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
       <div class="hidden md:flex" id="theme-selector-desktop">
         <slot name="theme-selector" />
       </div>
-      <Button
-        href={languageSwitch.href}
-        variant="ghost"
-        size="sm"
-        class="hidden border border-foreground/15 dark:border-background-dark/40 md:inline-flex"
-      >
-        {languageSwitch.label}
-      </Button>
       <IconButton
         icon="mdi:menu"
         ariaLabel={openMenuText}
@@ -95,18 +79,10 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
     />
     <nav class="flex h-full flex-col items-start gap-6 pt-12" aria-label={lang === 'fr' ? 'Navigation mobile' : 'Mobile navigation'}>
       {nav.map((item) => (
-        <NavItem class="text-3xl font-light" href={item.href} currentPath={currentPath}>
+        <NavItem class="text-3xl font-light" href={item.href} currentPath={currentPath} lang={lang}>
           {item.label}
         </NavItem>
       ))}
-      <Button
-        href={languageSwitch.href}
-        variant="ghost"
-        size="sm"
-        class="border border-foreground/15 dark:border-background-dark/40"
-      >
-        {languageSwitch.label}
-      </Button>
       <div class="mt-4" id="theme-selector-mobile">
         <slot name="theme-selector" />
       </div>
@@ -147,5 +123,54 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
     if (menu?.classList.contains('mobile-nav-open') && !menu.contains(e.target as Node) && e.target !== document.querySelector('#nav-open-btn')) {
       toggleNav();
     }
+  });
+</script>
+
+<script is:inline>
+  function reComputeTheme() {
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    const theme = localStorage.theme || 'auto';
+    document.querySelectorAll(`[data-theme="theme-${theme}"]`).forEach((el) => el.classList.add('active'));
+  }
+
+  function addThemeEventListeners() {
+    const themeButtons = document.querySelectorAll('.theme-button');
+    themeButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        themeButtons.forEach((btn) => btn.classList.remove('active'));
+        button.classList.add('active');
+        if (button.dataset.theme === 'theme-auto') {
+          localStorage.removeItem('theme');
+          reComputeTheme();
+        } else {
+          localStorage.theme = button.dataset.theme?.replace('theme-', '') ?? 'auto';
+          document.documentElement.classList.toggle('dark', button.dataset.theme === 'theme-dark');
+        }
+      });
+    });
+  }
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    reComputeTheme();
+  });
+
+  window.matchMedia('(min-width: 768px)').addEventListener('change', () => {
+    addThemeEventListeners();
+    reComputeTheme();
+  });
+
+  reComputeTheme();
+
+  window.addEventListener('DOMContentLoaded', () => {
+    addThemeEventListeners();
+    reComputeTheme();
   });
 </script>

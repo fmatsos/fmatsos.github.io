@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ContactCard from '../components/molecules/ContactCard.astro';
 import Timeline from '../components/organisms/Timeline.astro';
-import Card from '../components/atoms/Card.astro';
 import Badge from '../components/atoms/Badge.astro';
 import Button from '../components/atoms/Button.astro';
 import Link from '../components/atoms/Link.astro';
@@ -12,7 +10,7 @@ import { links } from '../data/links';
 ---
 <BaseLayout lang="fr" currentPath="/">
   <section class="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-    <Card class="p-8">
+    <div class="border border-foreground/10 bg-background/70 p-8 shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
       <Badge variant="primary" size="md" class="inline-flex items-center gap-2 uppercase tracking-[0.2em]">
         Bienvenue
       </Badge>
@@ -34,9 +32,9 @@ import { links } from '../data/links';
         <Button href="/a-propos" variant="primary">En savoir plus</Button>
         <Button href="/en/" variant="secondary">Lire en anglais</Button>
       </div>
-    </Card>
-    <Card class="p-6 text-center">
-      <div class="mx-auto h-52 w-52 overflow-hidden rounded-full border-4 border-primary/30 shadow-xl shadow-primary/25">
+    </div>
+    <div class="border border-foreground/10 bg-background/70 p-6 text-center shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
+      <div class="mx-auto h-52 w-52 overflow-hidden border-4 border-primary/30 shadow-xl shadow-primary/25">
         <Image
           src="/images/avatar-black.avif"
           alt="Portrait de Franck Matsos"
@@ -46,34 +44,40 @@ import { links } from '../data/links';
         />
       </div>
       <div class="mt-6 grid gap-3 sm:grid-cols-2">
-        <div class="flex items-center justify-center gap-2 rounded-xl bg-foreground/5 px-4 py-3 text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
+        <div class="flex items-center justify-center gap-2 bg-foreground/5 px-4 py-3 text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
           <span class="text-xl" aria-hidden="true">📍</span>
           <span class="text-sm font-semibold">Lyon, France</span>
         </div>
-        <div class="flex items-center justify-center gap-2 rounded-xl bg-foreground/5 px-4 py-3 text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
+        <div class="flex items-center justify-center gap-2 bg-foreground/5 px-4 py-3 text-foreground dark:bg-background-dark/70 dark:text-foreground-dark">
           <span class="text-xl" aria-hidden="true">💻</span>
           <span class="text-sm font-semibold">Symfony, PHP, Web</span>
         </div>
       </div>
-    </Card>
+    </div>
   </section>
 
-  <Card class="space-y-4 p-6">
+  <section class="space-y-4 border border-foreground/10 bg-background/70 p-6 shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
     <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
       <h2 class="text-2xl font-semibold">Où me trouver ?</h2>
       <p class="text-sm text-foreground/70 dark:text-foreground-dark/70">Quelques liens pour rester en contact ou travailler ensemble.</p>
     </div>
     <div class="grid gap-4 md:grid-cols-2">
       {links.map((link) => (
-        <ContactCard
+        <a
+          class="group flex items-center gap-4 border border-foreground/10 bg-background/70 p-5 shadow-lg transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/20 dark:border-background-dark/30 dark:bg-background-dark/80"
           href={link.href}
-          title={link.title}
-          picto={link.picto}
-          alt={link.alt}
-        />
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          <span class="flex h-12 w-12 items-center justify-center bg-foreground/5 text-foreground ring-1 ring-foreground/10 transition group-hover:bg-primary/10 group-hover:text-primary dark:bg-background-dark/60 dark:text-foreground-dark dark:ring-background-dark/30 dark:group-hover:text-primary-dark" aria-hidden="true">
+            <Image src={link.picto} alt={link.alt} class="h-7 w-7" loading="lazy" />
+          </span>
+          <span class="text-base font-semibold text-foreground group-hover:text-primary dark:text-foreground-dark dark:group-hover:text-primary-dark">{link.title}</span>
+          <span class="sr-only">(ouvre dans un nouvel onglet)</span>
+        </a>
       ))}
     </div>
-  </Card>
+  </section>
 
   <Timeline items={curriculum} title="Parcours" lang="fr" />
 </BaseLayout>
