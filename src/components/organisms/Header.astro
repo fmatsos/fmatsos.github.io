@@ -31,16 +31,14 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
   {lang === 'fr' ? 'Aller au contenu principal' : 'Skip to main content'}
 </SkipLink>
 
-<header
-  class="fixed top-0 z-40 w-full border-b border-foreground/10 bg-background/90 backdrop-blur dark:border-background-dark/40 dark:bg-background-dark/90"
-  role="banner"
->
-  <div class="app-container flex items-center justify-between py-4">
-    <a href={lang === 'fr' ? '/' : '/en/'} class="flex items-center gap-3 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" aria-label={`${SITE_TITLE} - ${BASELINE}`}>
-      <div class="leading-tight">
-        <p class="text-lg font-bold">{SITE_TITLE}</p>
-        <p class="text-sm text-foreground/70 dark:text-foreground-dark/70">{BASELINE}</p>
-      </div>
+<header class="border-b border-black/15 dark:border-white/20" role="banner">
+  <div class="container mx-auto flex items-center justify-between px-4 py-6 sm:px-6">
+    <a
+      href={lang === 'fr' ? '/' : '/en/'}
+      class="text-lg font-semibold transition-colors duration-300 hover:text-black hover:dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+      aria-label={SITE_TITLE}
+    >
+      {SITE_TITLE}
     </a>
 
     <nav class="hidden items-center gap-8 md:flex" aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}>

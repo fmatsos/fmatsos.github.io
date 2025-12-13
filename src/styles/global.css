@@ -7,16 +7,14 @@
   --font-sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
-  --color-foreground: #0c0c0c;
-  --color-foreground-dark: #fafafa;
-  --color-background: #fdfdfd;
-  --color-background-dark: #1f2933;
-  --color-primary: #0784b5;
-  --color-primary-dark: #9bd4e4;
+  --color-foreground: #000000;
+  --color-foreground-dark: #ffffff;
+  --color-background: #ffffff;
+  --color-background-dark: #000000;
 }
 
 html {
-  scroll-padding-top: 6.5rem;
+  scroll-padding-top: 4rem;
   scroll-behavior: smooth;
 }
 
@@ -36,17 +34,27 @@ html {
 
 body {
   font-family: var(--font-sans);
+  @apply bg-background text-foreground dark:bg-background-dark dark:text-foreground-dark;
+}
+
+/* Smooth animations for Nano aesthetic */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate {
+  animation: fadeIn 0.6s ease-in-out;
 }
 
 /* Focus visible improvements for better keyboard navigation */
 *:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid currentColor;
   outline-offset: 2px;
-  border-radius: 4px;
-}
-
-.dark *:focus-visible {
-  outline-color: var(--color-primary-dark);
 }
 
 /* Screen reader only utility */
@@ -73,57 +81,57 @@ body {
   white-space: normal;
 }
 
-.app-container {
-  @apply container mx-auto px-6 sm:px-10 xl:px-16;
+/* Container for max-width wrapper (like Nano) */
+.container {
+  @apply mx-auto px-4 sm:px-6 md:px-8 lg:px-12;
+  max-width: 64rem;
 }
 
-#mobile-menu.mobile-nav-open {
-  @apply translate-x-0 shadow-xl/30;
-}
-
-.btn-primary {
-  @apply inline-flex items-center gap-2 bg-foreground px-5 py-3 text-base font-semibold text-background transition hover:opacity-80 dark:bg-foreground-dark dark:text-background-dark;
-}
-
-.btn-secondary {
-  @apply inline-flex items-center gap-2 bg-foreground/10 px-5 py-3 text-base font-semibold text-foreground transition hover:opacity-80 dark:bg-foreground-dark/15 dark:text-foreground-dark;
-}
-
-.section-title {
-  @apply text-3xl font-semibold tracking-tight sm:text-4xl;
-}
-
-.section-lead {
-  @apply text-lg text-foreground/80 dark:text-foreground-dark/70;
-}
-
-.card-surface {
-  @apply border border-foreground/10 bg-background/70 shadow-xl shadow-foreground/5 backdrop-blur dark:border-background-dark/30 dark:bg-background-dark/80 dark:shadow-background-dark/40;
-}
-
+/* Rich text styling for blog posts */
 .rich-text {
-  @apply prose prose-slate max-w-none text-foreground/90 prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:font-semibold prose-strong:text-foreground dark:prose-invert dark:prose-a:text-primary-dark dark:prose-strong:text-foreground-dark;
+  @apply prose prose-sm max-w-none dark:prose-invert;
 }
 
-.rich-text pre {
-  @apply border border-foreground/10 bg-background-dark/90 text-foreground-dark shadow-lg dark:border-background-dark/40;
+.rich-text h2 {
+  @apply scroll-mt-24 text-2xl font-semibold tracking-tight;
+}
+
+.rich-text h3 {
+  @apply text-xl font-semibold tracking-tight;
+}
+
+.rich-text p {
+  @apply leading-relaxed;
+}
+
+.rich-text a {
+  @apply underline underline-offset-2 decoration-black/15 dark:decoration-white/30 transition-colors duration-300 hover:decoration-black/25 hover:dark:decoration-white/50;
+  color: currentColor;
+}
+
+.rich-text a:hover {
+  @apply text-black dark:text-white;
 }
 
 .rich-text code {
-  @apply bg-foreground/5 px-1.5 py-0.5 text-sm font-mono font-semibold dark:bg-background-dark/60;
+  @apply bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.rich-text pre {
+  @apply bg-black dark:bg-white text-white dark:text-black p-4 rounded overflow-auto;
 }
 
 .rich-text pre code {
-  @apply bg-transparent px-0 py-0;
+  @apply bg-transparent p-0;
 }
 
 .rich-text blockquote {
-  @apply border-l-4 border-primary/30 pl-4 italic text-foreground/80 dark:border-primary-dark/30 dark:text-foreground-dark/80;
+  @apply border-l-4 border-black/15 dark:border-white/30 pl-4 italic;
 }
 
 .rich-text ul,
 .rich-text ol {
-  @apply space-y-2;
+  @apply space-y-2 pl-6;
 }
 
 .rich-text li {
@@ -131,17 +139,5 @@ body {
 }
 
 .rich-text img {
-  @apply shadow-lg;
-}
-
-.tag-chip {
-  @apply inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold tracking-tight ring-1 transition;
-}
-
-.posts-grid-container {
-  @apply grid gap-6 md:grid-cols-2 xl:grid-cols-3;
-}
-
-.prose iframe {
-  @apply my-12 aspect-video w-full border border-foreground/10 shadow-lg;
+  @apply rounded;
 }
