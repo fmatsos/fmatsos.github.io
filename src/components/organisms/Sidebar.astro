@@ -61,7 +61,7 @@ const hasHeadings = headings.length > 0;
   }
 
   .sidebar-toggle {
-    @apply hidden w-full items-center justify-between rounded-md border border-foreground/10 bg-background/70 px-4 py-2.5 text-left font-semibold text-foreground transition hover:bg-background/90 dark:border-foreground-dark/10 dark:bg-background-dark/50 dark:text-foreground-dark dark:hover:bg-background-dark/70;
+    @apply hidden w-full items-center justify-between border-b border-foreground/10 px-0 py-2 text-left font-semibold text-foreground transition dark:border-foreground-dark/10 dark:text-foreground-dark;
   }
 
   .sidebar-toggle-icon {
@@ -81,15 +81,15 @@ const hasHeadings = headings.length > 0;
   }
 
   .sidebar-link {
-    @apply block rounded-md px-3 py-1.5 text-sm text-foreground/70 transition-colors hover:text-foreground dark:text-foreground-dark/70 dark:hover:text-foreground-dark;
+    @apply block px-0 py-1.5 text-sm text-foreground/70 transition-colors hover:text-foreground dark:text-foreground-dark/70 dark:hover:text-foreground-dark;
   }
 
   .sidebar-link:focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary dark:outline-primary-dark;
+    @apply outline-2 outline-offset-2 outline-black dark:outline-white;
   }
 
   .sidebar-link[href]:hover {
-    @apply bg-foreground/5 dark:bg-foreground-dark/10;
+    @apply opacity-100;
   }
 
   /* Mobile styles */
@@ -179,6 +179,6 @@ const hasHeadings = headings.length > 0;
 
 <style is:global>
   .sidebar-link.active {
-    @apply bg-primary/10 font-semibold text-primary dark:bg-primary-dark/15 dark:text-primary-dark;
+    @apply font-semibold text-black dark:text-white underline underline-offset-2;
   }
 </style>
