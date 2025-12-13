@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Timeline from '../../components/organisms/Timeline.astro';
+import { curriculum } from '../../data/curriculum';
+---
+<BaseLayout title="Experience" description="My professional journey and experiences." lang="en" currentPath="/en/experiences">
+  <div class="space-y-12">
+    <section class="space-y-4">
+      <h1 class="font-semibold text-black dark:text-white">Professional Experience</h1>
+      <p class="text-foreground/70 dark:text-foreground-dark/70">
+        Explore my professional journey and various experiences as a PHP developer.
+      </p>
+    </section>
+
+    <Timeline items={curriculum} title="" lang="en" />
+  </div>
+</BaseLayout>

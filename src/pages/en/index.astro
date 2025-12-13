@@ -33,7 +33,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 
       </article>
     </section>
 
-    <section class="space-y-6">
+    <section class="border border-foreground/10 bg-background/70 p-6 dark:border-background-dark/30 dark:bg-background-dark/80 space-y-6">
       <div class="flex flex-wrap gap-y-2 items-center justify-between">
         <h5 class="font-semibold text-black dark:text-white">
           Latest posts
@@ -55,8 +55,6 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 
         ))}
       </ul>
     </section>
-
-    <Timeline items={curriculum} title="Experience" lang="en" />
 
     <section class="space-y-6">
       <h5 class="font-semibold text-black dark:text-white">
