@@ -14,15 +14,15 @@ const { lang, currentPath = '/' } = Astro.props as Props;
 const nav = lang === 'fr'
   ? [
       { href: '/', label: 'Accueil' },
-      { href: '/a-propos', label: 'À propos' },
-      { href: '/experiences', label: 'Expériences' },
       { href: '/blog', label: 'Blog' },
+      { href: '/experiences', label: 'Expériences' },
+      { href: '/a-propos', label: 'À propos' },
     ]
   : [
       { href: '/en/', label: 'Home' },
-      { href: '/en/about', label: 'About' },
-      { href: '/en/experiences', label: 'Experience' },
       { href: '/en/blog', label: 'Blog' },
+      { href: '/en/experiences', label: 'Experience' },
+      { href: '/en/about', label: 'About' },
     ];
 
 const openMenuText = lang === 'fr' ? 'Ouvrir le menu' : 'Open menu';
