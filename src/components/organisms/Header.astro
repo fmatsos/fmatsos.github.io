@@ -52,6 +52,15 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
     </nav>
 
     <div class="flex items-center gap-3">
+      <!-- Language Switcher -->
+      <a
+        href={lang === 'fr' ? '/en/' : '/'}
+        class="text-xs font-semibold uppercase tracking-wider text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white transition-colors"
+        title={lang === 'fr' ? 'Switch to English' : 'Passer au français'}
+      >
+        {lang === 'fr' ? 'EN' : 'FR'}
+      </a>
+
       <div class="hidden md:flex" id="theme-selector-desktop">
         <slot name="theme-selector" />
       </div>
