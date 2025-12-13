@@ -117,18 +117,18 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
 <script>
   function toggleNav() {
     const menu = document.querySelector('#mobile-menu');
-    const isOpen = menu?.classList.contains('mobile-nav-open');
     menu?.classList.toggle('mobile-nav-open');
+    const isOpen = menu?.classList.contains('mobile-nav-open');
     
     // Manage focus
-    if (!isOpen) {
+    if (isOpen) {
       document.querySelector<HTMLElement>('#nav-close-btn')?.focus();
     } else {
       document.querySelector<HTMLElement>('#nav-open-btn')?.focus();
     }
     
     // Prevent body scroll when menu is open
-    document.body.style.overflow = isOpen ? '' : 'hidden';
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   }
 
   document.querySelector('#nav-open-btn')?.addEventListener('click', toggleNav);

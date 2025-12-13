@@ -17,7 +17,7 @@ const { title, description, pubDate, slug, tags, lang = 'fr' } = Astro.props;
 
 const dateFormatter = new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-US', { dateStyle: 'long' });
 const readMoreText = lang === 'fr' ? "Lire l'article" : 'Read article';
-const postUrl = lang === 'fr' ? `/blog/${slug}` : `/en/blog/${slug}`;
+const postUrl = `/blog/${slug}`;
 ---
 
 <Card class="flex h-full flex-col justify-between gap-4 p-5 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/15">
