@@ -118,6 +118,7 @@ const languageSwitch = lang === 'fr'
     }
 
     const theme = localStorage.theme || 'auto';
+    document.querySelectorAll('.theme-button').forEach((el) => el.classList.remove('active'));
     document.querySelectorAll(`[data-theme="theme-${theme}"]`).forEach((el) => el.classList.add('active'));
   }
 
