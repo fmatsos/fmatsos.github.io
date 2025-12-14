@@ -1,0 +1,26 @@
+name: Sync articles
+
+on:
+  repository_dispatch:
+    types: [articles-updated]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Update articles submodule to latest
+        run: git submodule update --remote --merge src/content/posts
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/posts
+          git diff --staged --quiet || git commit -m "chore: sync articles"
+          git push
