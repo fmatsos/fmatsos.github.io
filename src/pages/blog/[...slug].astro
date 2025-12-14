@@ -12,10 +12,22 @@ import { SITE_TITLE } from '../../config';
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' });
 
 export async function getStaticPaths() {
+  const generateSlug = (filename: string): string => {
+    // Extract just the filename without year directory prefix
+    const basename = filename.split('/').pop() || filename;
+    // Match: YYYY-MM-DD-{rest}
+    const match = basename.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/);
+    if (match) {
+      const [, year, month, day, rest] = match;
+      return `${year}/${month}/${day}-${rest}`;
+    }
+    return basename;
+  };
+
   const posts = await getCollection('posts', ({ data }) => data.published && !data.draft);
 
   return posts.map((post) => ({
-    params: { slug: post.slug.split('/').pop() },
+    params: { slug: generateSlug(post.slug) },
     props: { post },
   }));
 }
