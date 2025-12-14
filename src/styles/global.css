@@ -90,6 +90,12 @@ body {
   @apply translate-x-0;
 }
 
+/* Hide excerpt marker comments in rendered content */
+.rich-text > comment,
+.rich-text > *:empty {
+  display: none;
+}
+
 /* Container for max-width wrapper (like Nano) */
 .container {
   @apply mx-auto px-4 sm:px-6 md:px-8 lg:px-12;
