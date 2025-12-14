@@ -9,42 +9,38 @@ interface Props {
 const { title, description, subtitle, icon } = Astro.props;
 ---
 
-<section class="relative mb-12 overflow-hidden">
+<section class="relative mb-8 overflow-hidden">
   <!-- Decorative background gradient -->
   <div class="absolute inset-0 -z-10 h-full w-full bg-gradient-to-br from-primary/5 via-transparent to-primary/5 dark:from-primary-dark/10 dark:via-transparent dark:to-primary-dark/10 blur-3xl" aria-hidden="true"></div>
-  
-  <!-- Decorative corner accent -->
-  <div class="absolute -top-10 -right-10 h-40 w-40 rounded-full border border-primary/20 dark:border-primary-dark/20" aria-hidden="true"></div>
-  <div class="absolute -bottom-20 -left-20 h-40 w-40 rounded-full border border-primary/10 dark:border-primary-dark/10" aria-hidden="true"></div>
 
-  <div class="relative space-y-4 py-8">
+  <div class="relative space-y-3 py-6">
     <!-- Icon if provided -->
     {icon && (
-      <div class="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 dark:bg-primary-dark/20 text-primary dark:text-primary-dark text-xl">
+      <div class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 dark:bg-primary-dark/20 text-primary dark:text-primary-dark text-lg">
         {icon}
       </div>
     )}
     
     <!-- Main title -->
-    <h1 class="text-4xl sm:text-5xl font-bold text-black dark:text-white tracking-tight">
+    <h1 class="text-3xl sm:text-4xl font-bold text-black dark:text-white tracking-tight">
       {title}
     </h1>
     
     <!-- Subtitle if provided -->
     {subtitle && (
-      <p class="text-lg text-primary dark:text-primary-dark font-semibold">
+      <p class="text-base text-primary dark:text-primary-dark font-semibold">
         {subtitle}
       </p>
     )}
     
     <!-- Description -->
     {description && (
-      <p class="text-lg text-foreground/70 dark:text-foreground-dark/70 max-w-2xl leading-relaxed">
+      <p class="text-base text-foreground/70 dark:text-foreground-dark/70 max-w-2xl leading-relaxed">
         {description}
       </p>
     )}
   </div>
 
   <!-- Bottom accent line -->
-  <div class="h-1 w-24 bg-gradient-to-r from-primary to-transparent dark:from-primary-dark dark:to-transparent"></div>
+  <div class="h-0.5 w-16 bg-gradient-to-r from-primary to-transparent dark:from-primary-dark dark:to-transparent"></div>
 </section>
