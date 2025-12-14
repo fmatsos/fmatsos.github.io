@@ -1,6 +1,6 @@
 ---
 import type { CareerEntry } from '../../data/curriculum';
-import Badge from '../atoms/Badge.astro';
+import { getTagColor } from '../../utils/tags';
 
 interface Props {
   items: CareerEntry[];
@@ -17,22 +17,28 @@ const currentLabel = lang === 'fr' ? 'Présent' : 'Present';
   
   <div class="relative">
     <!-- Vertical line -->
-    <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent dark:from-primary-dark dark:via-primary-dark/50" aria-hidden="true"></div>
+    <div class="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent dark:from-primary-dark dark:via-primary-dark/50" aria-hidden="true"></div>
     
     <ul class="space-y-8">
       {items.map((item, index) => (
-        <li class="relative pl-12 group">
-          <!-- Timeline dot -->
+        <li class="relative pl-16 group">
+          <!-- Timeline dot with logo -->
           <div class="absolute left-0 top-1 flex items-center justify-center">
-            <div class="h-8 w-8 rounded-full border-4 border-background dark:border-background-dark bg-primary dark:bg-primary-dark flex items-center justify-center shadow-lg shadow-primary/20 dark:shadow-primary-dark/20 group-hover:scale-110 transition-transform">
-              <div class="h-2 w-2 rounded-full bg-background dark:bg-background-dark"></div>
+            <div class="h-10 w-10 rounded-full border-4 border-background dark:border-background-dark bg-white dark:bg-gray-800 flex items-center justify-center shadow-lg shadow-primary/20 dark:shadow-primary-dark/20 group-hover:scale-110 transition-transform overflow-hidden">
+              {item.logo ? (
+                <img src={item.logo} alt={`${item.name} logo`} class="h-6 w-6 object-contain" />
+              ) : (
+                <span class="text-xs font-bold text-primary dark:text-primary-dark">
+                  {item.name.substring(0, 2).toUpperCase()}
+                </span>
+              )}
             </div>
           </div>
           
           <!-- Content card -->
           <div class="relative bg-background dark:bg-background-dark border border-foreground/10 dark:border-foreground-dark/10 rounded-lg p-5 shadow-sm hover:shadow-md hover:border-primary/30 dark:hover:border-primary-dark/30 transition-all">
             <!-- Arrow pointing to timeline -->
-            <div class="absolute left-[-8px] top-3 w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-foreground/10 dark:border-r-foreground-dark/10" aria-hidden="true"></div>
+            <div class="absolute left-[-8px] top-4 w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-foreground/10 dark:border-r-foreground-dark/10" aria-hidden="true"></div>
             
             <!-- Date badge -->
             <div class="inline-flex items-center gap-2 mb-3">
@@ -61,11 +67,14 @@ const currentLabel = lang === 'fr' ? 'Présent' : 'Present';
               </p>
             )}
             
-            <!-- Skills -->
+            <!-- Skills with automatic colors -->
             {item.skills && item.skills.length > 0 && (
               <div class="flex flex-wrap gap-2">
                 {item.skills.map((skill) => (
-                  <span class="px-2 py-1 text-xs font-medium rounded bg-foreground/5 dark:bg-foreground-dark/5 text-foreground/70 dark:text-foreground-dark/70 border border-foreground/10 dark:border-foreground-dark/10">
+                  <span class:list={[
+                    'px-2 py-1 text-xs font-medium rounded-full ring-1 ring-inset',
+                    getTagColor(skill)
+                  ]}>
                     {skill}
                   </span>
                 ))}

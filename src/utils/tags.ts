@@ -61,3 +61,7 @@ export function tagClasses(tag: string) {
   const color = TAG_COLOR_PALETTE[hashTag(tag) % TAG_COLOR_PALETTE.length];
   return `tag-chip ring-1 ${color}`;
 }
+
+export function getTagColor(tag: string) {
+  return TAG_COLOR_PALETTE[hashTag(tag) % TAG_COLOR_PALETTE.length];
+}
