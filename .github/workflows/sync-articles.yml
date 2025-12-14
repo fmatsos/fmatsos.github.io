@@ -5,6 +5,9 @@ on:
     types: [articles-updated]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -12,10 +15,25 @@ jobs:
       - name: Checkout with submodules
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           submodules: recursive
+          persist-credentials: true
 
-      - name: Update articles submodule to latest
-        run: git submodule update --remote --merge src/content/posts
+      - name: Sync submodule config
+        run: git submodule sync --recursive
+
+      - name: Update articles submodule to latest (tracked branch)
+        run: git submodule update --init --recursive --remote --checkout src/content/posts
+
+      - name: Debug (what is deployed)
+        run: |
+          echo "Site repo commit: $(git rev-parse HEAD)"
+          echo "Submodule status:"
+          git submodule status --recursive
+          echo "Submodule HEAD:"
+          git -C src/content/posts rev-parse HEAD
+          echo "Submodule last commit:"
+          git -C src/content/posts log -1 --oneline
 
       - name: Commit and push if changed
         run: |
