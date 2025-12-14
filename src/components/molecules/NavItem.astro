@@ -12,12 +12,14 @@ const { href, currentPath = '/', class: className = '', lang = 'fr' } = Astro.pr
 const isActive = currentPath === href || (href !== '/' && currentPath.startsWith(href));
 const activeClasses = isActive ? 'text-primary dark:text-primary-dark' : 'text-foreground dark:text-foreground-dark';
 const currentPageText = lang === 'fr' ? '(page actuelle)' : '(current page)';
+const slotContent = await Astro.slots.render('default');
+const ariaLabelText = isActive ? `${slotContent.replace(/<[^>]*>/g, '')} ${currentPageText}` : undefined;
 ---
 
 <Link
   href={href}
   class={`font-semibold transition hover:text-primary dark:hover:text-primary-dark ${activeClasses} ${className}`}
-  ariaLabel={isActive ? `${Astro.slots.render('default')} ${currentPageText}` : undefined}
+  ariaLabel={ariaLabelText}
   aria-current={isActive ? 'page' : undefined}
 >
   <slot />
