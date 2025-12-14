@@ -1,0 +1,38 @@
+---
+import Link from '../atoms/Link.astro';
+
+interface Post {
+  slug: string;
+  data: {
+    title: string;
+  };
+}
+
+interface Props {
+  prevPost?: Post | null;
+  nextPost?: Post | null;
+}
+
+const { prevPost, nextPost } = Astro.props;
+---
+
+<nav class="pt-6 border-t border-foreground/10 dark:border-foreground-dark/10" aria-label="Navigation entre articles">
+  <div class="flex justify-between items-start gap-4">
+    <div class="flex-1 text-left">
+      {prevPost && (
+        <Link href={`/blog/${prevPost.slug}`} variant="primary" class="group inline-flex flex-col">
+          <span class="text-sm text-foreground/60 dark:text-foreground-dark/60">← Article précédent</span>
+          <span class="group-hover:underline">{prevPost.data.title}</span>
+        </Link>
+      )}
+    </div>
+    <div class="flex-1 text-right">
+      {nextPost && (
+        <Link href={`/blog/${nextPost.slug}`} variant="primary" class="group inline-flex flex-col items-end">
+          <span class="text-sm text-foreground/60 dark:text-foreground-dark/60">Article suivant →</span>
+          <span class="group-hover:underline">{nextPost.data.title}</span>
+        </Link>
+      )}
+    </div>
+  </div>
+</nav>

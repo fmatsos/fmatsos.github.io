@@ -1,0 +1,36 @@
+---
+import Link from '../atoms/Link.astro';
+
+interface Props {
+  currentPage: number;
+  lastPage: number;
+  prevUrl?: string;
+  nextUrl?: string;
+}
+
+const { currentPage, lastPage, prevUrl, nextUrl } = Astro.props;
+---
+
+{lastPage > 1 && (
+  <nav class="flex justify-center items-center gap-4 pt-8" aria-label="Pagination">
+    {prevUrl ? (
+      <Link href={prevUrl} variant="primary">
+        ← Page précédente
+      </Link>
+    ) : (
+      <span class="text-foreground/40 dark:text-foreground-dark/40">← Page précédente</span>
+    )}
+    
+    <span class="text-sm text-foreground/60 dark:text-foreground-dark/60">
+      Page {currentPage} sur {lastPage}
+    </span>
+    
+    {nextUrl ? (
+      <Link href={nextUrl} variant="primary">
+        Page suivante →
+      </Link>
+    ) : (
+      <span class="text-foreground/40 dark:text-foreground-dark/40">Page suivante →</span>
+    )}
+  </nav>
+)}

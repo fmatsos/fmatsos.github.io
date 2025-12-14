@@ -3,7 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/molecules/PostCard.astro';
-import Link from '../../components/atoms/Link.astro';
+import Pagination from '../../components/molecules/Pagination.astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = (await getCollection('posts', ({ data }) => data.published && !data.draft && data.lang === 'fr'))
@@ -36,28 +36,12 @@ const { page } = Astro.props;
       ))}
     </div>
 
-    {page.lastPage > 1 && (
-      <nav class="flex justify-center items-center gap-4 pt-8" aria-label="Pagination">
-        {page.url.prev ? (
-          <Link href={page.url.prev} variant="primary">
-            ← Page précédente
-          </Link>
-        ) : (
-          <span class="text-foreground/40 dark:text-foreground-dark/40">← Page précédente</span>
-        )}
-        
-        <span class="text-sm text-foreground/60 dark:text-foreground-dark/60">
-          Page {page.currentPage} sur {page.lastPage}
-        </span>
-        
-        {page.url.next ? (
-          <Link href={page.url.next} variant="primary">
-            Page suivante →
-          </Link>
-        ) : (
-          <span class="text-foreground/40 dark:text-foreground-dark/40">Page suivante →</span>
-        )}
-      </nav>
-    )}
+    <Pagination 
+      currentPage={page.currentPage}
+      lastPage={page.lastPage}
+      prevUrl={page.url.prev}
+      nextUrl={page.url.next}
+    />
   </div>
 </BaseLayout>
+

@@ -3,9 +3,9 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Card from '../../components/atoms/Card.astro';
 import Badge from '../../components/atoms/Badge.astro';
-import Link from '../../components/atoms/Link.astro';
 import TagList from '../../components/molecules/TagList.astro';
 import Breadcrumb from '../../components/molecules/Breadcrumb.astro';
+import ArticleNavigation from '../../components/molecules/ArticleNavigation.astro';
 import { extractHeadings } from '../../utils/headings';
 import { SITE_TITLE } from '../../config';
 
@@ -67,26 +67,7 @@ const breadcrumbItems = [
           <Content />
         </div>
 
-        <nav class="pt-6 border-t border-foreground/10 dark:border-foreground-dark/10" aria-label="Navigation entre articles">
-          <div class="flex justify-between items-start gap-4">
-            <div class="flex-1 text-left">
-              {prevPost && (
-                <Link href={`/blog/${prevPost.slug}`} variant="primary" class="group inline-flex flex-col">
-                  <span class="text-sm text-foreground/60 dark:text-foreground-dark/60">← Article précédent</span>
-                  <span class="group-hover:underline">{prevPost.data.title}</span>
-                </Link>
-              )}
-            </div>
-            <div class="flex-1 text-right">
-              {nextPost && (
-                <Link href={`/blog/${nextPost.slug}`} variant="primary" class="group inline-flex flex-col items-end">
-                  <span class="text-sm text-foreground/60 dark:text-foreground-dark/60">Article suivant →</span>
-                  <span class="group-hover:underline">{nextPost.data.title}</span>
-                </Link>
-              )}
-            </div>
-          </div>
-        </nav>
+        <ArticleNavigation prevPost={prevPost} nextPost={nextPost} />
       </Card>
     </article>
 </BaseLayout>
