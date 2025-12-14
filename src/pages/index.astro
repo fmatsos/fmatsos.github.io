@@ -1,11 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Timeline from '../components/organisms/Timeline.astro';
+import PageHeader from '../components/organisms/PageHeader.astro';
 import Link from '../components/atoms/Link.astro';
-import Image from '../components/atoms/Image.astro';
-import { curriculum } from '../data/curriculum';
-import { links } from '../data/links';
 
 const posts = (await getCollection('posts', ({ data }) => data.published && !data.draft && data.lang === 'fr'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -15,30 +12,29 @@ const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 
 ---
 <BaseLayout lang="fr" currentPath="/">
   <div class="space-y-16">
-    <section>
-      <article class="space-y-4">
-        <h4 class="font-semibold text-black dark:text-white">
-          Bonjour, je m'appelle Franck 👋
-        </h4>
+    <PageHeader 
+      title="Bonjour, je m'appelle Franck"
+      subtitle="Développeur & Créateur"
+      description="Développeur PHP depuis 2009 chez Akawaka, certifié Opquast et Symfony. Je partage ici mes réflexions et analyses sur le développement, l'architecture logicielle et bien d'autres sujets."
+      icon="👋"
+    />
+
+    <section class="space-y-4">
+      <article class="space-y-3">
         <p>
-          Développeur PHP depuis 2009, j'ai rejoint
-          <Link href="https://www.akawaka.fr" external>Akawaka</Link>
-          en 2021. Certifié
-          <Link href="https://directory.opquast.com/fr/certificat/BVARDQ/" external>Opquast</Link>
-          et
-          <Link href="https://connect.symfony.com/profile/fmatsos" external>Symfony</Link>.
+          Passionné par la création d'architectures logicielles solides et maintenables, j'aime explorer les différentes facettes du développement web moderne. Mon parcours m'a permis de travailler sur des projets variés, du refactoring de systèmes legacy à la conception de nouvelles applications.
         </p>
         <p>
-          Je partage ici mes réflexions et analyses sur le développement, et plus encore.
+          Sur ce blog, vous trouverez des articles sur le développement, les conférences auxquelles j'ai assisté, et mes explorations professionnelles. N'hésitez pas à me contacter si vous avez des questions ou souhaitez discuter de sujets liés au développement.
         </p>
       </article>
     </section>
 
     <section class="border border-foreground/10 bg-background/70 p-6 dark:border-background-dark/30 dark:bg-background-dark/80 space-y-6">
       <div class="flex flex-wrap gap-y-2 items-center justify-between">
-        <h5 class="font-semibold text-black dark:text-white">
+        <h3 class="text-2xl font-semibold text-black dark:text-white">
           Derniers articles
-        </h5>
+        </h3>
         <Link href="/blog">Voir tous les articles →</Link>
       </div>
       <ul class="space-y-4">

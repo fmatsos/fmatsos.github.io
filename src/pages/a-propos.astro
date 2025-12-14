@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/organisms/PageHeader.astro';
 
 const paragraphs = [
   "Passionné par l'informatique depuis toujours, j'ai débuté ma carrière de développeur PHP en 2009. Au fil des années, j'ai eu l'opportunité de travailler sur une multitude de projets dans divers secteurs d'activité, ce qui m'a permis d'acquérir une vision globale des projets et de leurs enjeux.",
@@ -11,9 +12,12 @@ const paragraphs = [
 ---
 <BaseLayout title="À propos" lang="fr" currentPath="/a-propos">
   <div class="space-y-16">
-    <section class="space-y-4">
-      <h1 class="font-semibold text-black dark:text-white">À propos de moi</h1>
-    </section>
+    <PageHeader 
+      title="À propos de moi"
+      subtitle="Développeur & Créateur"
+      description="Passionné par le développement web depuis 2009, j'explore continuellement les meilleures pratiques pour créer des solutions logicielles robustes et maintenables."
+      icon="📖"
+    />
 
     <article class="space-y-6 max-w-3xl">
       {paragraphs.map((text) => (

@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/organisms/PageHeader.astro';
 import PostCard from '../../components/molecules/PostCard.astro';
 import Pagination from '../../components/molecules/Pagination.astro';
 
@@ -16,12 +17,12 @@ const { page } = Astro.props;
 ---
 <BaseLayout title="Blog" description="Articles et réflexions rédigés par Franck Matsos." lang="fr" currentPath="/blog">
   <div class="space-y-12">
-    <section class="space-y-4">
-      <h1 class="font-semibold text-black dark:text-white">Blog</h1>
-      <p>
-        Retrouvez ici mes derniers articles sur le développement, les conférences et mes explorations professionnelles.
-      </p>
-    </section>
+    <PageHeader 
+      title="Blog"
+      subtitle={`${page.total} articles`}
+      description="Explorations, analyses et réflexions sur le développement web, les conférences et bien d'autres sujets."
+      icon="✍️"
+    />
 
     <div class="space-y-8">
       {page.data.map((post) => (

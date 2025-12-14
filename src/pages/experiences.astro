@@ -1,17 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/organisms/PageHeader.astro';
 import Timeline from '../components/organisms/Timeline.astro';
 import { curriculum } from '../data/curriculum';
 ---
-<BaseLayout title="Expériences" description="Mon parcours professionnel et mes expériences." lang="fr" currentPath="/experiences">
-  <div class="space-y-12">
-    <section class="space-y-4">
-      <h1 class="font-semibold text-black dark:text-white">Expériences Professionnelles</h1>
-      <p class="text-foreground/70 dark:text-foreground-dark/70">
-        Découvrez mon parcours professionnel et mes différentes expériences en tant que développeur PHP.
-      </p>
-    </section>
+<BaseLayout title="Expériences" lang="fr" currentPath="/experiences">
+  <div class="space-y-16">
+    <PageHeader 
+      title="Mon parcours professionnel"
+      subtitle="2009 - Présent"
+      description="Une décennie et demie d'expérience dans le développement web, marquée par l'évolution constante des technologies et l'accompagnement de projets variés."
+      icon="💼"
+    />
 
-    <Timeline items={curriculum} title="" lang="fr" />
+    <Timeline items={curriculum} lang="fr" />
   </div>
 </BaseLayout>
