@@ -136,50 +136,73 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
 </script>
 
 <script is:inline>
-  function reComputeTheme() {
-    if (
-      localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+  (function() {
+    // Theme management
+    function applyTheme() {
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     }
 
-    const theme = localStorage.theme || 'auto';
-    document.querySelectorAll(`[data-theme="theme-${theme}"]`).forEach((el) => el.classList.add('active'));
-  }
-
-  function addThemeEventListeners() {
-    const themeButtons = document.querySelectorAll('.theme-button');
-    themeButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        themeButtons.forEach((btn) => btn.classList.remove('active'));
-        button.classList.add('active');
-        if (button.dataset.theme === 'theme-auto') {
-          localStorage.removeItem('theme');
-          reComputeTheme();
-        } else {
-          localStorage.theme = button.dataset.theme?.replace('theme-', '') ?? 'auto';
-          document.documentElement.classList.toggle('dark', button.dataset.theme === 'theme-dark');
-        }
+    function updateActiveButton() {
+      const theme = localStorage.theme || 'auto';
+      document.querySelectorAll('.theme-button').forEach((el) => {
+        const isActive = el.dataset.theme === 'theme-' + theme;
+        el.classList.toggle('active', isActive);
       });
+    }
+
+    function handleThemeClick(e) {
+      const button = e.currentTarget;
+      if (!button || !button.dataset.theme) return;
+      
+      const theme = button.dataset.theme;
+      
+      if (theme === 'theme-auto') {
+        localStorage.removeItem('theme');
+      } else {
+        localStorage.theme = theme.replace('theme-', '');
+      }
+      
+      applyTheme();
+      updateActiveButton();
+    }
+
+    function initThemeButtons() {
+      document.querySelectorAll('.theme-button').forEach((button) => {
+        // Remove old listeners
+        const newButton = button.cloneNode(true);
+        button.parentNode?.replaceChild(newButton, button);
+        
+        // Add new listener
+        newButton.addEventListener('click', handleThemeClick);
+      });
+    }
+
+    // Apply theme immediately to prevent flash
+    applyTheme();
+
+    // Initialize on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initThemeButtons();
+        updateActiveButton();
+      });
+    } else {
+      initThemeButtons();
+      updateActiveButton();
+    }
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (!localStorage.theme) {
+        applyTheme();
+      }
     });
-  }
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    reComputeTheme();
-  });
-
-  window.matchMedia('(min-width: 768px)').addEventListener('change', () => {
-    addThemeEventListeners();
-    reComputeTheme();
-  });
-
-  reComputeTheme();
-
-  window.addEventListener('DOMContentLoaded', () => {
-    addThemeEventListeners();
-    reComputeTheme();
-  });
+  })();
 </script>
