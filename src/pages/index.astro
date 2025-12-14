@@ -9,7 +9,7 @@ import { links } from '../data/links';
 
 const posts = (await getCollection('posts', ({ data }) => data.published && !data.draft && data.lang === 'fr'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+  .slice(0, 5);
 
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 ---

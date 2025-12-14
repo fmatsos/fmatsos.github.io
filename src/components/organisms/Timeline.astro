@@ -1,9 +1,10 @@
 ---
 import type { CareerEntry } from '../../data/curriculum';
+import Badge from '../atoms/Badge.astro';
 
 interface Props {
   items: CareerEntry[];
-  title: string;
+  title?: string;
   lang?: 'fr' | 'en';
 }
 
@@ -11,19 +12,68 @@ const { items, title, lang = 'fr' } = Astro.props;
 const currentLabel = lang === 'fr' ? 'Présent' : 'Present';
 ---
 
-<section class="space-y-6">
-  <h5 class="font-semibold text-black dark:text-white">{title}</h5>
-  <ul class="space-y-4">
-    {items.map((item) => (
-      <li class="flex gap-4 border-l border-foreground/20 pl-4 dark:border-foreground-dark/20">
-        <div class="flex-1 space-y-1">
-          <p class="text-sm text-foreground/60 dark:text-foreground-dark/60">
-            {item.from} - {item.to || currentLabel}
-          </p>
-          <p class="font-semibold text-black dark:text-white">{item.name}</p>
-          <p class="text-foreground/70 dark:text-foreground-dark/70">{item.role}</p>
-        </div>
-      </li>
-    ))}
-  </ul>
+<section class="space-y-8">
+  {title && <h2 class="font-semibold text-black dark:text-white text-2xl">{title}</h2>}
+  
+  <div class="relative">
+    <!-- Vertical line -->
+    <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent dark:from-primary-dark dark:via-primary-dark/50" aria-hidden="true"></div>
+    
+    <ul class="space-y-8">
+      {items.map((item, index) => (
+        <li class="relative pl-12 group">
+          <!-- Timeline dot -->
+          <div class="absolute left-0 top-1 flex items-center justify-center">
+            <div class="h-8 w-8 rounded-full border-4 border-background dark:border-background-dark bg-primary dark:bg-primary-dark flex items-center justify-center shadow-lg shadow-primary/20 dark:shadow-primary-dark/20 group-hover:scale-110 transition-transform">
+              <div class="h-2 w-2 rounded-full bg-background dark:bg-background-dark"></div>
+            </div>
+          </div>
+          
+          <!-- Content card -->
+          <div class="relative bg-background dark:bg-background-dark border border-foreground/10 dark:border-foreground-dark/10 rounded-lg p-5 shadow-sm hover:shadow-md hover:border-primary/30 dark:hover:border-primary-dark/30 transition-all">
+            <!-- Arrow pointing to timeline -->
+            <div class="absolute left-[-8px] top-3 w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-foreground/10 dark:border-r-foreground-dark/10" aria-hidden="true"></div>
+            
+            <!-- Date badge -->
+            <div class="inline-flex items-center gap-2 mb-3">
+              <span class="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary dark:bg-primary-dark/10 dark:text-primary-dark">
+                {item.from} → {item.to || currentLabel}
+              </span>
+              {!item.to && (
+                <span class="px-2 py-0.5 text-xs font-medium rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 animate-pulse">
+                  {lang === 'fr' ? 'Actuel' : 'Current'}
+                </span>
+              )}
+            </div>
+            
+            <!-- Company & Role -->
+            <h3 class="text-lg font-bold text-black dark:text-white mb-1">
+              {item.name}
+            </h3>
+            <p class="text-primary dark:text-primary-dark font-medium mb-3">
+              {item.role}
+            </p>
+            
+            <!-- Description -->
+            {item.description && (
+              <p class="text-foreground/70 dark:text-foreground-dark/70 text-sm leading-relaxed mb-4">
+                {item.description}
+              </p>
+            )}
+            
+            <!-- Skills -->
+            {item.skills && item.skills.length > 0 && (
+              <div class="flex flex-wrap gap-2">
+                {item.skills.map((skill) => (
+                  <span class="px-2 py-1 text-xs font-medium rounded bg-foreground/5 dark:bg-foreground-dark/5 text-foreground/70 dark:text-foreground-dark/70 border border-foreground/10 dark:border-foreground-dark/10">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
 </section>

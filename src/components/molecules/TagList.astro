@@ -12,10 +12,12 @@ interface Props {
 
 const { tags, variant = 'default', clickable = true, lang = 'fr' } = Astro.props;
 const tagsLabel = lang === 'fr' ? 'Tags' : 'Tags';
+// Filter out 'blog' tag from display (implicitly tagged)
+const displayTags = tags.filter(tag => tag.toLowerCase() !== 'blog');
 ---
 
 <div class="flex flex-wrap gap-2" role="list" aria-label={tagsLabel}>
-  {tags.map((tag) => (
+  {displayTags.map((tag) => (
     <div role="listitem">
       {clickable ? (
         <Link href={tagHref(tag)} class="no-underline" ariaLabel={lang === 'fr' ? `Articles taggés ${tag}` : `Posts tagged ${tag}`}>
