@@ -1,8 +1,4 @@
-[submodule "themes/papermod"]
-	path = themes/papermod
-	url = https://github.com/fmatsos/cecil-papermod.git
-	branch = main
-[submodule "pages/posts"]
-	path = pages/posts
+[submodule "src/content/posts"]
+	path = src/content/posts
 	url = https://github.com/fmatsos/articles.git
 	branch = main
