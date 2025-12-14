@@ -58,3 +58,20 @@ const imageURL = new URL(image, Astro.site);
 <!-- Additional SEO tags -->
 <meta name="robots" content="index, follow" />
 <meta name="googlebot" content="index, follow" />
+
+<!-- Schema.org WebSite JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "https://franck.matsos.fr",
+  "name": "Franck Matsos",
+  "description": "Blog de Franck Matsos, développeur PHP/Symfony. Articles et réflexions sur le développement web et le numérique.",
+  "inLanguage": "fr-FR",
+  "author": {
+    "@type": "Person",
+    "name": "Franck Matsos",
+    "url": "https://franck.matsos.fr"
+  }
+}
+</script>

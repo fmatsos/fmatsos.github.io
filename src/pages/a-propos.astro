@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/organisms/PageHeader.astro';
+import StructuredData from '../components/molecules/StructuredData.astro';
+import { socialProfileUrls } from '../data/links';
 
 const paragraphs = [
   "Passionné par l'informatique depuis toujours, j'ai débuté ma carrière de développeur PHP en 2009. Au fil des années, j'ai eu l'opportunité de travailler sur une multitude de projets dans divers secteurs d'activité, ce qui m'a permis d'acquérir une vision globale des projets et de leurs enjeux.",
@@ -11,6 +13,36 @@ const paragraphs = [
 ];
 ---
 <BaseLayout title="À propos" lang="fr" currentPath="/a-propos">
+  <StructuredData
+    type="Person"
+    data={{
+      name: 'Franck Matsos',
+      jobTitle: 'Développeur PHP / Symfony',
+      url: 'https://franck.matsos.fr',
+      description: 'Développeur web passionné depuis 2009, spécialisé en PHP et Symfony. Créateur de solutions logicielles robustes et maintenables.',
+      sameAs: socialProfileUrls,
+      worksFor: {
+        '@type': 'Organization',
+        name: 'Akawaka',
+        url: 'https://akawaka.fr'
+      },
+      knowsAbout: ['PHP', 'Symfony', 'Web Development', 'Software Architecture', 'Docker', 'PostgreSQL', 'TypeScript', 'REST API'],
+      image: 'https://franck.matsos.fr/avatar-white.jpg'
+    }}
+  />
+
+  <StructuredData
+    type="ProfilePage"
+    data={{
+      mainEntity: {
+        '@type': 'Person',
+        name: 'Franck Matsos',
+        jobTitle: 'Développeur PHP / Symfony',
+        url: 'https://franck.matsos.fr'
+      }
+    }}
+  />
+
   <div class="space-y-16">
     <PageHeader 
       title="À propos de moi"

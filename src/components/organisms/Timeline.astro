@@ -12,16 +12,16 @@ const { items, title, lang = 'fr' } = Astro.props;
 const currentLabel = lang === 'fr' ? 'Présent' : 'Present';
 ---
 
-<section class="space-y-8">
+<section class="space-y-8" aria-label={lang === 'fr' ? 'Parcours professionnel' : 'Professional timeline'}>
   {title && <h2 class="font-semibold text-black dark:text-white text-2xl">{title}</h2>}
   
   <div class="relative">
     <!-- Vertical line -->
     <div class="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent dark:from-primary-dark dark:via-primary-dark/50" aria-hidden="true"></div>
     
-    <ul class="space-y-8">
+    <ul class="space-y-8" role="list">
       {items.map((item, index) => (
-        <li class="relative pl-16 group">
+        <li class="relative pl-16 group" role="listitem">
           <!-- Timeline dot with logo -->
           <div class="absolute left-0 top-1 flex items-center justify-center">
             <div class="h-10 w-10 rounded-full border-4 border-background dark:border-background-dark bg-white dark:bg-gray-800 flex items-center justify-center shadow-lg shadow-primary/20 dark:shadow-primary-dark/20 group-hover:scale-110 transition-transform overflow-hidden">

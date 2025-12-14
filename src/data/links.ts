@@ -13,7 +13,7 @@ export const links: ExternalLink[] = [
     alt: 'Github icon',
   },
   {
-    href: 'https://linkedin.com/in/fmatsos',
+    href: 'https://www.linkedin.com/in/fmatsos',
     title: 'Suivre sur LinkedIn',
     picto: '/images/svg/linkedin.svg',
     alt: 'LinkedIn icon',
@@ -24,4 +24,10 @@ export const links: ExternalLink[] = [
     picto: '/images/svg/contact.svg',
     alt: 'Contact icon',
   },
+];
+
+// URLs for Schema.org sameAs (social profiles)
+export const socialProfileUrls: string[] = [
+  'https://github.com/fmatsos',
+  'https://www.linkedin.com/in/fmatsos',
 ];

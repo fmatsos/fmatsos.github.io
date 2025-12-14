@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/organisms/PageHeader.astro';
 import Timeline from '../components/organisms/Timeline.astro';
+import StructuredData from '../components/molecules/StructuredData.astro';
 import { curriculum } from '../data/curriculum';
 ---
 <BaseLayout title="Expériences" lang="fr" currentPath="/experiences">
@@ -11,6 +12,35 @@ import { curriculum } from '../data/curriculum';
       subtitle="2009 - Présent"
       description="Une décennie et demie d'expérience dans le développement web, marquée par l'évolution constante des technologies et l'accompagnement de projets variés."
       icon="💼"
+    />
+
+    <StructuredData
+      type="ItemList"
+      data={{
+        name: 'Parcours professionnel de Franck Matsos',
+        description: 'Expériences professionnelles en développement web depuis 2009',
+        itemListElement: curriculum.map((item, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          item: {
+            '@type': 'Role',
+            roleName: item.role,
+            description: item.description,
+            startDate: item.startDate,
+            endDate: item.endDate,
+            occupationLocation: item.location ? {
+              '@type': 'City',
+              name: item.location
+            } : undefined,
+            memberOf: {
+              '@type': 'Organization',
+              name: item.name,
+              url: item.companyUrl
+            },
+            skills: item.skills
+          }
+        }))
+      }}
     />
 
     <Timeline items={curriculum} lang="fr" />

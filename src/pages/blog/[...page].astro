@@ -5,6 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/organisms/PageHeader.astro';
 import PostCard from '../../components/molecules/PostCard.astro';
 import Pagination from '../../components/molecules/Pagination.astro';
+import StructuredData from '../../components/molecules/StructuredData.astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = (await getCollection('posts', ({ data }) => data.published && !data.draft && data.lang === 'fr'))
@@ -16,6 +17,21 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 ---
 <BaseLayout title="Blog" description="Articles et réflexions rédigés par Franck Matsos." lang="fr" currentPath="/blog">
+  <StructuredData
+    type="Blog"
+    data={{
+      name: 'Blog de Franck Matsos',
+      description: 'Articles et réflexions sur le développement web, l\'architecture logicielle et le numérique.',
+      url: 'https://franck.matsos.fr/blog',
+      inLanguage: 'fr-FR',
+      author: {
+        '@type': 'Person',
+        name: 'Franck Matsos',
+        url: 'https://franck.matsos.fr'
+      }
+    }}
+  />
+
   <div class="space-y-12">
     <PageHeader 
       title="Blog"

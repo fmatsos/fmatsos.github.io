@@ -1,0 +1,65 @@
+---
+/**
+ * StructuredData.astro
+ * Centralized component for rendering JSON-LD structured data (Schema.org)
+ *
+ * Usage:
+ * <StructuredData
+ *   type="BlogPosting"
+ *   data={{
+ *     headline: "My Article",
+ *     datePublished: "2024-01-01",
+ *     author: { "@type": "Person", name: "Author Name" }
+ *   }}
+ * />
+ */
+
+export interface Props {
+  type:
+    | 'WebSite'
+    | 'Person'
+    | 'ProfilePage'
+    | 'Blog'
+    | 'BlogPosting'
+    | 'BreadcrumbList'
+    | 'ItemList'
+    | 'Organization';
+  data: Record<string, unknown>;
+}
+
+const { type, data } = Astro.props;
+
+// Build the JSON-LD object with @context and @type
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': type,
+  ...data,
+};
+
+// Clean up undefined values recursively
+function cleanObject(obj: unknown): unknown {
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  if (Array.isArray(obj)) {
+    const cleaned = obj.map(cleanObject).filter((item) => item !== undefined);
+    return cleaned.length > 0 ? cleaned : undefined;
+  }
+  if (typeof obj === 'object') {
+    const cleaned: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
+      const cleanedValue = cleanObject(value);
+      if (cleanedValue !== undefined) {
+        cleaned[key] = cleanedValue;
+      }
+    }
+    return Object.keys(cleaned).length > 0 ? cleaned : undefined;
+  }
+  return obj;
+}
+
+const cleanedJsonLd = cleanObject(jsonLd);
+const jsonString = JSON.stringify(cleanedJsonLd);
+---
+
+<script type="application/ld+json" set:html={jsonString} />

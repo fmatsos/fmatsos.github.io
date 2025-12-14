@@ -69,6 +69,8 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
         ariaLabel={openMenuText}
         title={openMenuText}
         id="nav-open-btn"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
         class="md:hidden"
       />
     </div>
@@ -77,7 +79,9 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
   <div
     class="fixed right-0 top-0 z-40 h-screen w-5/6 max-w-sm translate-x-full border-l border-foreground/10 bg-background px-8 py-6 transition-transform dark:border-background-dark/40 dark:bg-background-dark md:hidden"
     id="mobile-menu"
+    role="navigation"
     aria-label={lang === 'fr' ? 'Menu mobile' : 'Mobile menu'}
+    aria-hidden="true"
   >
     <IconButton
       icon="mdi:close"
@@ -102,8 +106,17 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
 <script>
   function toggleNav() {
     const menu = document.querySelector('#mobile-menu');
+    const openBtn = document.querySelector('#nav-open-btn');
     menu?.classList.toggle('mobile-nav-open');
     const isOpen = menu?.classList.contains('mobile-nav-open');
+    
+    // Update aria-expanded and aria-hidden
+    if (openBtn) {
+      openBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+    if (menu) {
+      menu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    }
     
     // Manage focus
     if (isOpen) {
