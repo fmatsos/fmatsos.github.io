@@ -12,15 +12,20 @@ import { SITE_TITLE } from '../../config';
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' });
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', ({ data }) => data.published && !data.draft);
+  const posts = (await getCollection('posts', ({ data }) => data.published && !data.draft))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-  return posts.map((post) => ({
+  return posts.map((post, index) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { 
+      post,
+      prevPost: posts[index + 1] ?? null,
+      nextPost: posts[index - 1] ?? null,
+    },
   }));
 }
 
-const { post } = Astro.props;
+const { post, prevPost, nextPost } = Astro.props;
 const { Content } = await post.render();
 const { title, description, pubDate, tags } = post.data;
 
@@ -62,10 +67,25 @@ const breadcrumbItems = [
           <Content />
         </div>
 
-        <nav class="pt-4" aria-label="Retour à la liste">
-          <Link href="/blog" variant="primary">
-            ← Retour au blog
-          </Link>
+        <nav class="pt-6 border-t border-foreground/10 dark:border-foreground-dark/10" aria-label="Navigation entre articles">
+          <div class="flex justify-between items-start gap-4">
+            <div class="flex-1 text-left">
+              {prevPost && (
+                <Link href={`/blog/${prevPost.slug}`} variant="primary" class="group inline-flex flex-col">
+                  <span class="text-sm text-foreground/60 dark:text-foreground-dark/60">← Article précédent</span>
+                  <span class="group-hover:underline">{prevPost.data.title}</span>
+                </Link>
+              )}
+            </div>
+            <div class="flex-1 text-right">
+              {nextPost && (
+                <Link href={`/blog/${nextPost.slug}`} variant="primary" class="group inline-flex flex-col items-end">
+                  <span class="text-sm text-foreground/60 dark:text-foreground-dark/60">Article suivant →</span>
+                  <span class="group-hover:underline">{nextPost.data.title}</span>
+                </Link>
+              )}
+            </div>
+          </div>
         </nav>
       </Card>
     </article>
