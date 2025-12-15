@@ -29,7 +29,7 @@ const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 
       <ul class="space-y-4">
         {posts.map((post, index) => (
           <li class="space-y-1 animate-fade-in-up" style={`animation-delay: ${400 + index * 80}ms`}>
-            <p class="text-sm text-foreground/60 dark:text-foreground-dark/60">
+            <p class="text-muted">
               <time datetime={post.data.pubDate.toISOString()}>
                 {dateFormatter.format(post.data.pubDate)}
               </time>

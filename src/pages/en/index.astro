@@ -40,7 +40,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 
       <ul class="space-y-4">
         {posts.map((post) => (
           <li class="space-y-1">
-            <p class="text-sm text-foreground/60 dark:text-foreground-dark/60">
+            <p class="text-muted">
               <time datetime={post.data.pubDate.toISOString()}>
                 {dateFormatter.format(post.data.pubDate)}
               </time>

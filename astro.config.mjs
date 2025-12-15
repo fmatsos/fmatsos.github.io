@@ -4,4 +4,8 @@ import icon from 'astro-icon';
 export default defineConfig({
   site: 'https://franck.matsos.fr',
   integrations: [icon()],
+  build: {
+    inlineStylesheets: 'auto',
+  },
+  compressHTML: true,
 });
