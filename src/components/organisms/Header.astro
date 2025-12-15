@@ -11,7 +11,19 @@ interface Props {
 
 const { lang, currentPath = '/' } = Astro.props as Props;
 
-const nav = lang === 'fr'
+const navDesktop = lang === 'fr'
+  ? [
+      { href: '/blog', label: 'Blog' },
+      { href: '/experiences', label: 'Expériences' },
+      { href: '/a-propos', label: 'À propos' },
+    ]
+  : [
+      { href: '/en/blog', label: 'Blog' },
+      { href: '/en/experiences', label: 'Experience' },
+      { href: '/en/about', label: 'About' },
+    ];
+
+const navMobile = lang === 'fr'
   ? [
       { href: '/', label: 'Accueil' },
       { href: '/blog', label: 'Blog' },
@@ -37,14 +49,22 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
   <div class="container mx-auto flex items-center justify-between px-4 py-6 sm:px-6">
     <a
       href={lang === 'fr' ? '/' : '/en/'}
-      class="text-lg font-semibold transition-colors duration-300 hover:text-black hover:dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+      class="logo-link group relative text-lg font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 overflow-hidden"
       aria-label={SITE_TITLE}
     >
-      {SITE_TITLE}
+      <span class="logo-text inline-block md:transition-opacity md:duration-500 md:ease-in-out md:group-hover:opacity-0">
+        {SITE_TITLE}
+      </span>
+      <span class="logo-home absolute inset-0 hidden md:flex items-center gap-2 opacity-0 transition-opacity duration-500 ease-in-out delay-100 group-hover:opacity-100 text-black dark:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span class="text-lg font-semibold">{lang === 'fr' ? 'Accueil' : 'Home'}</span>
+      </span>
     </a>
 
     <nav class="hidden items-center gap-8 md:flex" aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}>
-      {nav.map((item) => (
+      {navDesktop.map((item) => (
         <NavItem href={item.href} currentPath={currentPath} lang={lang}>
           {item.label}
         </NavItem>
@@ -91,7 +111,7 @@ const closeMenuText = lang === 'fr' ? 'Fermer le menu' : 'Close menu';
       class="ml-auto block"
     />
     <nav class="flex h-full flex-col items-start gap-6 pt-12" aria-label={lang === 'fr' ? 'Navigation mobile' : 'Mobile navigation'}>
-      {nav.map((item) => (
+      {navMobile.map((item) => (
         <NavItem class="text-3xl font-light" href={item.href} currentPath={currentPath} lang={lang}>
           {item.label}
         </NavItem>

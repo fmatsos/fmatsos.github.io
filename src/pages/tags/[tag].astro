@@ -61,11 +61,9 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
 >
   <section class="space-y-6">
     <div class="space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">Tags</p>
-      <div class="flex items-center gap-3">
-        <h1 class="section-title">{label}</h1>
-        <Badge class={tagClasses(label)}>Tag</Badge>
-      </div>
+      <h1 class="section-title">
+        <Badge class={`${tagClasses(label)} text-2xl px-4 py-2`}>{label}</Badge>
+      </h1>
       <p class="max-w-3xl section-lead">
         Retrouvez tous les articles associés à ce tag, classés du plus récent au plus ancien et regroupés par mois et année.
       </p>
@@ -77,11 +75,16 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
 
         return (
           <div class="overflow-hidden border border-foreground/10 bg-background/70 shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
-            <details open={yearIndex === 0}>
+            <details open={yearIndex === 0} class="group">
               <summary class="flex cursor-pointer items-center justify-between bg-foreground/5 px-5 py-3 text-lg font-semibold transition hover:bg-foreground/10 dark:bg-background-dark/70 dark:hover:bg-background-dark/60">
-                <span>{year}</span>
+                <span class="flex items-center gap-3">
+                  <svg class="h-5 w-5 transition-transform duration-300 group-open:rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18l6-6-6-6"/>
+                  </svg>
+                  {year}
+                </span>
                 <Badge variant="primary" size="sm">
-                  {monthEntries.reduce((total, [, posts]) => total + posts.length, 0)} articles
+                  {monthEntries.reduce((total, [, posts]) => total + posts.length, 0)}&nbsp;{monthEntries.reduce((total, [, posts]) => total + posts.length, 0) > 1 ? 'articles' : 'article'}
                 </Badge>
               </summary>
               <div class="space-y-3 px-5 py-4">
@@ -91,17 +94,22 @@ const yearEntries = Array.from(grouped.entries()).sort((a, b) => b[0] - a[0]);
                   return (
                     <details
                       open={yearIndex === 0 && monthIndex === 0}
-                      class="overflow-hidden border border-foreground/10 bg-background/60 dark:border-background-dark/40 dark:bg-background-dark/70"
+                      class="group/month overflow-hidden border border-foreground/10 bg-background/60 dark:border-background-dark/40 dark:bg-background-dark/70"
                     >
-                      <summary class="flex cursor-pointer items-center justify-between px-4 py-3 text-base font-semibold transition hover:bg-foreground/5 dark:hover:bg-background-dark/60">
-                        <span class="capitalize">{monthLabel}</span>
-                        <Badge variant="accent" size="sm">{monthPosts.length} article(s)</Badge>
+                      <summary class="flex cursor-pointer items-center justify-between bg-foreground/5 px-4 py-3 text-base font-semibold transition hover:bg-foreground/10 dark:bg-background-dark/70 dark:hover:bg-background-dark/60">
+                        <span class="flex items-center gap-2 capitalize">
+                          <svg class="h-4 w-4 transition-transform duration-300 group-open/month:rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18l6-6-6-6"/>
+                          </svg>
+                          {monthLabel}
+                        </span>
+                        <Badge variant="primary" size="sm">{monthPosts.length}&nbsp;{monthPosts.length > 1 ? 'articles' : 'article'}</Badge>
                       </summary>
                       <ul class="divide-y divide-foreground/10 dark:divide-background-dark/40" role="list" aria-label={`Articles de ${monthLabel} ${year}`}>
                         {monthPosts.map((post) => (
                           <li class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
                             <div class="flex-1">
-                              <Link href={`/blog/${post.slug}`} variant="primary" class="text-lg">
+                              <Link href={`/blog/${post.slug}`} variant="default" class="text-lg font-medium">
                                 {post.data.title}
                               </Link>
                               <p class="text-sm text-foreground/60 dark:text-foreground-dark/60 mt-1">
