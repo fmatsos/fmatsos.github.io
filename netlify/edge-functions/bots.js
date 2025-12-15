@@ -1,4 +1,4 @@
-export default async (request, context) => {
+/*export default async (request, context) => {
     const ua = request.headers.get('user-agent');
     let isBot = false;
 
@@ -22,3 +22,4 @@ export default async (request, context) => {
     // Return appropriate response based on isBot flag
     return isBot ? new Response(null, { status: 401 }) : await context.next();
 };
+*/
