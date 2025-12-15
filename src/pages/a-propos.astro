@@ -52,8 +52,8 @@ const paragraphs = [
     />
 
     <article class="space-y-6 max-w-3xl">
-      {paragraphs.map((text) => (
-        <p class="leading-relaxed text-foreground/80 dark:text-foreground-dark/75">
+      {paragraphs.map((text, index) => (
+        <p class="leading-relaxed text-foreground/80 dark:text-foreground-dark/75 animate-fade-in-up" style={`animation-delay: ${300 + index * 100}ms`}>
           {text}
         </p>
       ))}

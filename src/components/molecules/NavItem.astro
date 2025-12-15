@@ -18,7 +18,7 @@ const ariaLabelText = isActive ? `${slotContent.replace(/<[^>]*>/g, '')} ${curre
 
 <Link
   href={href}
-  class={`font-semibold transition hover:text-primary dark:hover:text-primary-dark ${activeClasses} ${className}`}
+  class={`font-semibold transition-all duration-500 ease-out hover:text-primary dark:hover:text-primary-dark hover:translate-y-[-2px] ${activeClasses} ${className}`}
   ariaLabel={ariaLabelText}
   aria-current={isActive ? 'page' : undefined}
 >

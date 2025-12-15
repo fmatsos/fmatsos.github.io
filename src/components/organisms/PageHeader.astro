@@ -15,26 +15,26 @@ const { title, description, subtitle, icon } = Astro.props;
 
   <div class="relative space-y-3 py-6">
     <!-- Main title -->
-    <h1 class="text-3xl sm:text-4xl font-bold text-black dark:text-white tracking-tight">
+    <h1 class="text-3xl sm:text-4xl font-bold text-black dark:text-white tracking-tight animate-fade-in-up">
       {icon && <span class="mr-2">{icon}</span>}
       {title}
     </h1>
 
     <!-- Subtitle if provided -->
     {subtitle && (
-      <p class="text-base text-primary dark:text-primary-dark font-semibold">
+      <p class="text-base text-primary dark:text-primary-dark font-semibold animate-fade-in-up animate-delay-100">
         {subtitle}
       </p>
     )}
 
     <!-- Description -->
     {description && (
-      <p class="text-base text-foreground/70 dark:text-foreground-dark/70 max-w-2xl leading-relaxed">
+      <p class="text-base text-foreground/70 dark:text-foreground-dark/70 max-w-2xl leading-relaxed animate-fade-in-up animate-delay-200">
         {description}
       </p>
     )}
   </div>
 
   <!-- Bottom accent line -->
-  <div class="h-0.5 w-16 bg-gradient-to-r from-primary to-transparent dark:from-primary-dark dark:to-transparent"></div>
+  <div class="h-0.5 bg-gradient-to-r from-primary to-transparent dark:from-primary-dark dark:to-transparent animate-expand-width"></div>
 </section>

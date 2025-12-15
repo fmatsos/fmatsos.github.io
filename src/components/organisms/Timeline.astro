@@ -21,7 +21,7 @@ const currentLabel = lang === 'fr' ? 'Présent' : 'Present';
     
     <ul class="space-y-8" role="list">
       {items.map((item, index) => (
-        <li class="relative pl-16 group" role="listitem">
+        <li class="relative pl-16 group animate-slide-in-right" style={`animation-delay: ${index * 100}ms`} role="listitem">
           <!-- Timeline dot with logo -->
           <div class="absolute left-0 top-1 flex items-center justify-center">
             <div class="h-10 w-10 rounded-full border-4 border-background dark:border-background-dark bg-white dark:bg-gray-800 flex items-center justify-center shadow-lg shadow-primary/20 dark:shadow-primary-dark/20 group-hover:scale-110 transition-transform overflow-hidden">

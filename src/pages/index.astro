@@ -19,7 +19,7 @@ const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 
       icon="👋"
     />
 
-    <section class="border border-foreground/10 bg-background/70 p-6 dark:border-background-dark/30 dark:bg-background-dark/80 space-y-6">
+    <section class="border border-foreground/10 bg-background/70 p-6 dark:border-background-dark/30 dark:bg-background-dark/80 space-y-6 animate-scale-in animate-delay-300">
       <div class="flex flex-wrap gap-y-2 items-center justify-between">
         <h3 class="text-2xl font-semibold text-black dark:text-white">
           Derniers articles
@@ -27,8 +27,8 @@ const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 
         <Link href="/blog">Voir tous les articles →</Link>
       </div>
       <ul class="space-y-4">
-        {posts.map((post) => (
-          <li class="space-y-1">
+        {posts.map((post, index) => (
+          <li class="space-y-1 animate-fade-in-up" style={`animation-delay: ${400 + index * 80}ms`}>
             <p class="text-sm text-foreground/60 dark:text-foreground-dark/60">
               <time datetime={post.data.pubDate.toISOString()}>
                 {dateFormatter.format(post.data.pubDate)}

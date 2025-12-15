@@ -20,7 +20,7 @@ const readMoreText = lang === 'fr' ? "Lire l'article" : 'Read article';
 const postUrl = `/blog/${slug}`;
 ---
 
-<div class="space-y-3 border-b border-foreground/10 pb-6 dark:border-background-dark/30">
+<div class="space-y-3 border-b border-foreground/10 pb-6 dark:border-background-dark/30 transition-all duration-300 hover:translate-x-1">
   <div class="flex items-center justify-between gap-2 text-sm text-foreground/60 dark:text-foreground-dark/60">
     <time datetime={pubDate.toISOString()}>
       {dateFormatter.format(pubDate)}
