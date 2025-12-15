@@ -4,6 +4,9 @@ on:
   repository_dispatch:
     types: [articles-updated]
   workflow_dispatch:
+  schedule:
+    # Run daily at 8 AM UTC to ensure articles are always in sync
+    - cron: '0 8 * * *'
 
 permissions:
   contents: write
@@ -24,6 +27,12 @@ jobs:
 
       - name: Update articles submodule to latest (tracked branch)
         run: git submodule update --init --recursive --remote --checkout src/content/posts
+
+      - name: Verify submodule is on tracked branch
+        run: |
+          cd src/content/posts
+          git checkout main
+          git pull origin main --ff-only
 
       - name: Debug (what is deployed)
         run: |
