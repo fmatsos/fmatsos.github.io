@@ -12,13 +12,13 @@ interface Props {
 }
 
 const { items, lang = 'fr' } = Astro.props;
-const homeLabel = lang === 'fr' ? 'Accueil' : 'Home';
+const homeLabel = 'Accueil';
 ---
 
-<nav aria-label={lang === 'fr' ? 'Fil d\'ariane' : 'Breadcrumb'} class="mb-6">
+<nav aria-label="Fil d'ariane" class="mb-6">
   <ol class="flex flex-wrap items-center gap-2 text-sm" role="list">
     <li role="listitem">
-      <Link href={lang === 'fr' ? '/' : '/en/'} variant="subtle" class="hover:text-foreground dark:hover:text-foreground-dark">
+      <Link href="/" variant="subtle" class="hover:text-foreground dark:hover:text-foreground-dark">
         {homeLabel}
       </Link>
     </li>

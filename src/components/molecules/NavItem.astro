@@ -11,7 +11,7 @@ interface Props {
 const { href, currentPath = '/', class: className = '', lang = 'fr' } = Astro.props;
 const isActive = currentPath === href || (href !== '/' && currentPath.startsWith(href));
 const activeClasses = isActive ? 'text-primary dark:text-primary-dark' : 'text-foreground dark:text-foreground-dark';
-const currentPageText = lang === 'fr' ? '(page actuelle)' : '(current page)';
+const currentPageText = '(page actuelle)';
 const slotContent = await Astro.slots.render('default');
 const ariaLabelText = isActive ? `${slotContent.replace(/<[^>]*>/g, '')} ${currentPageText}` : undefined;
 ---

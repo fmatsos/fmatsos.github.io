@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { size = 'md', class: className = '', lang = 'fr' } = Astro.props;
-const loadingText = lang === 'fr' ? 'Chargement...' : 'Loading...';
+const loadingText = 'Chargement...';
 
 const sizeClasses = {
   sm: 'h-4 w-4 border-2',

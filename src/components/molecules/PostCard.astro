@@ -15,8 +15,8 @@ interface Props {
 
 const { title, description, pubDate, slug, tags, lang = 'fr' } = Astro.props;
 
-const dateFormatter = new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-US', { dateStyle: 'long' });
-const readMoreText = lang === 'fr' ? "Lire l'article" : 'Read article';
+const dateFormatter = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' });
+const readMoreText = "Lire l'article";
 const postUrl = `/blog/${slug}`;
 ---
 

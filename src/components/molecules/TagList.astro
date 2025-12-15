@@ -11,7 +11,7 @@ interface Props {
 }
 
 const { tags, variant = 'default', clickable = true, lang = 'fr' } = Astro.props;
-const tagsLabel = lang === 'fr' ? 'Tags' : 'Tags';
+const tagsLabel = 'Tags';
 // Filter out 'blog' tag from display (implicitly tagged)
 const displayTags = tags.filter(tag => tag.toLowerCase() !== 'blog');
 ---
@@ -20,7 +20,7 @@ const displayTags = tags.filter(tag => tag.toLowerCase() !== 'blog');
   {displayTags.map((tag) => (
     <div role="listitem">
       {clickable ? (
-        <Link href={tagHref(tag)} class="no-underline hover:no-underline after:hidden" ariaLabel={lang === 'fr' ? `Articles taggés ${tag}` : `Posts tagged ${tag}`}>
+        <Link href={tagHref(tag)} class="no-underline hover:no-underline after:hidden" ariaLabel={`Articles taggés ${tag}`}>
           <Badge variant={variant} class={`transition-all duration-300 hover:brightness-90 dark:hover:brightness-110 ${tagClasses(tag)}`}>
             {tag}
           </Badge>

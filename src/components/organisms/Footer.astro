@@ -9,10 +9,10 @@ interface Props {
 }
 
 const { lang = 'fr' } = Astro.props;
-const generatedText = lang === 'fr' ? 'Site généré avec Astro • Netlify' : 'Site generated with Astro • Netlify';
-const contactLabel = lang === 'fr' ? 'Contact' : 'Contact';
-const followLabel = lang === 'fr' ? 'Me suivre' : 'Follow me';
-const description = lang === 'fr' ? 'Développeur PHP & Symfony' : 'PHP & Symfony Developer';
+const generatedText = 'Site généré avec Astro • Netlify';
+const contactLabel = 'Contact';
+const followLabel = 'Me suivre';
+const description = 'Développeur PHP & Symfony';
 ---
 
 <footer class="border-t border-black/15 dark:border-white/20 py-8" role="contentinfo">

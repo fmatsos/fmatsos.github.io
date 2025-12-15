@@ -9,10 +9,10 @@ interface Props {
 }
 
 const { items, title, lang = 'fr' } = Astro.props;
-const currentLabel = lang === 'fr' ? 'Présent' : 'Present';
+const currentLabel = 'Présent';
 ---
 
-<section class="space-y-8" aria-label={lang === 'fr' ? 'Parcours professionnel' : 'Professional timeline'}>
+<section class="space-y-8" aria-label="Parcours professionnel">
   {title && <h2 class="font-semibold text-black dark:text-white text-2xl">{title}</h2>}
   
   <div class="relative">
@@ -47,7 +47,7 @@ const currentLabel = lang === 'fr' ? 'Présent' : 'Present';
               </span>
               {!item.to && (
                 <span class="px-2 py-0.5 text-xs font-medium rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 animate-pulse">
-                  {lang === 'fr' ? 'Actuel' : 'Current'}
+                  Actuel
                 </span>
               )}
             </div>
