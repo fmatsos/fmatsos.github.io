@@ -1,9 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHeader from '../../components/organisms/PageHeader.astro';
 import Breadcrumb from '../../components/molecules/Breadcrumb.astro';
-import PostCard from '../../components/molecules/PostCard.astro';
+import Badge from '../../components/atoms/Badge.astro';
+import Link from '../../components/atoms/Link.astro';
+import TagList from '../../components/molecules/TagList.astro';
 import StructuredData from '../../components/molecules/StructuredData.astro';
 
 const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
@@ -33,6 +34,8 @@ const postsByMonth = posts.reduce((acc, post) => {
   acc[month].push(post);
   return acc;
 }, {} as Record<number, typeof posts>);
+
+const monthEntries = Object.entries(postsByMonth).sort(([a], [b]) => Number(b) - Number(a));
 
 const breadcrumbItems = [
   { label: 'Blog', href: '/blog' },
@@ -65,41 +68,62 @@ const collectionPage = {
   currentPath={Astro.url.pathname}
 >
   <StructuredData type="BreadcrumbList" data={breadcrumbList} />
-  <StructuredData type="ItemList" data={collectionPage} />
+  <StructuredData type="CollectionPage" data={collectionPage} />
   
   <Breadcrumb items={breadcrumbItems} lang="fr" />
   
-  <PageHeader
-    title={`Articles de ${year}`}
-    description={`${posts.length} article${posts.length > 1 ? 's' : ''} publié${posts.length > 1 ? 's' : ''} en ${year}`}
-  />
+  <section class="space-y-6">
+    <div class="space-y-3">
+      <h1 class="section-title">
+        <Badge variant="primary" class="text-2xl px-4 py-2">{year}</Badge>
+      </h1>
+      <p class="max-w-3xl section-lead">
+        {posts.length} article{posts.length > 1 ? 's' : ''} publié{posts.length > 1 ? 's' : ''} en {year}, classés par mois.
+      </p>
+    </div>
 
-  <main aria-label={`Liste des articles de ${year}`} class="space-y-8">
-    {Object.entries(postsByMonth)
-      .sort(([a], [b]) => Number(b) - Number(a))
-      .map(([monthIndex, monthPosts]) => (
-        <section class="space-y-4" aria-labelledby={`month-${monthIndex}`}>
-          <h2 id={`month-${monthIndex}`} class="text-xl font-semibold text-black dark:text-white flex-center-gap-2">
-            <a href={`/blog/${year}/${(Number(monthIndex) + 1).toString().padStart(2, '0')}`} class="hover:text-primary dark:hover:text-primary-dark transition-colors">
-              {monthNames[Number(monthIndex)]}
-            </a>
-            <span class="text-sm text-muted" aria-label={`${monthPosts.length} articles`}>({monthPosts.length})</span>
-          </h2>
-          <ul class="space-y-6" role="list">
-            {monthPosts.map((post, index) => (
-              <li class="animate-slide-in-right" style={`animation-delay: ${index * 80}ms`}>
-                <PostCard
-                  title={post.data.title}
-                  description={post.data.description}
-                  pubDate={post.data.pubDate}
-                  tags={post.data.tags}
-                  slug={post.slug}
-                  lang="fr"
-                />
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
-  </main>
+    <div class="space-y-4">
+      {monthEntries.map(([monthIndex, monthPosts], index) => {
+        const monthLabel = monthNames[Number(monthIndex)];
+        const monthNum = (Number(monthIndex) + 1).toString().padStart(2, '0');
+
+        return (
+          <div class="overflow-hidden border border-foreground/10 bg-background/70 shadow-lg dark:border-background-dark/30 dark:bg-background-dark/80">
+            <details open={index === 0} class="group">
+              <summary class="flex cursor-pointer items-center justify-between bg-foreground/5 px-5 py-3 text-lg font-semibold transition hover:bg-foreground/10 dark:bg-background-dark/70 dark:hover:bg-background-dark/60">
+                <span class="flex items-center gap-3">
+                  <svg class="h-5 w-5 transition-transform duration-300 group-open:rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18l6-6-6-6"/>
+                  </svg>
+                  <a href={`/blog/${year}/${monthNum}`} class="hover:text-primary dark:hover:text-primary-dark transition-colors capitalize">
+                    {monthLabel}
+                  </a>
+                </span>
+                <Badge variant="primary" size="sm">
+                  {monthPosts.length}&nbsp;{monthPosts.length > 1 ? 'articles' : 'article'}
+                </Badge>
+              </summary>
+              <ul class="divide-y divide-foreground/10 dark:divide-background-dark/40" role="list" aria-label={`Articles de ${monthLabel} ${year}`}>
+                {monthPosts.map((post) => (
+                  <li class="flex flex-wrap items-center justify-between gap-3 px-5 py-3">
+                    <div class="flex-1">
+                      <Link href={`/blog/${post.slug}`} variant="default" class="text-lg font-medium">
+                        {post.data.title}
+                      </Link>
+                      <p class="text-muted mt-1">
+                        <time datetime={post.data.pubDate.toISOString()}>
+                          {new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(post.data.pubDate)}
+                        </time>
+                      </p>
+                    </div>
+                    <TagList tags={post.data.tags} />
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </div>
+        );
+      })}
+    </div>
+  </section>
 </BaseLayout>
