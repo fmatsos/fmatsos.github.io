@@ -16,10 +16,7 @@ const { title, description, subtitle, icon } = Astro.props;
   <div class="relative space-y-3 py-6">
     <!-- Main title -->
     <h1 class="text-3xl sm:text-4xl font-bold text-black dark:text-white tracking-tight">
-      <!-- Icon if provided -->
-      {icon && (
-        {icon}
-      )}
+      {icon && <span class="mr-2">{icon}</span>}
       {title}
     </h1>
 
