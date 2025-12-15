@@ -18,9 +18,7 @@ const { title, description, subtitle, icon } = Astro.props;
     <h1 class="text-3xl sm:text-4xl font-bold text-black dark:text-white tracking-tight">
       <!-- Icon if provided -->
       {icon && (
-        <span class="h-10 w-10 rounded-lg bg-primary/10 dark:bg-primary-dark/20 text-primary dark:text-primary-dark text-lg">
-          {icon}
-        </span>
+        {icon}
       )}
       {title}
     </h1>
