@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHeader from '../../../components/organisms/PageHeader.astro';
+import Breadcrumb from '../../../components/molecules/Breadcrumb.astro';
+import PostCard from '../../../components/molecules/PostCard.astro';
+
+const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => data.published && !data.draft);
+  
+  const yearMonths = [...new Set(posts.map(post => {
+    const year = post.data.pubDate.getFullYear().toString();
+    const month = (post.data.pubDate.getMonth() + 1).toString().padStart(2, '0');
+    return `${year}/${month}`;
+  }))];
+  
+  return yearMonths.map(ym => {
+    const [year, month] = ym.split('/');
+    return {
+      params: { year, month },
+      props: {
+        year,
+        month,
+        posts: posts
+          .filter(post => {
+            const postYear = post.data.pubDate.getFullYear().toString();
+            const postMonth = (post.data.pubDate.getMonth() + 1).toString().padStart(2, '0');
+            return postYear === year && postMonth === month;
+          })
+          .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+      }
+    };
+  });
+}
+
+const { year, month, posts } = Astro.props;
+const monthName = monthNames[Number(month) - 1];
+
+const breadcrumbItems = [
+  { label: 'Blog', href: '/blog' },
+  { label: year, href: `/blog/${year}` },
+  { label: month }
+];
+---
+
+<BaseLayout
+  title={`Articles de ${monthName} ${year}`}
+  description={`Tous les articles publiés en ${monthName} ${year}`}
+  lang="fr"
+  currentPath={Astro.url.pathname}
+>
+  <Breadcrumb items={breadcrumbItems} lang="fr" />
+  
+  <PageHeader
+    title={`${monthName} ${year}`}
+    description={`${posts.length} article${posts.length > 1 ? 's' : ''} publié${posts.length > 1 ? 's' : ''}`}
+  />
+
+  <div class="space-y-6">
+    {posts.map((post, index) => (
+      <div class="animate-slide-in-right" style={`animation-delay: ${index * 80}ms`}>
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          tags={post.data.tags}
+          slug={post.slug}
+          lang="fr"
+        />
+      </div>
+    ))}
+  </div>
+</BaseLayout>
