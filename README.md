@@ -1,4 +1,4 @@
-# franck.matsos.dev
+# matsos.dev
 
 Site personnel construit avec [Astro](https://astro.build/), TypeScript et TailwindCSS v4, prêt pour un déploiement automatique sur Netlify.
 
